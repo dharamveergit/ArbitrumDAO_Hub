@@ -1,9 +1,13 @@
 # Welcome to Arbitrum DAO..
 
-- [Welcome to Arbitrum DAO](#welcome-to-arbitrum-dao)
+- [Welcome to Arbitrum Hub](#welcome-to-arbitrum-hub)
   - [How to run Arbitrum DAO locally](#how-to-run-arbitrum-dao-locally)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
+  - [Grant Hub](#grant-hub)
+      - [How to list a program to the Grant Hub Allocator](#how-to-list-a-program-to-the-grant-hub-allocator)
+      - [How to list a project to program of a Grant Hub Allocator](#how-to-list-a-project-to-program-of-a-grant-hub-allocator)
+      - [How to list a project to a allocator](#how-to-list-a-project-to-a-allocator)
   - [Community Hub](#community-hub)
     - [Ambassadors](#ambassadors)
       - [How add a profile to the ambassadors page](#how-add-a-profile-to-the-ambassadors-page)
@@ -16,12 +20,14 @@
       - [How to list a collaboration to the collaborations page](#how-to-list-a-collaboration-to-the-collaborations-page)
       - [How to list a job to the jobs page](#how-to-list-a-job-to-the-jobs-page)
       - [How to list a bounty to the bounties page](#how-to-list-a-bounty-to-the-bounties-page)
-    - [Grant Hub](#grant-hub)
-      - [How to list a program to the Grant Hub Allocator](#how-to-list-a-program-to-the-grant-hub-allocator)
-      - [How to list a project to program of a Grant Hub Allocator](#how-to-list-a-project-to-program-of-a-grant-hub-allocator)
-      - [How to list a project to a allocator](#how-to-list-a-project-to-a-allocator)
     - [Blogs](#blogs)
       - [How to list a blog to the blog page](#how-to-list-a-blog-to-the-blog-page)
+
+## Welcome to Arbitrum Hub
+
+Introducing ArbitrumHub - Your Gateway to Seamless Navigation and Participation in the ArbitrumDAO Ecosystem
+
+ArbitrumHub is the ultimate DAO synchronization platform designed to streamline your experience within the Arbitrum ecosystem. Embrace community-driven governance with $ARB tokens, wield voting power, and shape network security and evolution. Say goodbye to scattered data and complexity, as ArbitrumHub consolidates essential information, offers user-friendly interfaces, and fosters collaboration for a decentralized financial infrastructure. Join us in navigating the ArbitrumDAO ecosystem effortlessly and shaping its future together.
 
 ## How to run Arbitrum DAO locally
 
@@ -44,16 +50,97 @@
    npm run dev
    ```
 6. Open your browser and go to `https://localhost:4321/` 🥳
-7.
+
+## [Grant Hub](https://www.arbitrumhub.io/community-hub/grant-hub)
+
+### How to list a new grant-program to the [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
+
+1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants`
+   eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding`
+
+```md
+---
+title: "Pluralistic Labs : Grant Program Allocator"
+description: "Calling all innovators! Plurality Labs offers grants to support developers building dApps, infrastructure, and tools that fuel the growth of the Arbitrum DAO ecosystem. Bring your ideas to life and contribute to a thriving community. Apply today and take your project to the next level!"
+type: "Home"
+image: "./banner.png"
+buttons:
+  - link: "https://forum.arbitrum.foundation/t/delegated-domain-allocation-by-questbook-arbitrum-dao-grants/14688"
+    text: "Learn More"
+    type: "secondary"
+
+grants:
+  title: Pluralistic Grant Program
+  description: "Calling all innovators! Plurality Labs offers grants to support developers building dApps, infrastructure, and tools that fuel the growth of the Arbitrum DAO ecosystem. Bring your ideas to life and contribute to a thriving community. Apply today and take your project to the next level!"
+  buttons:
+    - link: "/grant-hub/pluralistic/update"
+      text: "View Updates"
+      type: "default"
+update:
+  title: "Pluralistic Grant Program"
+  description: "Calling all innovators! Plurality Labs offers grants to support developers building dApps, infrastructure, and tools that fuel the growth of the Arbitrum DAO ecosystem. Bring your ideas to life and contribute to a thriving community. Apply today and take your project to the next level!"
+
+overview: "Community-created grant program facilitated by Plurarity Labs as allocators to distribute funds, along with thankarb.com to facilitate participation from the ecosystem."
+label: "Managed by Plurality Labs"
+points:
+  - Decentralized Applications
+  - Developer Tools
+  - Infrastructure
+---
+
+## Write the home page of the grant hub allocator
+```
+
+### How to list a project to sub-program of a [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
+
+1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
+   eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
+
+```md
+---
+type: Grant # <- This is the type of the grant and should be Grant
+grantType: "Project" # <- This is the grant type and should be Project
+subCollection: retro # <- This is the sub collection of the grant can be or get from the grant hub
+title: "0xidm's DAO governance analysis and AIP" # <- This is the title of the grant
+status: Completed # <- This is the status of the grant
+walletAddress: "0xidm.eth" # <- This is the wallet address of the grant
+fundingReceived: $149.67 # <- This is the funding received of the grant
+description: "Identified blind spot in STIP data, drafted AIP for resolution, now a live vote on Tally."
+date: 2023-11-25
+externalUrl: "https://explorer.gitcoin.co/#/round/42161/0x3ac78e1ae5086904d53b41c747188216789f59a7/0x3ac78e1ae5086904d53b41c747188216789f59a7-44"
+links:
+  twitter: "https://twitter.com/0x_idm"
+  website: "https://research.svy.gg/_static/reports/arbitrum-dao-stip-results.html"
+  github: "https://github.com/Wizard-Scientific"
+  github2: "https://github.com/0xidm"
+---
+```
+
+### How to list a project to a [allocator](https://www.arbitrumhub.io/community-hub/grant-hub/foundation-grants/)
+
+1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
+   eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
+
+```md
+---
+title: "9VRSE, Inc."
+category:
+  - "Gaming"
+ApprovedOn: "Q4 2023"
+externalLink: "#"
+type: "Grant"
+grantType: "Project"
+---
+```
 
 ## [Community Hub](https://www.arbitrumhub.io/community-hub/the-hub/)
 
 ### [Ambassadors](https://www.arbitrumhub.io/community-hub/ambassadors/near-you)
 
-#### How add a profile to the [ambassadors page](https://www.arbitrumhub.io/community-hub/ambassadors/near-you)
+#### How add a new profile to the [ambassadors page](https://www.arbitrumhub.io/community-hub/ambassadors/near-you)
 
-1. Add a new file to the `content/Community_Ambassadors` folder with the folder as the name of the ambassador
-2. Add the profile.md file with the following structure
+1. Add a new file to the `src/content/Community_Ambassadors` folder with the folder as the name of the ambassador. For example, src/content/Community_Ambassadors/profile-name
+2. Add the profile.md file under your folder, with the following structure
 
 ```md
 ---
@@ -214,96 +301,12 @@ level: "beginner" # <- This is the level of the bounty
 ---
 ```
 
-## [Grant Hub](https://www.arbitrumhub.io/community-hub/grant-hub)
-
-###
-
-### How to list a program to the [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
-
-1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants`
-   eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding`
-
-```md
----
-title: "Pluralistic Labs : Grant Program Allocator"
-description: "Calling all innovators! Plurality Labs offers grants to support developers building dApps, infrastructure, and tools that fuel the growth of the Arbitrum DAO ecosystem. Bring your ideas to life and contribute to a thriving community. Apply today and take your project to the next level!"
-type: "Home"
-image: "./banner.png"
-buttons:
-  - link: "https://forum.arbitrum.foundation/t/delegated-domain-allocation-by-questbook-arbitrum-dao-grants/14688"
-    text: "Learn More"
-    type: "secondary"
-
-grants:
-  title: Pluralistic Grant Program
-  description: "Calling all innovators! Plurality Labs offers grants to support developers building dApps, infrastructure, and tools that fuel the growth of the Arbitrum DAO ecosystem. Bring your ideas to life and contribute to a thriving community. Apply today and take your project to the next level!"
-  buttons:
-    - link: "/grant-hub/pluralistic/update"
-      text: "View Updates"
-      type: "default"
-update:
-  title: "Pluralistic Grant Program"
-  description: "Calling all innovators! Plurality Labs offers grants to support developers building dApps, infrastructure, and tools that fuel the growth of the Arbitrum DAO ecosystem. Bring your ideas to life and contribute to a thriving community. Apply today and take your project to the next level!"
-
-overview: "Community-created grant program facilitated by Plurarity Labs as allocators to distribute funds, along with thankarb.com to facilitate participation from the ecosystem."
-label: "Managed by Plurality Labs"
-points:
-  - Decentralized Applications
-  - Developer Tools
-  - Infrastructure
----
-
-## Write the home page of the grant hub allocator
-```
-
-### How to list a project to program of a [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
-
-1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
-   eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
-
-```md
----
-type: Grant # <- This is the type of the grant and should be Grant
-grantType: "Project" # <- This is the grant type and should be Project
-subCollection: retro # <- This is the sub collection of the grant can be or get from the grant hub
-title: "0xidm's DAO governance analysis and AIP" # <- This is the title of the grant
-status: Completed # <- This is the status of the grant
-walletAddress: "0xidm.eth" # <- This is the wallet address of the grant
-fundingReceived: $149.67 # <- This is the funding received of the grant
-description: "Identified blind spot in STIP data, drafted AIP for resolution, now a live vote on Tally."
-date: 2023-11-25
-externalUrl: "https://explorer.gitcoin.co/#/round/42161/0x3ac78e1ae5086904d53b41c747188216789f59a7/0x3ac78e1ae5086904d53b41c747188216789f59a7-44"
-links:
-  twitter: "https://twitter.com/0x_idm"
-  website: "https://research.svy.gg/_static/reports/arbitrum-dao-stip-results.html"
-  github: "https://github.com/Wizard-Scientific"
-  github2: "https://github.com/0xidm"
----
-```
-
-### How to list a project to a [allocator](https://www.arbitrumhub.io/community-hub/grant-hub/foundation-grants/)
-
-1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
-   eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
-
-```md
----
-title: "9VRSE, Inc."
-category:
-  - "Gaming"
-ApprovedOn: "Q4 2023"
-externalLink: "#"
-type: "Grant"
-grantType: "Project"
----
-```
-
 ## [Blogs](https://www.arbitrumhub.io/community-hub/blog)
 
-### How to list a blog to the [blog page](https://www.arbitrumhub.io/community-hub/blog)
+### How to write a blog to the [blog page](https://www.arbitrumhub.io/community-hub/blog)
 
 1. Add a new file/folder to the `content/blogs`
-   eg. `content/blogs/consensus`
+   eg. `content/blogs/consensus/index.md`
 
 ```md
 ---
@@ -318,5 +321,10 @@ author: "arbitrum"
 
 Introducing the Arbitrum Arcade, an Onchain Gameathon designed to showcase Web3's most innovative gaming experiences, provide exposure and prizes to up-and-coming content creators, and bring in-game achievements onchain with [Clique](https://www.clique.tech/), built on top of [EAS](https://attest.org/) (Ethereum Attestation Service).
 
-## Rent of the blog
+## Body of the Blog
 ```
+## Contact
+
+Twitter: [Arbitrum Hub](https://twitter.com/arbitrumDAO_hub)
+
+Website: [Arbitrum Hub](https://arbitrumhub.io/)
