@@ -4,17 +4,24 @@
   - [How to run Arbitrum DAO locally](#how-to-run-arbitrum-dao-locally)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-  - [Ambassadors](#ambassadors)
-    - [How add a profile to the ambassadors page](#how-add-a-profile-to-the-ambassadors-page)
-    - [How to add a contribution to the ambassador profile page](#how-to-add-a-contribution-to-the-ambassador-profile-page)
-    - [How to add events to the ambassador profile page](#how-to-add-events-to-the-ambassador-profile-page)
-    - [How to add achievements to the ambassador profile page](#how-to-add-achievements-to-the-ambassador-profile-page)
-  - [Community Events](#community-events)
-    - [How to list an event to the events page](#how-to-list-an-event-to-the-events-page)
-    - [How to list an hackathon to the hackathon page](#how-to-list-an-hackathon-to-the-hackathon-page)
-  - [How to list a collaboration to the collaborations page](#how-to-list-a-collaboration-to-the-collaborations-page)
-  - [How to list a job to the jobs page](#how-to-list-a-job-to-the-jobs-page)
-  - [How to list a bounty to the bounties page](#how-to-list-a-bounty-to-the-bounties-page)
+  - [Community Hub](#community-hub)
+    - [Ambassadors](#ambassadors)
+      - [How add a profile to the ambassadors page](#how-add-a-profile-to-the-ambassadors-page)
+      - [How to add a contribution to the ambassador profile page](#how-to-add-a-contribution-to-the-ambassador-profile-page)
+      - [How to add events to the ambassador profile page](#how-to-add-events-to-the-ambassador-profile-page)
+      - [How to add achievements to the ambassador profile page](#how-to-add-achievements-to-the-ambassador-profile-page)
+    - [Community Events](#community-events)
+      - [How to list an event to the events page](#how-to-list-an-event-to-the-events-page)
+      - [How to list an hackathon to the hackathon page](#how-to-list-an-hackathon-to-the-hackathon-page)
+      - [How to list a collaboration to the collaborations page](#how-to-list-a-collaboration-to-the-collaborations-page)
+      - [How to list a job to the jobs page](#how-to-list-a-job-to-the-jobs-page)
+      - [How to list a bounty to the bounties page](#how-to-list-a-bounty-to-the-bounties-page)
+    - [Grant Hub](#grant-hub)
+      - [How to list a program to the Grant Hub Allocator](#how-to-list-a-program-to-the-grant-hub-allocator)
+      - [How to list a project to program of a Grant Hub Allocator](#how-to-list-a-project-to-program-of-a-grant-hub-allocator)
+      - [How to list a project to a allocator](#how-to-list-a-project-to-a-allocator)
+    - [Blogs](#blogs)
+      - [How to list a blog to the blog page](#how-to-list-a-blog-to-the-blog-page)
 
 ## How to run Arbitrum DAO locally
 
@@ -39,11 +46,11 @@
 6. Open your browser and go to `https://localhost:4321/` 🥳
 7.
 
-## [Community Hub](https://arbdao.vercel.app/community-hub/the-hub/)
+## [Community Hub](https://www.arbitrumhub.io/community-hub/the-hub/)
 
-### [Ambassadors](https://arbdao.vercel.app/community-hub/ambassadors/near-you)
+### [Ambassadors](https://www.arbitrumhub.io/community-hub/ambassadors/near-you)
 
-#### How add a profile to the [ambassadors page](https://arbdao.vercel.app/community-hub/ambassadors/near-you)
+#### How add a profile to the [ambassadors page](https://www.arbitrumhub.io/community-hub/ambassadors/near-you)
 
 1. Add a new file to the `content/Community_Ambassadors` folder with the folder as the name of the ambassador
 2. Add the profile.md file with the following structure
@@ -107,9 +114,9 @@ externalUrl: "https://www.youtube.com" # <- This is the external url where the a
 ---
 ```
 
-### [Community Events](https://arbdao.vercel.app/community-hub/initiatives/events/)
+### [Community Events](https://www.arbitrumhub.io/community-hub/initiatives/events/)
 
-#### How to list an event to the [events page](https://arbdao.vercel.app/community-hub/initiatives/events/)
+#### How to list an event to the [events page](https://www.arbitrumhub.io/community-hub/initiatives/events/)
 
 1. Add a new file/folder to the `content/Community_Events`
    eg. `content/Community_Events/events/consensus`
@@ -125,7 +132,7 @@ externalUrl: "https://consensus2024.coindesk.com/" # <- This is the external url
 ---
 ```
 
-#### How to list an hackathon to the [hackathon page](https://arbdao.vercel.app/community-hub/initiatives/hackathons/#sub)
+#### How to list an hackathon to the [hackathon page](https://www.arbitrumhub.io/community-hub/initiatives/hackathons/#sub)
 
 1. Add a new file/folder to the `content/Community_Events`
    eg. `content/Community_Events/hackathons/consensus`
@@ -141,7 +148,7 @@ externalUrl: "https://consensus2024.coindesk.com/" # <- This is the external url
 ---
 ```
 
-### How to list a collaboration to the [collaborations page](https://arbdao.vercel.app/community-hub/collaborations)
+### How to list a collaboration to the [collaborations page](https://www.arbitrumhub.io/community-hub/collaborations)
 
 1. Add a new file/folder to the `content/Community_Collaborations`
    eg. `content/Community_Collaborations/collaborations/consensus`
@@ -155,7 +162,7 @@ date: 2024-01-17 # <- This is the date of the collaboration
 ---
 ```
 
-### How to list a job to the [jobs page](https://arbdao.vercel.app/community-hub/jobs)
+### How to list a job to the [jobs page](https://www.arbitrumhub.io/community-hub/jobs)
 
 1. Add a new file/folder to the `content/Community_Jobs`
    eg. `content/Community_Jobs/jobs/consensus`
@@ -191,7 +198,7 @@ If you are interested in this position, please send an email to [
 ### Compensation
 ```
 
-### How to list a bounty to the [bounties page](https://arbdao.vercel.app/community-hub/bounties)
+### How to list a bounty to the [bounties page](https://www.arbitrumhub.io/community-hub/bounties)
 
 1. Add a new file/folder to the `content/Community_Bounties`
    eg. `content/Community_Bounties/consensus`
@@ -207,11 +214,11 @@ level: "beginner" # <- This is the level of the bounty
 ---
 ```
 
-## [Grant Hub](https://arbdao.vercel.app/community-hub/grant-hub)
+## [Grant Hub](https://www.arbitrumhub.io/community-hub/grant-hub)
 
 ###
 
-### How to list a program to the [Grant Hub Allocator](https://arbdao.vercel.app/community-hub/grant-hub)
+### How to list a program to the [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
 
 1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants`
    eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding`
@@ -249,7 +256,7 @@ points:
 ## Write the home page of the grant hub allocator
 ```
 
-### How to list a project to program of a [Grant Hub Allocator](https://arbdao.vercel.app/community-hub/grant-hub)
+### How to list a project to program of a [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
 
 1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
    eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
@@ -274,7 +281,7 @@ links:
 ---
 ```
 
-### How to list a project to a [allocator](https://arbdao.vercel.app/community-hub/grant-hub/foundation-grants/)
+### How to list a project to a [allocator](https://www.arbitrumhub.io/community-hub/grant-hub/foundation-grants/)
 
 1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
    eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
@@ -291,9 +298,9 @@ grantType: "Project"
 ---
 ```
 
-## [Blogs](https://arbdao.vercel.app/community-hub/blog)
+## [Blogs](https://www.arbitrumhub.io/community-hub/blog)
 
-### How to list a blog to the [blog page](https://arbdao.vercel.app/community-hub/blog)
+### How to list a blog to the [blog page](https://www.arbitrumhub.io/community-hub/blog)
 
 1. Add a new file/folder to the `content/blogs`
    eg. `content/blogs/consensus`
