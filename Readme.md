@@ -1,7 +1,7 @@
-# Welcome to Arbitrum DAO..
+# Welcome to ArbitrumHub..
 
 - [Welcome to Arbitrum Hub](#welcome-to-arbitrum-hub)
-  - [How to run Arbitrum DAO locally](#how-to-run-arbitrum-dao-locally)
+  - [How to run Arbitrum DAO locally](#how-to-run-arbitrumhub-locally)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
   - [Grant Hub](#grant-hub)
@@ -29,7 +29,7 @@ Introducing ArbitrumHub - Your Gateway to Seamless Navigation and Participation 
 
 ArbitrumHub is the ultimate DAO synchronization platform designed to streamline your experience within the Arbitrum ecosystem. Embrace community-driven governance with $ARB tokens, wield voting power, and shape network security and evolution. Say goodbye to scattered data and complexity, as ArbitrumHub consolidates essential information, offers user-friendly interfaces, and fosters collaboration for a decentralized financial infrastructure. Join us in navigating the ArbitrumDAO ecosystem effortlessly and shaping its future together.
 
-## How to run Arbitrum DAO locally
+## How to run ArbitrumHub locally
 
 ### Prerequisites
 
