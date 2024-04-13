@@ -1,0 +1,258 @@
+---
+import Faq from "@/components/developer-hub/faq";
+import Features from "@/components/grant-hub/features.astro";
+import Button from "@/components/ui/button.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import MultiCardLink from "@/components/ui/links/multi-card-link.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { GrantHub_Homepage } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { paragraphCva, smallCva, titleCva } from "@/lib/cvas";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+const {
+  title,
+  buttons,
+  description,
+
+  intro,
+  apply,
+  howToApply,
+  grandPrograms,
+  questions,
+} = GrantHub_Homepage;
+
+const grantCollection = await getCollection("Grant_Hub");
+
+const grants = grantCollection.filter((grant) => grant.data.type === "Home");
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={title}
+  description={description}
+  smooth
+>
+  <GradientHead
+    title={title}
+    className="my-5 md:my-10"
+    description={description}
+    buttons={buttons as any}
+  />
+  <Seperator />
+  <section class="flex flex-col gap-9 py-5 md:flex-row lg:py-10">
+    <div class="flex flex-1 flex-col gap-6">
+      <h1 class="text-lg font-medium md:text-xl lg:text-2xl">
+        {intro.title}
+      </h1>
+      <p class="text-xs font-light md:text-sm lg:text-base">
+        {intro.description}
+      </p>
+      <div class="mt-3 hidden flex-col gap-6 md:flex">
+        {
+          intro.icons.map((icon) => (
+            <div class="flex  items-center gap-3 lg:gap-4">
+              <Image
+                src={icon.image}
+                alt={icon.title}
+                width={50}
+                height={50}
+                class={"size-12 object-contain"}
+              />
+              <h2 class="text-sm font-medium lg:text-base">{icon.title}</h2>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="flex-1">
+      <Image
+        src={intro.image}
+        alt="Arbitrum Grants"
+        width={500}
+        height={500}
+        class={"object-contain w-full"}
+      />
+    </div>
+    <div class="flex justify-between gap-6 md:hidden">
+      {
+        intro.icons.map((icon) => (
+          <div class="flex flex-col   gap-3 lg:gap-4">
+            <Image
+              src={icon.image}
+              alt={icon.title}
+              width={50}
+              height={50}
+              class={"size-8 object-contain"}
+            />
+            <h2 class="text-xs font-medium">{icon.title}</h2>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+  <Seperator />
+  <Features apply={apply} />
+  <Seperator id="apply-now" />
+  <section class="flex flex-col gap-10 py-5 lg:py-10">
+    <div class="flex flex-col gap-4">
+      <h1 class={titleCva()}>
+        {howToApply.title}
+      </h1>
+    </div>
+    <div class="grid gap-y-10 md:grid-cols-2 lg:grid-cols-4">
+      {
+        howToApply.icons.map((icon, index) => (
+          <div class="flex flex-col  gap-5">
+            <div class="flex items-center gap-2 border-b-2 border-primary pb-5">
+              <Image
+                src={icon.image}
+                alt={icon.title}
+                width={32}
+                height={32}
+                class={"size-8 object-contain "}
+              />
+              <small class="font-os text-xs font-light">
+                STEP 0{index + 1}
+              </small>
+            </div>
+            <div class="flex flex-col gap-2.5 pr-6">
+              <h2 class={titleCva({ size: "sm" })}>{icon.title}</h2>
+
+              <ul class="flex  list-disc flex-col  gap-2.5 pl-2">
+                {icon.points.map((step, index) => (
+                  <li class=" font-os text-xs font-light">{step}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="flex flex-col gap-4">
+      <p class={paragraphCva()}>
+        Join Telegram Discussion to discuss or gather feedback on your proposal
+      </p>
+      <div class="flex gap-6">
+        <Button href={howToApply.telegramLink} variant="secondary">
+          <Icon name="socials/telegram" class="mr-2 size-4 text-zinc-500" />
+          Telegram Discussion
+        </Button>
+        <Button href={howToApply.learnMore} variant="secondary" arrow>
+          Learn More
+        </Button>
+      </div>
+    </div>
+  </section>
+  <Seperator id="grand-programs" />
+  <section class="flex flex-col gap-4 py-5 lg:py-10">
+    <h1 class={titleCva()}>
+      {grandPrograms.title}
+    </h1>
+
+    <ul class="grid gap-4">
+      {
+        grants.map(({ data, slug }, index) => (
+          // <BlogCard blog={data} link={`/grant-hub/${slug}/`} />
+          <a href={`/grant-hub/${slug}/`}>
+            <div class="group  flex flex-col gap-3 rounded-3xl border p-3 md:flex-row md:rounded-large">
+              <div class="flex w-full flex-1 flex-col gap-5 lg:p-3">
+                <Image
+                  src={data?.image as any}
+                  alt={data.title}
+                  class="aspect-video rounded-xl object-cover md:rounded-4xl lg:aspect-[16/7]"
+                />
+                <div class="flex flex-col gap-2 px-2">
+                  <small
+                    class={
+                      "font-os text-xxs font-light text-zinc-400 md:text-xs lg:text-sm"
+                    }
+                  >
+                    {data?.label}
+                  </small>
+                  <div class="flex items-start gap-4">
+                    <h1 class={titleCva({ size: "sm" })}>{data?.title}</h1>
+                    <div class="hidden rounded-full bg-[#E1EFFE] px-3 py-1.5 font-os text-sm text-[#30429F] lg:block">
+                      Active
+                    </div>
+                  </div>
+                  <p class={paragraphCva()}>{data?.overview}</p>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center justify-between md:hidden">
+                <div class=" rounded-full bg-[#E1EFFE] px-3 py-1.5 font-os text-sm text-[#30429F] ">
+                  Active
+                </div>
+                <Icon
+                  name="arrow-circle"
+                  class="  size-10 -rotate-45 stroke-[0.6]  text-zinc-500 transition-all  duration-300 group-hover:rotate-0 md:size-14 "
+                />
+              </div>
+              <div class="hidden min-h-full w-px  bg-zinc-300 md:block" />
+              <div class="hidden w-full flex-1 flex-col gap-2 md:flex lg:p-3">
+                <h1 class={titleCva({ size: "sm" })}>About</h1>
+                <p class={paragraphCva()}>{data?.description}</p>
+
+                <h1 class={titleCva({ size: "xs" })}>Focus Areas</h1>
+                <ul class="flex flex-col items-start gap-1">
+                  {data?.points?.map((point) => (
+                    <li
+                      class={
+                        "rounded-full bg-[#F0F9FF] px-2 py-1 text-xs font-light "
+                      }
+                    >
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-auto flex items-center justify-between ">
+                  <div class=" rounded-full bg-[#E1EFFE] px-3 py-1.5 font-os text-sm text-[#30429F] lg:hidden ">
+                    Active
+                  </div>
+                  <Icon
+                    name="arrow-circle"
+                    class=" ml-auto size-10 -rotate-45 stroke-[0.6]  text-zinc-500 transition-all  duration-300 group-hover:rotate-0 md:size-14 "
+                  />
+                </div>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </ul>
+  </section>
+  <Seperator />
+  <MultiCardLink
+    title="Grant Hub Reference"
+    links={[
+      {
+        title: "DAO Grant Discussions",
+        description:
+          "Explore grant discussions on the Arbitrum forum to understand community funding decisions for projects within the ecosystem.",
+        image: "/favicon.svg",
+        url: "https://forum.arbitrum.foundation/c/dao-grant-programs/16/none",
+      },
+      {
+        title: "Grant Discussions",
+        description:
+          "Explore grant discussions on the Arbitrum forum to understand community funding decisions for projects within the ecosystem.",
+        image: "/favicon.svg",
+        url: "https://forum.arbitrum.foundation/c/grants-discussions/11/none",
+      },
+    ]}
+    changeOrientation
+  >
+    <p
+      class={paragraphCva({
+        color: "tertiary",
+      })}
+    >
+      Explore the crucial discussions shaping the future trajectory of Arbitrum
+      DAO.
+    </p>
+  </MultiCardLink>
+  <Seperator />
+  <Faq client:load questions={questions} />
+</MainLayout>

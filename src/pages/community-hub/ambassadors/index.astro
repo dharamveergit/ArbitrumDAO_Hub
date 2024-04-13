@@ -1,0 +1,26 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import { getEntry } from "astro:content";
+import { proseClasses } from "@/lib/classes";
+import classNames from "classnames";
+import Seperator from "@/components/ui/seperator.astro";
+const { data, render } = await getEntry(
+  "Community_Ambassadors_Homepage",
+  "index",
+);
+
+const { Content } = await render();
+---
+
+<MainLayout title={data?.title} description={data?.description}>
+  <MainWrapper
+    title={data?.title}
+    description={data?.description}
+    buttons={data.buttons}
+  />
+  <Seperator />
+  <article class={classNames(proseClasses)}>
+    <Content />
+  </article>
+</MainLayout>

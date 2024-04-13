@@ -1,0 +1,57 @@
+---
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+import LocationSelect from "@/components/community-hub/location-select";
+import Button from "@/components/ui/button.astro";
+import { Icon } from "astro-icon/components";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { filteredAmbassadors } from "@/lib/utils";
+
+const ambassadors = await getCollection("Community_Ambassadors");
+console.log(ambassadors);
+
+const profiles = filteredAmbassadors(ambassadors);
+console.log(profiles);
+
+const locations = profiles.map(({ data }) => data.location);
+---
+
+<MainLayout title="Home">
+  <MainWrapper
+    title="Ambassadors Near You"
+    description="Discover local Ambassadors for Arbitrum DAO—an eclectic mix ranging from university students to tech veterans. Join this diverse community and engage with ambassadors passionate about technology and innovation in your area."
+  />
+  <Seperator />
+  <section class="flex flex-col gap-4 py-5 lg:py-10">
+    <!-- <LocationSelect client:idle locations={locations} /> -->
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        profiles.map(({ data, slug }) => (
+          <BlogCard
+            blog={data}
+            type="ambassador"
+            link={`/community-hub/ambassadors/near-you/${slug.split("/")[0]}/contributions/`}
+          />
+        ))
+      }
+    </div>
+    <div class="flex items-center justify-between py-2 lg:py-3">
+      <p class="text-base text-zinc-700">Showing 1-10 of 20 results</p>
+      <div class="hidden gap-2 md:flex">
+        <button
+          class="flex size-10 items-center justify-center rounded-full border border-gray-500"
+        >
+          <Icon name="arrow" class="size-5 rotate-90" />
+        </button>
+        <button
+          class="flex size-10 items-center justify-center rounded-full border border-gray-500"
+        >
+          <Icon name="arrow" class="size-5 -rotate-90" />
+        </button>
+      </div>
+    </div>
+  </section>
+</MainLayout>

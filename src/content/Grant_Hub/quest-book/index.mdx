@@ -1,0 +1,116 @@
+---
+title: "Questbook : Grant Program Allocator"
+description: "The Questbook Allocators stands as a cornerstone of support within the Arbitrum DAO ecosystem, dedicated to empowering developers in education, gaming, dev tooling, and innovative endeavors. Focused on short-term incentive programs and community-created consensus frameworks, it beckons developers engaged in domain-specific projects to seek grants. With a flexible grant budget tailored to the needs of each domain, the program is poised to fuel innovation and foster growth within the Arbitrum DAO community."
+type: "Home"
+image: "./banner.png"
+buttons:
+  - link: "https://forum.arbitrum.foundation/t/delegated-domain-allocation-by-questbook-arbitrum-dao-grants/14688"
+    text: "Learn More"
+    type: "secondary"
+
+grants:
+  title: Questbook
+  description: "The Arbitrum DAO grants, administered via DDA by Questbook and 4 domain allocators, went live on the 5th of October with a grants budget of $800k spread across four domains. The Questbook Arbitrum Grants program is useful for anyone developing in domain specific projects on top of Arbitrum."
+  buttons:
+    - link: "/grant-hub/uniswap/update"
+      text: "View Updates"
+      type: "default"
+update:
+  title: "Questbook"
+  description: "The Arbitrum DAO grants, administered via DDA by Questbook and 4 domain allocators, went live on the 5th of October with a grants budget of $800k spread across four domains. The Questbook Arbitrum Grants program is useful for anyone developing in domain specific projects on top of Arbitrum."
+
+overview: "The Questbook Arbitrum Grants program is useful for anyone developing in domain specific projects on top of Arbitrum DAO, ranging from education, gaming, dev tooling to innovative ideas. Through the program, you can receive milestone-based funding based on domain specific needs, outlined by the domain allocators elected by the community."
+label: "Managed by Questbook"
+points:
+  - Short-term incentive programs
+  - Community-created consensus frameworks
+---
+
+import Features from "@/components/grant-hub/features.astro";
+import Banner from "@/components/grant-hub/Banner.astro";
+import { titleCva } from "@/lib/cvas";
+
+<Features
+  className="!pb-0"
+  apply={{
+    title: "Who Can Apply?",
+    description:
+      "The Arbitrum DAO ecosystem encourages innovation and welcomes participation from diverse builders. We are looking for Individuals or groups who can:",
+
+    icons: [
+      {
+        title: "Communities, developers, builders, creators, and researchers.",
+        image: "/images/grant-hub/group2.svg",
+      },
+      {
+        title: "Web3 projects and gaming projects.",
+        image: "/images/grant-hub/code3.svg",
+      },
+      {
+        title: "Diverse stakeholders contributing to the ecosystem.",
+        image: "/images/grant-hub/happy.svg",
+      },
+    ],
+
+}}
+/>
+
+---
+
+import img from "./assets/motivation.png";
+
+<Banner
+  image={img}
+>
+
+### Motivation
+
+As we continue to experience the depth of the bear market, it is increasingly important for Arbitrum DAO to retain the mindshare of key ecosystem contributors and incentivize builders to build on top of it. Grants program is a great way to attract high-quality builders and grow the ecosystem more quickly. This proposal details the benefit to all the stakeholders involved - token holders, builders and DAO members.
+
+Giving the elected domain allocators the capital and decision-making powers can increase the efficiency of the grants program, without compromising on accountability:
+
+- Individual expertise instead of collective blindspots
+- Distributed load instead of committee backlogs
+- Accountability instead of diffusion of responsibility
+
+</Banner>
+
+---
+
+import img2 from "./assets/abstract.png";
+
+<Banner
+  image={img2}
+>
+
+### Abstract
+
+- We propose Arbitrum DAO to launch Arbitrum grants program with a budget of $1M spread across 2 quarters to fund a wide variety of teams building apps on top of Arbitrum in a transparent manner. Questbook is leading [Compound 26](https://compound.finance/governance/proposals/136) grants program through [delegated domain capital](https://blog.questbook.xyz/posts/min-grants-dao-max-community-participation/) [allocation model 59](https://blog.questbook.xyz/posts/min-grants-dao-max-community-participation/), a community-run grants program
+- We additionally propose that this budget be managed by 4 individuals called Domain Allocators - chosen from the community and by the community. These domain allocators would manage grants for a domain. These domains are strategic areas of focus for which Arbitrum wants to disburse grants
+- The performance of each of these domain allocators will be publicly viewable and auditable using rich dashboards. At the end of the quarter, the Arbitrum community can vote to replace, continue domain allocators or increase budgets for each domain allocator.
+- We ([Questbook.xyz 58)](https://www.questbook.xyz/) will help facilitate setting up these domain allocators and provide the tooling to run the grants program in an efficient and transparent way. We have previously set up or currently setting up the grants process for Compound, Polygon, Solana, Celo, and Aave.
+
+</Banner>
+
+---
+
+import img3 from "./assets/compensation.png";
+
+<Banner
+  image={img3}
+>
+
+### Compensation
+
+The grant budget will be $1M with $200k for each domain. The committee compensation will be $200K for 4 domain allocators and one program manager for 6 months. Note that this is the proposed budget. All unused funds from every domain and committee compensation will be returned to the treasury. The compensation for Domain Allocators and Program Managers has been factored into this overall proposed budget. Please find below its details.
+
+</Banner>
+
+---
+
+### Team
+
+- [Saurabh](https://forum.arbitrum.foundation/u/saurabh/summary) from Questbook will be the program manager. Thereafter, the program manager will be elected from the community. Saurabh was previously working very closely with the Program manager of Polygon, where he facilitated the disbursement of approximately $1 million in grants. Saurabh has received a grant from IoTeX to establish their grant program, and he works closely with the Program Manager of Compound Grants Program 2.0. Saurabh has spoken to more than 100 builders and teams over the last 6-8 months and understands what it takes to make a grant program successful - from both program manager and builder perspectives.
+- Questbook Grants tool will make sure the workflows are systematic and transparent.
+
+---

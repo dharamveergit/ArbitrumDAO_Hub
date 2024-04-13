@@ -1,0 +1,16 @@
+---
+import { titleCva } from "@/lib/cvas";
+import LinkInfoCards from "../ui/link-info-Cards.astro";
+
+interface Props {
+  resources: any;
+}
+const { resources } = Astro.props;
+---
+
+<section class="not-prose flex flex-col gap-4 py-5 lg:py-10">
+  <h1 class={titleCva()}>Resources</h1>
+  <ul class="grid gap-5 md:grid-cols-2 md:gap-y-3 lg:gap-y-6">
+    {resources.map((item: any) => <LinkInfoCards item={item} />)}
+  </ul>
+</section>

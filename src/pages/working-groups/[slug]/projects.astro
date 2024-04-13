@@ -1,0 +1,88 @@
+---
+import GradientHead from "@/components/ui/gradient-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainWrapper from "@/components/working-groups/Main-Wrapper.astro";
+import { wgNav } from "@/data/links/workspaces";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import classNames from "classnames";
+
+export async function getStaticPaths() {
+  const groups = await getCollection("Working_Groups");
+  const wb = groups.filter((group) => group.data.type === "wg");
+  return wb.map((group) => {
+    const projects = groups
+      .filter((group) => group.data.type === "project")
+      .filter((project) => project.slug.split("/")[0] === group.slug);
+    return {
+      params: {
+        slug: group.slug,
+      },
+      props: { group, projects },
+    };
+  });
+}
+
+const {
+  group: { data, slug, render },
+  projects,
+} = Astro.props;
+
+console.log(projects);
+---
+
+<MainWrapper data={data} slug={slug} className="p-3 md:p-4">
+  <ul class="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+    {
+      projects.map(({ data: project }) => (
+        <a
+          href={project.externalUrl}
+          target="_blank"
+          class="group cursor-pointer"
+        >
+          <li class="flex min-h-[21rem] flex-col  justify-between rounded-lg border p-4 md:rounded-2xl">
+            <div>
+              <small class="font-os  text-xs capitalize text-zinc-500">
+                {project.tag}
+              </small>
+              <h1 class="mt-1 text-base font-medium">{project.title}</h1>
+              <p class="mt-4 text-sm text-zinc-500">{project.description}</p>
+            </div>
+            <div class="flex items-center  justify-between">
+              <div
+                class={classNames(
+                  "flex gap-2 rounded-lg p-2",
+                  project.status === "ongoing"
+                    ? "bg-zinc-100"
+                    : "bg-[#25FF6F6B]",
+                )}
+              >
+                <div
+                  class={classNames(
+                    "min-h-max w-2 rounded-full ",
+                    project.status === "ongoing"
+                      ? "bg-zinc-400"
+                      : "bg-[#1F88857D]",
+                  )}
+                />
+                <div class="text-sm">
+                  <p class="text-zinc-900">Project Status</p>
+                  <p class="capitalize text-zinc-500">{project.status}</p>
+                </div>
+              </div>
+              <div class="-rotate-45 transition-all duration-300 group-hover:rotate-0">
+                <Icon
+                  name="arrow-circle"
+                  class={"size-10 stroke-[0.6] text-zinc-500 md:size-11"}
+                />
+              </div>
+            </div>
+          </li>
+        </a>
+      ))
+    }
+  </ul>
+</MainWrapper>

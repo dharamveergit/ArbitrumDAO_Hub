@@ -1,0 +1,50 @@
+---
+import { cva, type VariantProps } from "class-variance-authority";
+import classNames from "classnames";
+
+const { title, disc, className, variant, id } = Astro.props;
+
+const Varients = cva("flex py-5 lg:py-10 flex-col ", {
+  variants: {
+    variant: {
+      small: "gap-16 lg:gap-20",
+      big: "gap-20 md:gap-32",
+      large: "gap-16 md:gap-32 lg:gap-40",
+    },
+  },
+  defaultVariants: {
+    variant: "large",
+  },
+});
+
+interface Props extends VariantProps<typeof Varients> {
+  title: string;
+  disc: string;
+  className?: string;
+  button?: boolean;
+  variant?: "small" | "big" | "large";
+  //section props here not any
+  id?: string;
+}
+---
+
+<section class={classNames(Varients({ variant }), className)}>
+  <div class="flex flex-col gap-6 md:gap-4">
+    <h1
+      class="text-lg font-medium md:text-xl lg:w-[35%] lg:text-2xl xl:w-[30%]"
+    >
+      {title}
+    </h1>
+    <div class="ml-auto flex flex-col gap-10 md:w-2/3 lg:w-1/2 lg:gap-5">
+      <p
+        class="font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
+      >
+        {disc}
+      </p>
+      <div class="flex md:justify-end" id={id}>
+        <slot name="button" />
+      </div>
+    </div>
+  </div>
+  <slot />
+</section>

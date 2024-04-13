@@ -1,0 +1,105 @@
+---
+import CommunityHead from "@/components/community-hub/head/community-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainWrapper from "@/components/working-groups/Main-Wrapper.astro";
+import { eventsNav } from "@/data/links/community-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { Icon } from "astro-icon/components";
+import { getCollection, getEntry } from "astro:content";
+import classNames from "classnames";
+export async function getStaticPaths() {
+  const groups = await getCollection("Working_Groups");
+  const wb = groups.filter((group) => group.data.type === "wg");
+  const meetings = groups.filter(
+    (group) => group.data.type === "notes" || group.data.type === "transcript",
+  );
+  return meetings?.map((meet) => {
+    const docs = meetings.filter(
+      (doc) => doc.id.split("/")[2] === meet.id.split("/")[2],
+    );
+    const group = wb.find(
+      (group) => group.id.split("/")[0] === meet.id.split("/")[0],
+    );
+    const nav = docs.map((doc) => {
+      return {
+        label: doc.slug.split("/")[3],
+        link: `/working-groups/${doc.slug}/`,
+      };
+    });
+
+    return {
+      params: {
+        slug: group?.slug ?? "wg-analytics",
+        tag: meet.slug.split("/").slice(2, 4).join("/"),
+      },
+      props: {
+        group,
+        meet,
+        nav,
+      },
+    };
+  });
+}
+
+const {
+  group,
+  meet: { data, render },
+  nav,
+} = Astro.props;
+const { pathname } = Astro.url;
+const { Content } = await render();
+
+console.log(pathname);
+---
+
+<MainWrapper data={group?.data} slug={group?.slug} className="border-none">
+  <div
+    class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
+  >
+    <div
+      class="flex flex-col gap-6 rounded-lg bg-white px-2 py-5 md:gap-10
+      md:px-5 lg:py-10"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex gap-4">
+          {
+            nav.map((tag) => {
+              return (
+                <a
+                  href={`${tag.link}#sub`}
+                  class={classNames(
+                    "rounded px-2 py-1 font-os text-sm capitalize ",
+                    tag.link === pathname
+                      ? "bg-primary/10 text-primary"
+                      : "text-zinc-500",
+                  )}
+                >
+                  {tag.label}
+                </a>
+              );
+            })
+          }
+        </div>
+        <a
+          href="/community-hub/initiatives/meetings/#sub"
+          class="rounded-lg p-3 text-zinc-400"
+        >
+          <Icon name={"close-circle"} class="size-5" />
+        </a>
+      </div>
+      <div class="flex flex-col gap-4 border-b py-5">
+        <p class="font-os text-base text-zinc-400">
+          {data?.date && new Date(data?.date).toLocaleDateString()}
+        </p>
+        <h1 class="text2xl font-medium text-zinc-900">
+          {data.title}
+        </h1>
+      </div>
+      <article class={proseClasses}>
+        <Content />
+      </article>
+    </div>
+  </div>
+</MainWrapper>

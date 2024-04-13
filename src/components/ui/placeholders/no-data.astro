@@ -1,0 +1,18 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  type?: string;
+}
+
+const { type = "no data" } = Astro.props;
+---
+
+<div
+  class="flex items-center gap-4 rounded-xl border bg-white px-4 py-8 md:gap-8 md:rounded-2xl md:px-16 lg:rounded-xl lg:px-20"
+>
+  <Icon name="sad" class="size-16 md:size-20" />
+  <h1 class="flex-1 text-xs font-medium text-zinc-400 md:text-sm lg:text-2xl">
+    <slot />
+  </h1>
+</div>

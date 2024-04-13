@@ -1,0 +1,77 @@
+---
+import Card from "@/components/grant-hub/card.astro";
+import Features from "@/components/grant-hub/features.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { GrantHub_Homepage } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+import Paginate from "@/components/ui/paginate.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import Button from "@/components/ui/button.astro";
+import { fundedGrants } from "@/data/links/grant-hub";
+import { proseClasses } from "@/lib/classes";
+
+export async function getStaticPaths() {
+  const data = await getCollection("Grant_Hub");
+  const homes = data.filter((d) => d.data.type === "Home");
+
+  return (
+    homes?.map((page) => {
+      const allPosts = data.filter(
+        (d) =>
+          d.data.type === "Grant" &&
+          d.slug.split("/")[0] === page.slug &&
+          !d.data.subCollection,
+      );
+      return {
+        params: { slug: page.slug },
+        props: {
+          ...page,
+          allPosts: allPosts,
+        },
+      };
+    }) ?? []
+  );
+}
+
+const { data, slug, render, allPosts } = Astro.props;
+
+const { Content } = await render();
+
+const pathname = Astro.url.pathname;
+
+const button = {
+  text: allPosts.length > 0 ? "View Grants" : "View Projects",
+  link: `/grant-hub/${slug}/grants/`,
+  type: "default",
+};
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={data.title}
+  description={data.description}
+>
+  <RoundedNavWrapper nav={fundedGrants(pathname, slug)}>
+    <GradientHead
+      title={data.title}
+      description={data.description}
+      buttons={data?.buttons ? ([button, ...data?.buttons] as any) : [button]}
+      breadcrumbs={[
+        { text: "Grant Hub", link: "/grant-hub#grand-programs" },
+        {
+          text: data.title,
+          link: `/grant-hub/${slug}/`,
+        },
+      ]}
+    />
+  </RoundedNavWrapper>
+  <Seperator />
+  <article class={proseClasses}>
+    <Content />
+  </article>
+</MainLayout>

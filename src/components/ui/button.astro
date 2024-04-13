@@ -1,0 +1,30 @@
+---
+import { buttonVariants } from "@/lib/cvas";
+import { Icon } from "astro-icon/components";
+import { type VariantProps } from "class-variance-authority";
+import classNames from "classnames";
+
+interface Props extends VariantProps<typeof buttonVariants> {
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  href?: string;
+  className?: string;
+  arrow?: boolean;
+}
+
+const { variant, href, size, className, arrow, ...buttonProps } = Astro.props;
+---
+
+<a href={href} target={href?.startsWith("http") ? "_blank" : undefined}>
+  <button
+    {...buttonProps}
+    class={classNames(buttonVariants({ variant, size }), className)}
+  >
+    <slot />
+    {
+      arrow && (
+        <Icon name="arrow-circle" class="ml-2  size-3 -rotate-45 md:size-4" />
+      )
+    }
+  </button>
+</a>

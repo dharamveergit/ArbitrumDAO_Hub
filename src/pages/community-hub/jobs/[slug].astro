@@ -1,0 +1,96 @@
+---
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const collabs = await getCollection("Community_Jobs");
+  return (
+    collabs?.map((collab) => ({
+      params: { slug: collab.slug },
+      props: collab,
+    })) ?? []
+  );
+}
+
+const { data, render } = Astro.props;
+
+const { Content } = await render();
+---
+
+<MainLayout
+  title={"Jobs"}
+  description={"Browse Through a Variety of Job Openings in the Arbitrum DAO Ecosystem – Your Next Career Move Could be One Click Away!"}
+>
+  <MainWrapper
+    title={"Jobs"}
+    description={"Browse Through a Variety of Job Openings in the Arbitrum DAO Ecosystem – Your Next Career Move Could be One Click Away!"}
+  />
+  <Seperator />
+
+  <section id="sub" class="flex flex-col gap-2 py-5 md:gap-3 lg:gap-4 lg:py-10">
+    <button
+      class="self-start rounded-full bg-primary-light px-3 py-2 font-os text-xs text-zinc-900 md:px-5 md:py-2.5 md:text-sm lg:py-3"
+      >Jobs at arbitrum</button
+    >
+    <div
+      class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
+    >
+      <div
+        class="flex flex-col gap-6 rounded-lg bg-white px-2 py-5 md:gap-10 md:px-5 lg:py-10"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex gap-4">
+            <button class="rounded-lg bg-primary-light p-2 text-zinc-500">
+              <Icon name={"chart"} class="size-5" />
+            </button>
+            <button class="rounded-lg p-2 text-zinc-500">
+              <Icon name={"message-circle"} class="size-5" />
+            </button>
+          </div>
+          <a
+            href="/community-hub/jobs#sub"
+            class="rounded-lg p-3 text-zinc-400"
+          >
+            <Icon name={"close-circle"} class="size-5" />
+          </a>
+        </div>
+        <div class="flex flex-col gap-6 border-b pb-10">
+          <p
+            class="font-os text-xs font-light text-gray-400 md:text-sm lg:text-base"
+          >
+            <!-- {
+            data.date.toLocaleString("en-US", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })
+          } -->
+
+            17 Jan, 2024
+          </p>
+          <div class="flex items-center gap-6">
+            <div class="h-16 w-16 rounded-full bg-primary-light"></div>
+            <div class="flex flex-col gap-2">
+              <h1 class="font-medium text-zinc-900 md:text-lg lg:text-xl">
+                {data.title}
+              </h1>
+              <p
+                class="text-xs font-medium text-zinc-500 md:text-sm lg:text-base"
+              >
+                {data.title}
+              </p>
+            </div>
+          </div>
+        </div>
+        <article class={proseClasses}>
+          <Content />
+        </article>
+      </div>
+    </div>
+  </section>
+  <Seperator />
+</MainLayout>

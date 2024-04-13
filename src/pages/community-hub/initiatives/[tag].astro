@@ -1,0 +1,107 @@
+---
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { GITHUB_URL, Events_HomePage } from "@/consts";
+import { eventsNav } from "@/data/links/community-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+import Calendar from "@/components/community-hub/calendar.astro";
+//  CollectionEntry<'events'>
+
+export async function getStaticPaths() {
+  const entries = await getCollection("Community_Events");
+  const tags = entries.map((entry) => entry?.slug?.split("/")?.[0]);
+  const uniqueTags = [...new Set(tags)];
+  return uniqueTags.map((entry) => {
+    return {
+      params: { tag: entry },
+      props: {
+        entry,
+        events: entries.filter(
+          (event) => event?.slug?.split("/")?.[0] === entry,
+        ),
+      },
+    };
+  });
+}
+
+const { events, entry } = Astro.props;
+console.log(events, entry);
+const { tag } = Astro.params;
+console.log(tag);
+
+const pathname = Astro.url.pathname;
+
+const sortedEvents = events?.sort((a, b) => {
+  if (!a?.data?.date || !b?.data?.date) return 0;
+  const aDate = a?.data?.date;
+  const bDate = b?.data?.date;
+  return aDate.getTime() - bDate.getTime();
+});
+
+// const eventsByMonth: {
+//   [key: string]: CollectionEntry<"Community_Events">[];
+// } = sortedEvents?.reduce((acc: any, event) => {
+//   const month =
+//     event?.data?.date?.toLocaleString("default", {
+//       month: "long",
+//     }) ?? "Unknown";
+//   if (!acc[month]) {
+//     acc[month] = [];
+//   }
+//   acc[month].push(event);
+//   return acc;
+// }, {});
+---
+
+<MainLayout
+  title={Events_HomePage.title}
+  description={Events_HomePage.description}
+>
+  <MainWrapper
+    title={Events_HomePage.title}
+    description={Events_HomePage.description}
+    buttons={[
+      {
+        text: "Host an Event",
+        link: `${GITHUB_URL}/src/content/Community_Events`,
+        type: "default",
+      },
+    ]}
+  />
+
+  <Seperator />
+  <section class="flex flex-col gap-4 py-5 lg:py-10" id="sub">
+    <RoundedNav
+      className="w-[70%] md:w-[50%]"
+      nav={eventsNav?.map((tag) => {
+        return {
+          title: tag.label,
+          slug: `${tag.link}#sub`,
+          match: tag.link === pathname,
+        };
+      })}
+      variant="children"
+    />
+    <div class="grid gap-6 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+      {
+        sortedEvents.map(({ data, slug }) => {
+          return (
+            <BlogCard
+              type="event"
+              blog={data}
+              link={`/community-hub/initiatives/${slug}`}
+              defaultImage={
+                tag === "hackathons" ? "/default/hackathons.png" : undefined
+              }
+            />
+          );
+        })
+      }
+    </div>
+  </section>
+  <Seperator />
+</MainLayout>

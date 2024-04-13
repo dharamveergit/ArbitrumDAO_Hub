@@ -1,0 +1,58 @@
+---
+import BrandWrapper from "@/components/brand-wrapper.astro";
+import Button from "@/components/ui/button.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import { Brand_Resources } from "@/consts";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const press = await getCollection("press");
+
+const { press: data, brand } = Brand_Resources;
+---
+
+<BrandWrapper>
+  <div class="rounded-small bg-sky md:rounded-3xl lg:rounded-5xl">
+    <div class="px-5">
+      <div
+        class="flex flex-col-reverse items-end gap-10 bg-pattern bg-center pb-10 pt-5 lg:flex-row lg:gap-20 lg:bg-right lg:py-10"
+      >
+        <div class="flex flex-col gap-4 lg:w-1/2">
+          <div>
+            <small
+              class="font-zinc-400 font-os text-xs font-light uppercase lg:text-sm"
+            >
+              {data.label}
+            </small>
+            <h1 class="mt-1 text-lg font-medium md:text-2xl lg:text-3xl">
+              {data.title}
+              <br class="hidden lg:block" /><span class="text-primary"
+                >{data.subTitle}</span
+              >
+            </h1>
+          </div>
+          <p class="text-xs font-light md:text-sm lg:text-base">
+            {data.description}
+          </p>
+        </div>
+        <div class="mx-auto w-1/2">
+          <Image
+            src={data.image}
+            alt="Press Releases"
+            width={300}
+            height={300}
+            class={"mx-auto w-[12rem]"}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section
+    slot="press-cards"
+    class="grid gap-6 border-b py-10 md:grid-cols-2 lg:grid-cols-3"
+  >
+    {press.map(({ data }) => <BlogCard blog={data} />)}
+  </section>
+</BrandWrapper>

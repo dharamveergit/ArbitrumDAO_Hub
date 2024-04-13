@@ -1,0 +1,121 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { Developer_HomePage } from "../consts";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Button from "@/components/ui/button.astro";
+import Faq from "@/components/developer-hub/faq";
+import InfoCard from "@/components/developer-hub/info-card.astro";
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import InfoCardsWrapper from "@/components/developer-hub/info-cards-wrapper.astro";
+import LinkInfoCards from "@/components/ui/link-info-Cards.astro";
+
+const { frameworks, dapps, launch, stylus, tokenBridge, questions } =
+  Developer_HomePage;
+---
+
+<MainLayout
+  title={Developer_HomePage.title}
+  description={Developer_HomePage.description}
+  image="/meta/dev-hub.png"
+>
+  <GradientHead
+    title={Developer_HomePage.title}
+    description={Developer_HomePage.description}
+    className="my-5 lg:my-10"
+  />
+  <Seperator />
+  <section class="flex flex-col gap-10 py-5 md:py-10 lg:gap-16">
+    <div class="flex flex-col gap-3 lg:gap-4">
+      <small
+        class="text-light font-os text-xs uppercase tracking-wide lg:text-sm"
+      >
+        {frameworks.subTitle}
+      </small>
+      <h1
+        class={titleCva({
+          size: "lg",
+        })}
+      >
+        {frameworks.title}
+      </h1>
+      <p class="max-w-2xl text-sm text-zinc-700 lg:text-base">
+        {frameworks.description}
+      </p>
+    </div>
+    <ul class="grid gap-5 md:grid-cols-2 md:gap-y-3 lg:gap-y-6">
+      {frameworks.cards.map((item) => <LinkInfoCards item={item} />)}
+    </ul>
+  </section>
+  <Seperator />
+  <InfoCardsWrapper data={dapps} />
+
+  <Seperator />
+  <InfoCardsWrapper data={stylus} />
+
+  <Seperator />
+  <InfoCardsWrapper data={launch} />
+
+  <Seperator />
+
+  <InfoCardsWrapper data={tokenBridge} grid />
+
+  <Seperator />
+
+  <section
+    class="flex flex-col justify-between gap-4 rounded-2xl bg-zinc-700 p-4 md:flex-row md:p-6 lg:rounded-small"
+  >
+    <div class="flex max-w-sm flex-col gap-3 lg:gap-6">
+      <h1 class="text-2xl font-medium text-white">Developer Reference</h1>
+      <p
+        class={paragraphCva({
+          color: "tertiary",
+        })}
+      >
+        Deep dive into technical specifications, configuration options, and best
+        practices.
+      </p>
+    </div>
+    <a
+      href="https://docs.arbitrum.io/node-running/node-providers"
+      target="_blank"
+    >
+      <div class="group flex max-w-sm overflow-hidden rounded-md">
+        <div class="bg-zinc-100 px-5 py-3">
+          <h1
+            class={titleCva({
+              size: "sm",
+            })}
+          >
+            Quickstart Guide
+          </h1>
+          <p
+            class={paragraphCva({
+              size: "sm",
+            })}
+          >
+            Detailed information on technical specifications, RPC endpoints, API
+            references, and available node providers.
+          </p>
+        </div>
+        <div class="flex flex-col justify-between bg-white p-2.5">
+          <Image
+            width={50}
+            height={50}
+            src="/favicon.svg"
+            alt="Quickstart Guide"
+            class="size-6 lg:size-8"
+          />
+          <Icon
+            name="arrow-circle"
+            class="size-6 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0 lg:size-8"
+          />
+        </div>
+      </div>
+    </a>
+  </section>
+  <Seperator />
+  <Faq client:load questions={questions} />
+</MainLayout>

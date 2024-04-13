@@ -1,0 +1,121 @@
+---
+import Card from "@/components/grant-hub/card.astro";
+import Features from "@/components/grant-hub/features.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { GrantHub_Homepage } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+import Paginate from "@/components/ui/paginate.astro";
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import { fundedGrants } from "@/data/links/grant-hub";
+import ProjectCard from "@/components/grant-hub/project-card.astro";
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const data = await getCollection("Grant_Hub");
+  const homes = data.filter((d) => d.data.type === "Home");
+  return homes.flatMap((home) => {
+    const allPosts = data.filter(
+      (d) =>
+        d.data.type === "Grant" &&
+        d.slug.split("/")[0] === home.slug &&
+        !d.data.subCollection,
+    );
+
+    const isSubCollection = data.filter(
+      (d) =>
+        d.data.type === "Grant" &&
+        d.slug.split("/")[0] === home.slug &&
+        d.data.subCollection,
+    );
+    return paginate(allPosts, {
+      params: { slug: home.slug },
+      props: {
+        home,
+        isSubCollection: isSubCollection.length > 0,
+      },
+      pageSize: isSubCollection.length > 0 ? 9 : 10,
+    });
+  });
+}
+
+const {
+  page,
+  home: {
+    slug,
+    data: { title, grants },
+  },
+  isSubCollection,
+} = Astro.props;
+console.log(page, isSubCollection);
+
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={grants?.title}
+  description={grants?.description}
+>
+  <RoundedNavWrapper nav={fundedGrants(pathname, slug)}>
+    <GradientHead
+      title={grants?.title}
+      description={grants?.description}
+      buttons={[
+        {
+          text: "View Updates",
+          link: `/grant-hub/${slug}/updates/`,
+          type: "default",
+        },
+      ]}
+      breadcrumbs={[
+        { text: "Grant Hub", link: "/grant-hub/" },
+        {
+          text: title,
+          link: `/grant-hub/${slug}/`,
+        },
+        {
+          text: "Grants",
+          link: `/grant-hub/${slug}/grants/`,
+        },
+      ]}
+    />
+  </RoundedNavWrapper>
+  <Seperator />
+  {
+    !isSubCollection ? (
+      <section class="flex flex-col gap-4">
+        <h1 class={titleCva()}>Funded Grants</h1>
+        <ul class="grid gap-5 lg:grid-cols-2">
+          {page?.data?.map(({ data }) => (
+            <ProjectCard project={data as any} />
+          ))}
+        </ul>
+      </section>
+    ) : (
+      <section class="flex flex-col gap-4">
+        <h1 class={titleCva()}>Sub-Grant Programs</h1>
+        <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {page?.data?.map(({ data }) => (
+            <Card
+              blog={data}
+              type="uniswap"
+              link={
+                data.collection
+                  ? `/grant-hub/${slug}/grants/${data.collection}/`
+                  : undefined
+              }
+            />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <Paginate data={page} />
+</MainLayout>

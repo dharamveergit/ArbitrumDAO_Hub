@@ -1,0 +1,96 @@
+---
+import FormattedDate from "@/components/FormattedDate.astro";
+import ContributionDropdown from "@/components/community-hub/contributeDropdown";
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import Button from "@/components/ui/button.astro";
+import NoData from "@/components/ui/placeholders/no-data.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { isNoDataAvailable } from "@/lib/utils";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import classNames from "classnames";
+import { ArrowUpCircle } from "lucide-react";
+
+const collab = await getCollection("Community_Collaborations");
+const isNoData = isNoDataAvailable(collab);
+---
+
+<MainLayout
+  title={"Collaboration"}
+  description={"Explore Projects, Offer Feedback, and Join Forces with Like-minded Innovators in Our Vibrant Collaboration Hub."}
+>
+  <MainWrapper
+    title={"Collaboration"}
+    description={"Explore Projects, Offer Feedback, and Join Forces with Like-minded Innovators in Our Vibrant Collaboration Hub."}
+  />
+  <Seperator />
+  <ContributionDropdown client:load />
+  <Seperator />
+  <section class="flex flex-col gap-2 py-5 md:gap-3 lg:gap-4 lg:py-10">
+    <div class="flex items-center justify-between">
+      <h1 class="text-xl font-medium md:text-2xl">Collab Lab</h1>
+      <button class="rounded-full bg-primary-light px-3 py-2 font-os text-xs"
+        >17 Jan, 2024 09:45 PST</button
+      >
+    </div>
+    <div
+      class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
+    >
+      <ul class="flex flex-col gap-4">
+        {
+          isNoData ? (
+            <NoData type="collaboration">
+              Currently, there are no collaboration available. Please check back
+              later for any updates. Thank you for your understanding!
+            </NoData>
+          ) : (
+            collab &&
+            collab?.map(({ data, slug }, i) => (
+              <li
+                class={classNames(
+                  "flex flex-col gap-3 rounded-xl  bg-white p-4 md:rounded-2xl lg:rounded-xl",
+                  i % 2 === 0 ? "lg:mr-20" : "lg:ml-20",
+                )}
+              >
+                <div class="flex gap-5 md:items-center  ">
+                  <div class="flex flex-col gap-1.5 md:gap-2.5">
+                    <p class="font-os text-xs text-zinc-400 lg:text-sm">
+                      <FormattedDate date={data?.date ?? new Date()} />
+                    </p>
+                    <h1 class="text-lg font-medium text-zinc-600 md:text-xl lg:text-2xl">
+                      {data?.title}
+                    </h1>
+                    <p class="hidden font-os text-xs text-zinc-500 md:block md:text-base">
+                      {data?.description}
+                    </p>
+                  </div>
+                </div>
+                <p class=" font-os text-sm text-zinc-500 md:hidden md:text-base">
+                  {data?.description}
+                </p>
+                <div class="flex justify-end">
+                  <Button
+                    variant={"secondary"}
+                    href={`/community-hub/collaborations/${slug}#sub`}
+                  >
+                    Read More
+                    <ArrowUpCircle className="ml-2 h-4 w-4 rotate-45 stroke-[1] text-zinc-500 " />
+                  </Button>
+                </div>
+              </li>
+            ))
+          )
+        }
+      </ul>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <Button>
+        Add to the conversation on Github{" "}
+        <Icon name="arrow-circle" class="ml-3 h-4 w-4 -rotate-45" />
+      </Button>
+    </div>
+  </section>
+  <Seperator />
+</MainLayout>

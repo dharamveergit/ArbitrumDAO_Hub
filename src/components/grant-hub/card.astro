@@ -1,0 +1,186 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getEntry, z } from "astro:content";
+
+import classNames from "classnames";
+import Links from "../ui/links.astro";
+import Status from "../ui/status.astro";
+
+const schema = z.object({
+  link: z.string().optional(),
+  type: z
+    .union([z.literal("funded"), z.literal("uniswap"), z.literal("quest")])
+    .optional(),
+});
+
+interface Props extends z.infer<typeof schema> {
+  blog: any;
+  defaultImage?: string;
+  radius?: "inner" | "outer";
+}
+
+const {
+  blog,
+  type = "funded",
+  link,
+  defaultImage,
+  radius = "outer",
+}: Props = Astro.props;
+
+const image: any = blog?.image
+  ? blog?.image
+  : defaultImage
+    ? defaultImage
+    : type === "uniswap"
+      ? "/default/grants.png"
+      : "/default/grants.png";
+
+const href = {
+  href: blog?.externalUrl ?? link,
+  target: blog?.externalUrl ? "_blank" : "_self",
+};
+const linkClass =
+  "bg-white border border-zinc-200 shadow-sm rounded-full bg-gray-100 p-1.5 text-secondary text-zinc-500 hover:text-zinc-600";
+---
+
+<li
+  class={classNames(
+    "group flex flex-col gap-5  border bg-white p-3 transition-all duration-300 hover:-translate-y-1",
+    radius === "inner"
+      ? "rounded-lg md:rounded-xl lg:rounded-2xl"
+      : "rounded-5xl",
+  )}
+>
+  <a
+    {...href}
+    class={classNames(
+      "overflow-hidden rounded-3xl bg-zinc-100",
+      "aspect-[16/9] ",
+    )}
+  >
+    <Image
+      class={classNames(
+        "h-full w-full ",
+        image.height / image.width > 0.5 ? "object-cover" : "object-contain",
+      )}
+      src={image}
+      alt="blog"
+      width={600}
+      height={600}
+    />
+  </a>
+  <div class={classNames("flex flex-1 flex-col  px-2.5 gap-4")}>
+    {
+      (blog?.walletAddress ||
+        blog?.links?.twitter ||
+        blog?.links?.github ||
+        blog?.links?.discord ||
+        blog?.links?.website ||
+        blog?.links?.telegram ||
+        blog?.links?.youtube) && (
+        <div class="flex items-center justify-between">
+          <p
+            class={classNames(
+              "  text-xs uppercase tracking-wide text-zinc-700",
+            )}
+          >
+            {blog.walletAddress && " 0xB16...fa657"}
+          </p>
+          <Links links={blog.links} />
+        </div>
+      )
+    }
+    <a {...href} class="flex flex-col items-start gap-1">
+      {
+        blog?.ApprovedOn && type === "funded" && (
+          <small class="font-os text-xs font-light text-zinc-400">
+            {blog?.ApprovedOn}
+          </small>
+        )
+      }
+      {
+        blog?.label && (
+          <small class="font-os text-xs font-light text-zinc-400">
+            {blog?.label}
+          </small>
+        )
+      }
+      {
+        blog?.date && type !== "funded" && (
+          <small class="font-os text-xs font-light text-zinc-400">
+            {blog?.date?.toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </small>
+        )
+      }
+
+      <h1
+        class={classNames(
+          " text-base font-medium text-zinc-900 md:text-xl lg:text-lg",
+          blog?.description?.trim()?.length === 0 ? "" : "line-clamp-1",
+        )}
+      >
+        {blog?.title}
+      </h1>
+
+      <p
+        class={classNames(
+          " font-os text-xs font-light text-zinc-500 md:text-sm lg:text-base",
+          type === "quest" ? "line-clamp-2" : "line-clamp-4",
+        )}
+      >
+        {blog?.description}
+      </p>
+      <div class="mt-5 flex items-center gap-4">
+        {
+          blog?.status && (
+            <Status
+              type={
+                blog?.status === "Accepted" || blog?.status === "Live"
+                  ? "green"
+                  : "red"
+              }
+            >
+              {blog?.status}
+            </Status>
+          )
+        }
+
+        {
+          blog?.available && (
+            <p class="text-light font-os text-xs text-zinc-500 md:text-sm">
+              Available: {blog?.available}
+            </p>
+          )
+        }
+        {
+          blog?.amount && !blog?.available && (
+            <p class="text-light font-os text-xs text-zinc-500 md:text-sm">
+              Funding Amount- {blog?.amount}
+            </p>
+          )
+        }
+        {
+          blog?.allocation && !blog?.amount && blog?.available && (
+            <p class="text-light font-os text-xs font-light text-zinc-500 md:text-sm">
+              Arb Allocation: {blog?.allocation} <br />
+              UAGP RFP: {blog?.uagp}
+            </p>
+          )
+        }
+      </div>
+    </a>
+    <div class="mt-auto flex justify-end">
+      <div class="-rotate-45 transition-all duration-300 group-hover:rotate-0">
+        <Icon
+          name="arrow-circle"
+          class="size-10 stroke-[0.6] text-zinc-500 md:size-14"
+        />
+      </div>
+    </div>
+  </div>
+</li>

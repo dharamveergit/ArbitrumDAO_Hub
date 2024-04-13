@@ -1,0 +1,34 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import GradientHead from "./ui/gradient-head.astro";
+import Seperator from "./ui/seperator.astro";
+import RoundedNav from "./ui/nav/rounded-nav.astro";
+import { brandandresources } from "@/data/links/workspaces";
+import { Brand_Resources } from "@/consts";
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  title={Brand_Resources.title}
+  description={Brand_Resources.description}
+>
+  <GradientHead
+    title={Brand_Resources.title}
+    description={Brand_Resources.description}
+    className="my-5 md:my-10"
+  />
+  <Seperator />
+  <section class="flex flex-col gap-4">
+    <RoundedNav
+      nav={brandandresources.map((item) => ({
+        ...item,
+        match: pathname === item.slug,
+      }))}
+      variant={"children"}
+      size="large"
+    />
+    <slot />
+  </section>
+  <Seperator />
+  <slot name="press-cards" />
+</MainLayout>

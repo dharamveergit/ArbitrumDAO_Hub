@@ -1,0 +1,76 @@
+---
+import CommunityContentHead from "@/components/community-hub/head/community-content-head.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { getCollection } from "astro:content";
+import Tag from "@/components/ui/links/tag.astro";
+import { Image } from "astro:assets";
+import Seperator from "@/components/ui/seperator.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import { fundedGrants } from "@/data/links/grant-hub";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("Grant_Hub");
+  const filteredWithTag = entries.filter(
+    (entry) => entry.data.type === "Update",
+  );
+  return filteredWithTag.map((entry) => {
+    return {
+      params: {
+        slug: entry.slug.split("/")[0],
+        blog: entry.slug.split("/")[2],
+      },
+      props: {
+        entry,
+        otherEntries: filteredWithTag
+          .filter((otherEntry) => otherEntry.slug !== entry.slug)
+          .slice(0, 3),
+      },
+    };
+  });
+}
+const pathname = Astro.url.pathname;
+const {
+  entry: { data, render, slug },
+  otherEntries,
+} = Astro.props;
+const image: any = data?.image ?? "/default/grants-blog.png";
+const { Content } = await render();
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={data.title}
+  description={data.description}
+>
+  <div class="mt-5 flex flex-col">
+    <section class="flex flex-col gap-2">
+      <div
+        class="rounded-small bg-sky px-2 pt-16 md:rounded-3xl md:px-4 md:pt-20 lg:rounded-5xl lg:px-5 lg:pt-32"
+      >
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
+            <h1 class="text-2xl font-medium text-zinc-900 lg:text-4xl">
+              {data.title}
+            </h1>
+            <!-- <p class="font-os text-xs text-zinc-600 md:text-sm lg:text-base">
+            5 Min View . 17 Jan, 2024
+          </p> -->
+          </div>
+          <Image
+            src={image}
+            alt="Community Content Image"
+            class="aspect-[16/8] w-full rounded-small object-cover md:rounded-3xl lg:rounded-5xl"
+            width="1000"
+            height="1000"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <article class={proseClasses}>
+    <Content />
+  </article>
+</MainLayout>

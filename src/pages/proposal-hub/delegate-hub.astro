@@ -1,0 +1,35 @@
+---
+import GradientHead from "@/components/ui/gradient-head.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import { DelegateHub_Page } from "@/consts";
+import Seperator from "@/components/ui/seperator.astro";
+
+import QuestionsTabs from "@/components/proposal-hub/delegate-hub/questions-tabs";
+import DelegatesSection from "@/components/proposal-hub/delegate-hub/delegates-section";
+---
+
+<MainLayout
+  title="Working Groups"
+  description="The working groups are the heart of the OpenJS Foundation. They are the primary mechanism for development and maintenance of the projects and programs under the foundation's umbrella."
+>
+  <GradientHead
+    title={DelegateHub_Page.title}
+    description={DelegateHub_Page.description}
+    className="my-5"
+  />
+  <Seperator />
+
+  <div class="py-5 lg:py-10">
+    <QuestionsTabs
+      client:load
+      data={DelegateHub_Page.questionsTabs}
+      type="intro"
+      size="large"
+    />
+  </div>
+
+  <Seperator />
+
+  <DelegatesSection client:load />
+</MainLayout>

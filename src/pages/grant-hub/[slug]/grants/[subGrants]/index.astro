@@ -1,0 +1,231 @@
+---
+import ProjectCard from "@/components/grant-hub/project-card.astro";
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import LinkButton from "@/components/ui/links/link-button.astro";
+import Paginate from "@/components/ui/paginate.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import Status from "@/components/ui/status.astro";
+import { fundedGrants, projectsHome } from "@/data/links/grant-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const data = await getCollection("Grant_Hub");
+  const homes = data.filter((d) => d.data.type === "Home");
+  const collections = data.filter((d) => d.data.collection);
+
+  return (
+    collections?.flatMap((page) => {
+      const subCollections = data.filter(
+        (d) =>
+          d.data.subCollection === page.data.collection &&
+          d.slug.split("/")[0] === page.slug.split("/")[0],
+      );
+      return {
+        params: {
+          slug: page.slug.split("/")[0],
+          subGrants: page.data.collection,
+        },
+        props: {
+          ...page,
+          subCollections,
+        },
+        pageSize: 10,
+      };
+    }) ?? []
+  );
+}
+
+const { data, slug, render, subCollections } = Astro.props;
+const { Content } = await render();
+
+const pathname = Astro.url.pathname;
+const nav = projectsHome(
+  pathname,
+  slug,
+  data?.collection ?? "",
+  subCollections?.length > 0,
+);
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={data.title}
+  description={data.description}
+>
+  <RoundedNavWrapper nav={nav}>
+    <GradientHead
+      title={data.title}
+      description={data.description}
+      buttons={data.buttons}
+      breadcrumbs={[
+        { text: "Grant Hub", link: "/grant-hub#grand-programs" },
+        {
+          text: slug?.split("/")?.[0],
+          link: `/grant-hub/${slug?.split("/")?.[0]}`,
+        },
+        {
+          text: "Grants",
+          link: `/grant-hub/${slug?.split("/")?.[0]}/grants/`,
+        },
+        {
+          text: data.title,
+          link: `/grant-hub/${slug?.split("/")?.[0]}/grants/${data?.collection}`,
+        },
+      ]}
+    />
+  </RoundedNavWrapper>
+  <Seperator />
+  <section class="grid gap-5 md:grid-cols-2">
+    <div class="flex flex-1 flex-col gap-5">
+      <div class="flex items-center gap-3">
+        <Image
+          src={"/images/grant-hub/check2.svg"}
+          alt={"Status"}
+          width={50}
+          height={50}
+          class={"size-8 object-contain lg:size-12"}
+        />
+        <div class="flex items-center gap-3">
+          <h2 class="text-xs font-light md:text-sm lg:text-base">Status</h2>
+          <Status type={data?.status === "Live" ? "green" : "red"}>
+            {data?.status}
+          </Status>
+        </div>
+      </div>
+      {
+        data?.manager && (
+          <div class="flex items-center gap-3">
+            <Image
+              src={"/images/grant-hub/message2.svg"}
+              alt={"Connect"}
+              width={50}
+              height={50}
+              class={"size-8 object-contain lg:size-12"}
+            />
+            <div class="flex items-center gap-3">
+              <h2 class="md:ext-sm text-xs lg:text-base">Managed By</h2>
+              <small class="text-sm font-medium text-zinc-900 lg:text-base">
+                @{data?.manager?.name}
+              </small>
+              {data?.manager?.url && (
+                <LinkButton url={data?.manager?.url ?? "#"} type={"twitter"} />
+              )}
+            </div>
+          </div>
+        )
+      }
+      {
+        data?.connect ? (
+          <div class="flex items-center gap-3">
+            <Image
+              src={"/images/grant-hub/message2.svg"}
+              alt={"Connect"}
+              width={50}
+              height={50}
+              class={"size-8 object-contain lg:size-12"}
+            />
+
+            <h2 class="md:ext-sm text-xs lg:text-base">Connect</h2>
+            <small class="text-sm font-medium text-zinc-900 lg:text-base">
+              @{data?.connect?.name}
+            </small>
+            <LinkButton url={data?.connect?.url} type={data?.connect?.type} />
+          </div>
+        ) : (
+          data?.label && (
+            <div class="flex items-center gap-3">
+              <Image
+                src={"/images/grant-hub/calender.svg"}
+                alt={"Cal"}
+                width={50}
+                height={50}
+                class={"size-8 object-contain lg:size-12"}
+              />
+
+              <h2 class="md:ext-sm text-xs lg:text-base">Expected Duration</h2>
+              <small class="text-sm font-medium text-zinc-900 lg:text-base">
+                {data?.label}
+              </small>
+            </div>
+          )
+        )
+      }
+    </div>
+    <div class="flex flex-1 flex-col gap-5">
+      {
+        data?.available && (
+          <div class="flex items-center gap-3">
+            <Image
+              src={"/images/grant-hub/data2.svg"}
+              alt={"Status"}
+              width={50}
+              height={50}
+              class={"size-8 object-contain lg:size-12"}
+            />
+            <div class="flex items-center gap-3">
+              <h2 class="text-xs font-light md:text-sm lg:text-base">
+                Available
+              </h2>
+              <small class="text-sm font-medium text-zinc-900 lg:text-base">
+                {data?.available}
+              </small>
+            </div>
+          </div>
+        )
+      }
+      {
+        data?.amount && (
+          <div class="flex items-center gap-3">
+            <Image
+              src={"/images/grant-hub/data2.svg"}
+              alt={"Status"}
+              width={50}
+              height={50}
+              class={"size-8 object-contain lg:size-12"}
+            />
+            <div class="flex items-center gap-3">
+              <h2 class="text-xs font-light md:text-sm lg:text-base">
+                Funding Amount
+              </h2>
+              <small class="text-sm font-medium text-zinc-900 lg:text-base">
+                {data?.amount}
+              </small>
+            </div>
+          </div>
+        )
+      }
+      {
+        data?.allocation && (
+          <div class="flex items-center gap-3">
+            <Image
+              src={"/images/grant-hub/data2.svg"}
+              alt={"Status"}
+              width={50}
+              height={50}
+              class={"size-8 object-contain lg:size-12"}
+            />
+            <div class="flex items-center gap-3">
+              <h2 class="text-xs font-light md:text-sm lg:text-base">
+                Budget Allocated
+              </h2>
+              <small class="text-sm font-medium text-zinc-900 lg:text-base">
+                {data?.allocation} Spent
+              </small>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+  <Seperator />
+  <article class={proseClasses}>
+    <Content />
+  </article>
+</MainLayout>

@@ -1,0 +1,59 @@
+---
+import { titleCva } from "@/lib/cvas";
+import { Image } from "astro:assets";
+import LinkButton from "../ui/links/link-button.astro";
+import classNames from "classnames";
+interface Team {
+  name: string;
+  designation?: string;
+
+  image: any;
+
+  url?: string;
+}
+
+interface Props {
+  team: Team[];
+  noPadding?: boolean;
+}
+
+const { team, noPadding } = Astro.props;
+---
+
+<section
+  class={classNames(
+    "not-prose flex flex-col gap-10 ",
+    noPadding ? "" : "py-5 lg:py-10",
+  )}
+>
+  <h1 class={titleCva()}>Team</h1>
+  <div
+    class="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+  >
+    {
+      team?.map((team) => (
+        <div class=" flex flex-col items-center gap-6">
+          <div class="relative">
+            <Image
+              src={team.image}
+              alt={team.name}
+              class="size-20 rounded-full border-4 border-primary-sky lg:size-32"
+            />{" "}
+            {team?.url && (
+              <LinkButton
+                url={team.url}
+                type="twitter"
+                className="bg-white -top-1 right-1 absolute"
+              />
+            )}
+          </div>
+          <h2 class="text-center text-sm font-medium">
+            {team.name}
+            <br />
+            {team?.designation}
+          </h2>
+        </div>
+      ))
+    }
+  </div>
+</section>

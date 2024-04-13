@@ -1,0 +1,96 @@
+---
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import classNames from "classnames";
+interface Props {
+  title: string;
+  description?: string;
+  links: {
+    title: string;
+    url: string;
+    description: string;
+    image: string;
+  }[];
+  changeOrientation?: boolean;
+}
+
+const { title, description, links, changeOrientation } = Astro.props;
+---
+
+<section
+  class="my-5 flex flex-col justify-between gap-4 rounded-2xl bg-zinc-700 p-4 md:flex-row md:gap-10 md:p-6 lg:my-10 lg:rounded-small"
+>
+  <div
+    class="flex flex-1 flex-col gap-3 prose-p:my-0 prose-p:text-zinc-100 prose-a:text-zinc-100 lg:gap-6"
+  >
+    <h1
+      class={classNames(
+        titleCva({
+          color: "tertiary",
+          size: "lg",
+        }),
+        "not-prose",
+      )}
+    >
+      {title}
+    </h1>
+    {
+      description && (
+        <p
+          class={paragraphCva({
+            color: "tertiary",
+          })}
+        >
+          {description}
+        </p>
+      )
+    }
+    <slot />
+  </div>
+  <div
+    class={classNames(
+      "flex flex-col gap-4 md:max-w-[55%] lg:max-w-sm xl:max-w-[65%] ",
+      changeOrientation ? "xl:flex-row" : "",
+    )}
+  >
+    {
+      links.map((link) => (
+        <a href={link.url} target="_blank" class="not-prose w-full">
+          <div class="group flex  w-full overflow-hidden rounded-md">
+            <div class="w-full bg-zinc-100 px-5 py-3">
+              <h1
+                class={titleCva({
+                  size: "sm",
+                })}
+              >
+                {link.title}
+              </h1>
+              <p
+                class={paragraphCva({
+                  size: "sm",
+                  clamp: true,
+                })}
+              >
+                {link.description}
+              </p>
+            </div>
+            <div class=" flex flex-col justify-between bg-white p-2.5">
+              <Image
+                width={50}
+                height={50}
+                src={link.image}
+                alt={link.title}
+                class="size-6 lg:size-8"
+              />
+              <Icon
+                name="arrow-circle"
+                class="mt-4 size-6 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0 lg:size-8"
+              />
+            </div>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>

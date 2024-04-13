@@ -1,0 +1,82 @@
+---
+import { Icon } from "astro-icon/components";
+import FooterLinks from "../ui/links/footer-links.astro";
+
+const subLinks = [
+  {
+    title: "© Arbitrum.DAO",
+    href: "/",
+  },
+  {
+    title: "Open-source Apache 2.0 Licensed. ",
+    href: "/",
+  },
+  {
+    title: "GitHub v0.20.0 ",
+    href: "/",
+  },
+  {
+    title: "Privacy",
+    href: "/",
+  },
+];
+---
+
+<footer class="pb-5 pt-32">
+  <div class="gap container flex flex-col gap-12">
+    <Icon name="logos/logo" height={40} width={200} class="md:px-2.5" />
+    <div class="flex flex-col justify-between gap-10 md:flex-row md:px-2.5">
+      <div class="flex flex-col gap-2.5">
+        <p class="font-os text-base font-light md:text-2xl">
+          A journey of possibilities with <br /> Arbitrum DAO
+        </p>
+        <h1
+          class="text-4xl font-light leading-normal text-secondary md:text-[64px]/[77px]"
+        >
+          Innovate,<br /> Collaborate<br /> & Thrive
+        </h1>
+      </div>
+      <FooterLinks />
+    </div>
+  </div>
+  <div class="mt-5 flex flex-col items-center border-t">
+    <div class="flex flex-wrap items-center justify-center gap-4 py-8">
+      {
+        subLinks.map((link, index) => (
+          <>
+            <a
+              href={link.href}
+              class=" font-os text-xs font-light text-secondary-light"
+            >
+              {link.title}
+            </a>
+            {index !== subLinks.length - 1 && (
+              <div class="h-5 w-px bg-gray-200" />
+            )}
+          </>
+        ))
+      }
+    </div>
+    <a
+      href="https://www.hooman.digital/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-center text-xs text-secondary-light"
+    >
+      Designed & Developed by Hooman Digital.
+    </a>
+  </div>
+  <p class="container mt-8 border-t pt-8 text-xxs text-zinc-600">
+    *Disclaimer: This website is maintained by Hooman Digital on behalf of the
+    decentralized community. The content and opinions expressed on this website
+    do not necessarily reflect those of Hooman Digital. This website provides
+    links to information, projects, dApps, cryptocurrency exchanges, and various
+    other services for public access. Hooman Digital does not guarantee the
+    accuracy, completeness, or timeliness of the information provided by these
+    external websites. We are not responsible for the content of these websites
+    and expressly disclaim any liability for damages of any kind resulting from
+    the use, reference to, or reliance on any information contained within these
+    websites. If you identify an error or issue on this website, please contact
+    us at hoomandigital18@gmail.com.
+  </p>
+</footer>

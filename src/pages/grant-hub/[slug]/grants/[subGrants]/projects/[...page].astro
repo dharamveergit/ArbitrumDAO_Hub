@@ -1,0 +1,140 @@
+---
+import ProjectCard from "@/components/grant-hub/project-card.astro";
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Paginate from "@/components/ui/paginate.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import Status from "@/components/ui/status.astro";
+import { projectsHome } from "@/data/links/grant-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const data = await getCollection("Grant_Hub");
+  const homes = data.filter((d) => d.data.type === "Home");
+  const collections = data.filter((d) => d.data.collection);
+
+  return (
+    collections?.flatMap((page) => {
+      const subCollections = data.filter(
+        (d) =>
+          d.data.subCollection === page.data.collection &&
+          d.slug.split("/")[0] === page.slug.split("/")[0],
+      );
+      return paginate(subCollections, {
+        params: {
+          slug: page.slug.split("/")[0],
+          subGrants: page.data.collection,
+        },
+        props: {
+          home: page,
+        },
+        pageSize: 10,
+      });
+    }) ?? []
+  );
+}
+const {
+  home: { data, slug },
+
+  page,
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const nav = projectsHome(pathname, slug, data?.collection ?? "", true);
+console.log(slug);
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={data.title}
+  description={data.description}
+>
+  <RoundedNavWrapper nav={nav}>
+    <GradientHead
+      title={data.title}
+      description={data.description}
+      breadcrumbs={[
+        { text: "Grant Hub", link: "/grant-hub" },
+
+        ...slug.split("/").map((s, i) => {
+          return {
+            text: s.replace(/-/g, " "),
+            link: `/grant-hub/${slug
+              .split("/")
+              .slice(0, i + 1)
+              .join("/")}/`,
+          };
+        }),
+      ]}
+    /></RoundedNavWrapper
+  >
+  <Seperator />
+  <!-- <section
+    class="flex flex-col gap-10 py-5 md:flex-row md:items-center lg:gap-20 lg:py-10"
+  >
+    <div class="flex flex-1 flex-col gap-4 lg:w-[60%]">
+      <h1 class={titleCva()}>About</h1>
+      <p class={paragraphCva()}>
+        The Arbitrum ecosystem encourages innovation and welcomes participation
+        from diverse builders. We are looking for Individuals or groups who can:
+      </p>
+    </div>
+    <div class="flex flex-1 flex-col gap-5 lg:w-[40%]">
+      <div class="flex items-center gap-3">
+        <Image
+          src={"/images/grant-hub/check2.svg"}
+          alt={"Status"}
+          width={50}
+          height={50}
+          class={"size-8 object-contain lg:size-12"}
+        />
+        <div class="flex items-center gap-3">
+          <h2 class="md:ext-sm text-xs lg:text-base">Status</h2>
+          <Status type="red"> Completed </Status>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <Image
+          src={"/images/grant-hub/message2.svg"}
+          alt={"Connect"}
+          width={50}
+          height={50}
+          class={"size-8 object-contain lg:size-12"}
+        />
+        <div class="flex items-center gap-3">
+          <h2 class="md:ext-sm text-xs lg:text-base">Connect</h2>
+          <div class="flex items-center gap-1">
+            <Icon name="socials/twitter" size={16} class="text-zinc-500" />
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              class="hover:underline"
+            >
+              <small class="text-sm font-medium text-zinc-900 lg:text-base"
+                >@DisruptionJoe</small
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Seperator /> -->
+  <section class="flex flex-col gap-4">
+    <h1 class={titleCva()}>Approved Projects</h1>
+    <ul class="grid gap-4 md:grid-cols-2 lg:gap-5">
+      {page.data?.map(({ data }, i) => <ProjectCard project={data} />)}
+    </ul>
+  </section>
+  <Seperator />
+  <Paginate data={page} />
+</MainLayout>

@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+// const isActive = href === pathname || href === pathname.replace(/\/$/, '');
+const isActive = false;
+---
+
+<a href={href} class="text-sm font-medium text-secondary" {...props}>
+  <slot />
+</a>

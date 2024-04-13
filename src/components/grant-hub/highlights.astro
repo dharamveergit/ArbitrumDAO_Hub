@@ -1,0 +1,36 @@
+---
+import { titleCva } from "@/lib/cvas";
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  highlight: {
+    title: string;
+    icon: any;
+  }[];
+}
+
+const { title, highlight } = Astro.props;
+---
+
+<section class="not-prose flex flex-col gap-10 py-5 lg:py-10">
+  <h1 class={titleCva()}>
+    {title}
+  </h1>
+  <div
+    class="grid grid-cols-2 flex-wrap justify-center gap-10 sm:grid-cols-3 md:flex"
+  >
+    {
+      highlight?.map((team) => (
+        <div class="relative flex w-44 flex-col items-center gap-5  xl:w-52">
+          <div class="rounded-lg bg-primary-light p-2">
+            <Image src={team.icon} alt={team.title} class="size-8 xl:size-10" />
+          </div>
+          <h2 class=" text-center text-xs font-medium xl:text-sm">
+            {team.title}
+          </h2>
+        </div>
+      ))
+    }
+  </div>
+</section>

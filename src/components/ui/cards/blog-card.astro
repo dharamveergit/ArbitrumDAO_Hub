@@ -1,0 +1,204 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getEntry, z } from "astro:content";
+
+import classNames from "classnames";
+import Tag from "../links/tag.astro";
+type type = "blog" | "event" | "ambassador";
+
+const schema = z.object({
+  link: z.string().optional(),
+  type: z
+    .union([z.literal("blog"), z.literal("event"), z.literal("ambassador")])
+    .optional(),
+});
+
+interface Props extends z.infer<typeof schema> {
+  blog: any;
+  defaultImage?: string;
+  radius?: "inner" | "outer";
+}
+
+const {
+  blog,
+  type = "blog",
+  link,
+  defaultImage,
+  radius = "outer",
+}: Props = Astro.props;
+
+const image: any = blog?.image
+  ? blog?.image
+  : defaultImage
+    ? defaultImage
+    : type === "ambassador"
+      ? "/default/ambassador.png"
+      : type === "event"
+        ? "/default/events.png"
+        : "/default/blog.png";
+
+const linkClass =
+  "bg-gray-100 rounded-full bg-gray-100 p-1.5 text-secondary hover:text-gray-600";
+
+const href = {
+  href: blog?.externalUrl ?? link,
+  target: blog?.externalUrl ? "_blank" : "_self",
+};
+
+let author = {
+  name: blog?.author?.name ?? blog.label ?? "Anonymous",
+  discription: "",
+};
+if (blog?.author?.id) {
+  const res: any = await getEntry(blog?.author);
+  author = res?.data;
+}
+---
+
+<li
+  class={classNames(
+    "group flex flex-col gap-5  border bg-white p-3 transition-all duration-300 hover:-translate-y-1",
+    radius === "inner"
+      ? "rounded-lg md:rounded-xl lg:rounded-2xl"
+      : "rounded-5xl",
+  )}
+>
+  <a
+    {...href}
+    class={classNames(
+      "overflow-hidden rounded-3xl bg-zinc-100",
+      type === "ambassador" ? "aspect-[5/4] " : "aspect-[16/9] ",
+    )}
+  >
+    <Image
+      class={classNames(
+        "h-full w-full ",
+        type === "ambassador"
+          ? "object-cover "
+          : image.height / image.width > 0.5
+            ? "object-cover"
+            : "object-contain",
+      )}
+      src={image}
+      alt="blog"
+      width={600}
+      height={600}
+    />
+  </a>
+  <div
+    class={classNames(
+      "flex flex-1 flex-col  ",
+      type === "ambassador" ? "gap-1" : "gap-2.5",
+    )}
+  >
+    {
+      type === "blog" && (author?.name || blog?.tag) && (
+        <div class="flex items-center justify-between">
+          <p class="font-os text-xs font-light uppercase tracking-wide text-gray-400 ">
+            {author.name}
+          </p>
+          <Tag>{blog?.tag}</Tag>
+        </div>
+      )
+    }
+    {
+      (type === "event" || type === "ambassador") && (
+        <div class="flex items-center justify-between">
+          <p
+            class={classNames(
+              "  uppercase tracking-wide text-zinc-500",
+              type === "event" ? "text-xxs" : "text-xs",
+            )}
+          >
+            {type === "ambassador" && <span>{blog?.location}</span>}
+            {blog?.date && (
+              <span>
+                <span>
+                  {blog?.date?.toLocaleString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+                {blog?.endDate && (
+                  <span>
+                    {" - "}
+                    {blog?.endDate?.toLocaleString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                )}
+              </span>
+            )}
+          </p>
+          <div class="flex items-center gap-4">
+            {blog?.links?.twitter && (
+              <a
+                href={blog?.links?.twitter}
+                target={"_blank"}
+                class={linkClass}
+              >
+                <Icon name="socials/twitter" class="h-4 w-4" />
+              </a>
+            )}
+            {blog?.links?.github && (
+              <a href={blog?.links?.github} target={"_blank"} class={linkClass}>
+                <Icon name="socials/github" class="h-4 w-4" />
+              </a>
+            )}
+
+            {blog?.links?.discord && (
+              <a
+                href={blog?.links?.discord}
+                target={"_blank"}
+                class={linkClass}
+              >
+                <Icon name="socials/discord" class="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        </div>
+      )
+    }
+    <a
+      {...href}
+      class={classNames(
+        "flex flex-1 flex-col  ",
+        type === "ambassador" ? "gap-1" : "gap-2.5",
+      )}
+    >
+      <h1
+        class={classNames(
+          " text-base font-medium text-zinc-900 md:text-xl lg:text-lg",
+          blog?.description?.trim()?.length === 0 ? "" : "line-clamp-1",
+        )}
+      >
+        {blog?.title}
+      </h1>
+      <p
+        class={classNames(
+          " font-os text-xs font-light text-zinc-500 md:text-sm lg:text-base",
+          type === "ambassador" ? "line-clamp-2" : "line-clamp-4",
+        )}
+      >
+        {blog?.description}
+      </p></a
+    >
+    <div class="mt-auto flex justify-end pt-4">
+      <a
+        {...href}
+        class="-rotate-45 transition-all duration-300 group-hover:rotate-0"
+      >
+        <Icon
+          name="arrow-circle"
+          class={type === "ambassador"
+            ? "size-8 stroke-[0.6] text-zinc-500 md:size-10"
+            : "size-10 stroke-[0.6] text-zinc-500 md:size-14"}
+        />
+      </a>
+    </div>
+  </div>
+</li>

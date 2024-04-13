@@ -1,0 +1,91 @@
+---
+import ContributionDropdown from "@/components/community-hub/contributeDropdown";
+import CommunityHead from "@/components/community-hub/head/community-head.astro";
+import HubTabs from "@/components/community-hub/hubTabs";
+import HubTabsMobile from "@/components/community-hub/hubTabsMobile";
+import FeaturesLayout from "@/components/home/FeaturesLayout.astro";
+import SwiperCards from "@/components/ui/cards/SwiperCards";
+import Seperator from "@/components/ui/seperator.astro";
+import { contributions } from "@/data/schema/community";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+
+const {
+  data: {
+    theHubHomePage: { title, forYou, description },
+  },
+} = await getEntry("homepage", "index");
+
+const events = await getCollection("Community_Events");
+console.log(events);
+
+const ambassadors = await getCollection("Community_Ambassadors");
+const filteredAmbassadors = ambassadors.filter(
+  (ambassador) => ambassador.id.split("/")[1] === "profile.md",
+);
+
+const latestContributions = await getCollection("Community_Contributions");
+
+const latestContributionsFromAmbassadors = ambassadors.filter((contribution) =>
+  contribution.slug.includes("contribution"),
+);
+
+const sortedLatestContributions = latestContributions
+  .sort((a: any, b: any) => b?.data?.date - a.data.date)
+  .map((contribution) => {
+    return {
+      ...contribution,
+      type: "community",
+    };
+  });
+
+const sortedLatestContributionsByAmb = latestContributionsFromAmbassadors
+  .sort((a: any, b: any) => b?.data?.date - a.data.date)
+  .map((contribution) => {
+    return {
+      ...contribution,
+      type: "ambassador",
+    };
+  });
+
+const top10Contributions: any = [
+  ...sortedLatestContributions.slice(0, 3),
+  ...sortedLatestContributionsByAmb.slice(0, 2),
+];
+console.log(sortedLatestContributions, sortedLatestContributions);
+---
+
+<MainLayout title={title} description={description} smooth>
+  <CommunityHead
+    title={title}
+    description={description}
+    buttons={[
+      {
+        text: "Get Started",
+        link: "#get-started",
+        type: "default",
+      },
+    ]}
+  />
+  <Seperator />
+  <FeaturesLayout
+    id="get-started"
+    title={forYou.title}
+    disc={forYou.description}
+  >
+    <HubTabs data={forYou} client:load />
+    <HubTabsMobile data={forYou} client:load />
+  </FeaturesLayout>
+  <Seperator />
+  <ContributionDropdown client:load />
+  <Seperator />
+  <SwiperCards
+    client:load
+    tabs={["Events", "Top Ambassadors", "What's New"]}
+    events={events.slice(0, 5)}
+    title="Highlights"
+    ambassadors={filteredAmbassadors.slice(0, 5)}
+    contributions={top10Contributions}
+  />
+  <Seperator />
+</MainLayout>

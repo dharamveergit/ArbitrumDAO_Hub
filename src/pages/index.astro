@@ -1,0 +1,161 @@
+---
+import FeaturesLayout from "@/components/home/FeaturesLayout.astro";
+import Button from "@/components/ui/button.astro";
+import SwiperCards from "@/components/ui/cards/SwiperCards";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import FeatureCard from "@/components/ui/cards/feature-card.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import * as gallerys from "@/content/homepage/_gallery.md";
+import "@/styles/globals.css";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
+import HomeTabs from "../components/home/HomeTabs.tsx";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import MainLayout from "../layouts/MainLayout.astro";
+const {
+  data: {
+    homepage: { heroBanner, ecosystem, intro, userFeatures },
+  },
+} = await getEntry("homepage", "index");
+
+const data = await getCollection("blogs");
+const events = await getCollection("Community_Events");
+
+const {
+  frontmatter: { gallery },
+} = gallerys;
+---
+
+<MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION} smooth>
+  <!-- banner -->
+  <section
+    class="relative my-5 overflow-hidden rounded-small md:rounded-3xl lg:rounded-5xl"
+  >
+    <Image
+      src="/bg/home-pat.png"
+      alt="Hero image"
+      width={1920}
+      height={611}
+      loading="eager"
+      class="h-[520px] lg:h-[611px]"
+    />
+    <div
+      class="absolute inset-0 flex flex-col items-start justify-center gap-5 px-3 py-10 md:justify-end md:px-5 md:pb-32 lg:gap-10 lg:px-10"
+    >
+      <div class="flex flex-col">
+        <h1 class="text-3xl font-medium md:text-4xl lg:text-5xl">
+          {heroBanner.title}
+        </h1>
+        <p
+          class="font-os text-base font-normal text-zinc-700 md:text-xl lg:text-2xl"
+        >
+          {heroBanner.description}
+        </p>
+      </div>
+      <Button href="#explore-arbitrum-dao"
+        >Explore Arbitrum DAO
+        <Icon
+          name="arrow-circle"
+          height={16}
+          width={16}
+          class={"ml-2 -rotate-45"}
+        />
+      </Button>
+    </div>
+  </section>
+
+  <!-- intro -->
+  <FeaturesLayout disc={intro.description} title={intro.title} variant="large">
+    <Button
+      href="https://docs.arbitrum.foundation/gentle-intro-dao-governance"
+      slot="button"
+      >Read Docs
+      <Icon
+        name="arrow-circle"
+        height={16}
+        width={16}
+        class={"ml-2 -rotate-45"}
+      />
+    </Button>
+    <HomeTabs client:load data={intro} type="intro" size="large" />
+  </FeaturesLayout>
+
+  <Seperator id="explore-arbitrum-dao" />
+  <!-- userFeatures -->
+  <FeaturesLayout
+    title={userFeatures.title}
+    variant="small"
+    disc={userFeatures.description}
+  >
+    <ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {userFeatures.features.map((feature) => <FeatureCard {...feature} />)}
+    </ul>
+  </FeaturesLayout>
+  <Seperator />
+  <!-- ecosystem -->
+
+  <FeaturesLayout disc={ecosystem.description} title={ecosystem.title}>
+    <Button href="https://docs.arbitrum.io/" slot="button"
+      >Get Started
+      <Icon
+        name="arrow-circle"
+        height={16}
+        width={16}
+        class={"ml-2 -rotate-45"}
+      />
+    </Button>
+    <HomeTabs client:load data={ecosystem} type="ecosystem" />
+  </FeaturesLayout>
+
+  <Seperator />
+  <SwiperCards
+    client:load
+    tabs={["Events", "Gallery"]}
+    gallery={gallery.map((image: any) => {
+      return {
+        ...image,
+        img: {
+          src: image.img,
+        },
+      };
+    })}
+    events={events.slice(0, 4)}
+  />
+  <Seperator />
+  <!-- blogs -->
+  <section class="flex flex-col gap-6 py-10">
+    <h1 class="text-lg font-medium lg:text-2xl">Blogs</h1>
+    <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        data
+          ?.slice(0, 3)
+          ?.map(({ data, slug }) => (
+            <BlogCard blog={data} type="blog" link={`/blog/${slug}`} />
+          ))
+      }
+    </ul>
+  </section>
+
+  <section
+    class="flex flex-col gap-11 rounded-small bg-navy p-2 text-white md:gap-20 md:rounded-3xl md:p-4 lg:gap-32 lg:rounded-5xl lg:p-5"
+  >
+    <p class="font-os text-lg font-normal md:text-xl lg:w-1/2 lg:text-3xl">
+      Get Notified about everything Arbitrum DAO with our weekly Newsletter
+    </p>
+    <div
+      class="mt-10 flex justify-end gap-2 md:mt-0 lg:ml-auto lg:mt-0 lg:w-1/2 lg:gap-4"
+    >
+      <input
+        type="text"
+        placeholder="Enter your email"
+        class="w-full flex-1 rounded-xl border border-gray-300 p-2 text-xs md:rounded-2xl md:p-4 md:text-base lg:text-xl"
+      />
+      <button
+        class="whitespace-nowrap rounded-xl bg-primary px-3 text-xs md:rounded-2xl md:text-base lg:text-xl"
+      >
+        Notify Me
+      </button>
+    </div>
+  </section>
+</MainLayout>

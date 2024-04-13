@@ -1,0 +1,40 @@
+---
+import { Icon } from "astro-icon/components";
+import classNames from "classnames";
+
+const { title, description, comingSoon, link } = Astro.props;
+
+console.log(title, description);
+---
+
+<a href={comingSoon ? "/coming-soon" : link}>
+  <li
+    class={classNames(
+      "p-5 rounded-small md:rounded-5xl duration-300 transition-all border hover:-translate-y-1 group flex flex-col gap-4 h-full justify-between",
+      {
+        "opacity-50": comingSoon,
+      },
+    )}
+  >
+    <div class="flex flex-col gap-4">
+      <h1 class="text-base font-medium text-gray-900 md:text-lg lg:text-xl">
+        {title}
+      </h1>
+      <p class="font-os text-xs font-light text-gray-500 md:text-sm">
+        {description}
+      </p>
+    </div>
+    <div class="mt-4 flex items-center justify-between">
+      <p class="text-lg font-medium text-gray-500">
+        {comingSoon ? "Coming Soon" : ""}
+      </p>
+
+      <div class="-rotate-45 transition-all duration-300 group-hover:rotate-0">
+        <Icon
+          name="arrow-circle"
+          class="size-10 stroke-[0.6] text-gray-500 transition-all duration-300 md:size-14"
+        />
+      </div>
+    </div>
+  </li>
+</a>

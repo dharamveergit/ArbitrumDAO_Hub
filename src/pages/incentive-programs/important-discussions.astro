@@ -1,0 +1,73 @@
+---
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import Button from "@/components/ui/button.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { incentiveProgram } from "@/data/links/grant-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { getCollection, getEntry } from "astro:content";
+import { titleCva } from "@/lib/cvas";
+const pathname = Astro.url.pathname;
+
+const programs = await getCollection("Incentive_Programs");
+
+const discussions = programs.filter((program) =>
+  program.slug.startsWith("important-discussions"),
+);
+
+const discussionsHome = {
+  title: "Important Discussions",
+  description:
+    "Discussions on the Arbitrum DAO forum are essential for shaping the platform's growth. They enable community members, developers, and stakeholders to exchange ideas, collaborate, and provide feedback. The forum serves as a hub for communication, transparency, and community engagement, driving innovation and propelling Arbitrum DAO's evolution as a leading blockchain solution.",
+};
+---
+
+<MainLayout
+  image="/meta/incentive.png"
+  title={discussionsHome.title}
+  description={discussionsHome.description}
+>
+  <RoundedNavWrapper nav={incentiveProgram(pathname)}>
+    <GradientHead
+      title={discussionsHome.title}
+      description={discussionsHome.description}
+    />
+  </RoundedNavWrapper>
+  <Seperator />
+  <section
+    class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
+  >
+    <ul class="flex flex-col gap-4">
+      {
+        discussions?.[0]?.data.discussions?.map((data) => (
+          <li
+            class={
+              "flex flex-col gap-3 rounded-xl  bg-white px-4 py-5 md:rounded-2xl md:px-6 lg:rounded-xl"
+            }
+          >
+            <div class="flex gap-5 md:items-center  ">
+              <div class="flex flex-col gap-1.5 md:gap-2.5">
+                <h1 class="text-base font-medium text-zinc-900 md:text-lg lg:text-xl">
+                  {data?.title}
+                </h1>
+                <p class="hidden font-os text-xs text-zinc-500 md:block md:text-base">
+                  {data?.description}
+                </p>
+              </div>
+            </div>
+            <p class=" font-os text-sm text-zinc-500 md:hidden md:text-base">
+              {data?.description}
+            </p>
+            <div class="flex justify-end">
+              <Button variant={"secondary"} arrow href={data.externalUrl}>
+                Read More
+              </Button>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <Seperator />
+</MainLayout>

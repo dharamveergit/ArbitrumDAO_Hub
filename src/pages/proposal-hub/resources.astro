@@ -1,0 +1,171 @@
+---
+import GradientHead from "@/components/ui/gradient-head.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import { Developer_HomePage, Proposal_Resources } from "@/consts";
+import Seperator from "@/components/ui/seperator.astro";
+
+import Faq from "@/components/proposal-hub/faq";
+import { Image } from "astro:assets";
+
+const { questions, steps, learn, title, description } = Proposal_Resources;
+---
+
+<MainLayout
+  title="Arbitrum Proposal Resource Hub"
+  description="Arbitrum proposals play a pivotal role in shaping the future of our decentralized ecosystem. Whether you're a seasoned developer or a curious enthusiast, this resource hub serves as your gateway to understanding and participating in the proposal process."
+>
+  <GradientHead title={title} description={description} className="my-5" />
+  <Seperator />
+
+  {
+    steps.map((step, i) => {
+      return (
+        <>
+          <div class="flex flex-col items-start justify-between gap-x-10 gap-y-10 md:flex-row md:gap-y-0 lg:items-center">
+            <div class="flex w-full flex-col gap-y-4 md:max-w-[387px] lg:max-w-[453px] lg:gap-y-6">
+              <p class="font-os text-[10px] font-light uppercase md:text-xs lg:text-sm">
+                Step {`0${i + 1}`}
+              </p>
+
+              <h3 class="text-lg font-medium md:text-2xl lg:text-3xl">
+                {step.title}
+              </h3>
+
+              {step.description.map((desc) => {
+                return (
+                  <div>
+                    <p class="text-xs font-medium md:text-sm lg:text-base">
+                      {desc.title}
+                    </p>
+                    <p class="mt-2 text-xs font-light md:text-sm lg:text-base">
+                      {desc.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div class="grid grid-cols-1 gap-y-4 md:w-[50%] lg:w-[662px] lg:grid-cols-2 lg:flex-row lg:gap-x-5">
+              {step.cards.map((card, index) => {
+                return (
+                  <a target="_blank" href={card.link}>
+                    <div class="group flex w-full flex-col overflow-hidden rounded-2xl border bg-zinc-100">
+                      <div class="flex items-center gap-x-3 bg-white px-[10px] py-[18px]">
+                        <div>
+                          <Image
+                            width={100}
+                            height={100}
+                            src={card.icon}
+                            alt={`${card.title}-icon`}
+                            class="size-8 object-contain md:size-9 lg:size-10"
+                          />
+                        </div>
+                        <div class="font-sans text-sm font-medium leading-[28px] md:text-base lg:text-lg">
+                          {card.title}
+                        </div>
+                      </div>
+
+                      <div class="flex flex-1 flex-col items-start justify-between p-[10px]">
+                        <p class="font-os text-xs font-light md:text-sm lg:text-base">
+                          {card.description}
+                        </p>
+
+                        <div class="mt-5 flex w-full justify-end  ">
+                          <svg
+                            width="30"
+                            height="30"
+                            class="h-[30px] w-[30px] transition-all duration-300 ease-in-out group-hover:rotate-45"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="https://www.w3.org/2000/svg"
+                          >
+                            <circle cx="15" cy="15" r="14.5" stroke="#71717A" />
+                            <path
+                              d="M11 19L19 11M19 11H12M19 11V18"
+                              stroke="#71717A"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+          <Seperator />
+        </>
+      );
+    })
+  }
+
+  <div class="py-10">
+    <h2 class="text-lg font-medium md:text-xl lg:text-2xl">Learn</h2>
+
+    <div
+      class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3 lg:mt-[80px] lg:gap-8"
+    >
+      {
+        learn.cards.map((card) => {
+          return (
+            <div class="flex h-[220px] flex-col justify-between rounded-[20px] border p-5 md:h-[280px] lg:h-[290px]">
+              <div class="flex flex-col gap-3 lg:gap-4">
+                <div>
+                  <Image
+                    width={100}
+                    height={100}
+                    src={card.icon}
+                    alt={`${card.title}-icon`}
+                    class="size-8 object-contain md:size-10 lg:size-11"
+                  />
+                </div>
+
+                <p class="font-sans text-sm font-medium lg:text-base">
+                  {card.title}
+                </p>
+
+                <p class="text-xs text-zinc-500 lg:text-sm">
+                  {card.description}
+                </p>
+              </div>
+
+              <div class="mt-5 flex w-full justify-end">
+                <a
+                  target="_blank"
+                  href={card.url}
+                  class="h-[30px] w-[30px]"
+                  target="_blank"
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="https://www.w3.org/2000/svg"
+                  >
+                    <circle cx="15" cy="15" r="14.5" stroke="#71717A" />
+                    <path
+                      d="M11 19L19 11M19 11H12M19 11V18"
+                      stroke="#71717A"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <Seperator />
+
+  <div class="mt-[40px]">
+    <Faq client:load questions={questions} />
+  </div>
+</MainLayout>

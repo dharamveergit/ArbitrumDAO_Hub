@@ -1,0 +1,92 @@
+---
+import CommunityContentHead from "@/components/community-hub/head/community-content-head.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("Community_Events");
+
+  return entries.map((entry) => {
+    return {
+      params: { slug: entry.slug },
+      props: {
+        entry,
+        otherEntries: entries
+          .filter((otherEntry) => otherEntry.slug !== entry.slug)
+          .slice(0, 3),
+      },
+    };
+  });
+}
+
+const {
+  entry: { data, render },
+  otherEntries,
+} = Astro.props;
+const image: any = data?.image ?? "/temp3.png";
+const { Content } = await render();
+---
+
+<MainLayout title={data.title} description={data.description}>
+  <CommunityContentHead>
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2.5 md:gap-4">
+          <p class="text-xs font-medium text-zinc-500 lg:text-sm">
+            {data.label}
+          </p>
+        </div>
+        <h1 class="text-2xl font-medium text-zinc-900 lg:text-4xl">
+          {data.title}
+        </h1>
+        <p class="font-os text-xs text-zinc-600 md:text-sm lg:text-base">
+          CA, San Diego
+          <span class="mx-1">•</span>
+          {
+            data.date?.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </p>
+      </div>
+      <Image
+        src={image}
+        alt="Community Content Image"
+        class="aspect-[16/8] w-full rounded-small object-cover md:rounded-3xl lg:rounded-5xl"
+        width="1000"
+        height="1000"
+      />
+    </div>
+  </CommunityContentHead>
+
+  <article class={proseClasses}>
+    <Content />
+  </article>
+
+  <Seperator />
+
+  <div class="flex flex-col gap-6 py-5 lg:py-10">
+    <h1 class="text-lg font-medium text-zinc-900 md:text-xl lg:text-2xl">
+      More from the Community
+    </h1>
+
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+      {
+        otherEntries.map(({ data, slug }) => (
+          <BlogCard
+            blog={data}
+            link={`/community-hub/initiatives/${slug}`}
+            type="event"
+          />
+        ))
+      }
+    </div>
+  </div>
+  <Seperator />
+</MainLayout>

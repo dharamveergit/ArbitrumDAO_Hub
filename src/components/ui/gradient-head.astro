@@ -1,0 +1,98 @@
+---
+interface Props {
+  title?: string;
+  subTitle?: string;
+  description?: string;
+  className?: string;
+  buttons?: {
+    text: string;
+    link: string;
+    type: "default" | "secondary";
+  }[];
+  breadcrumbs?: {
+    text: string;
+    link: string;
+  }[];
+}
+import classNames from "classnames";
+const { title, description, buttons, className, subTitle, breadcrumbs } =
+  Astro.props;
+
+import Button from "./button.astro";
+import { Icon } from "astro-icon/components";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+---
+
+<div
+  class={classNames(
+    "flex flex-col items-start gap-4 rounded-4xl bg-sky px-2 pt-32  md:rounded-3xl md:px-4 lg:rounded-5xl lg:px-5 lg:pt-40",
+    className
+  )}
+>
+  {
+    breadcrumbs && breadcrumbs?.length > 0 && (
+      <div class="hidden items-center gap-1.5 font-os text-sm text-zinc-700 md:flex md:text-base ">
+        {breadcrumbs.map((breadcrumb, index) => {
+          return (
+            <div class="flex items-center gap-1.5">
+              <a
+                href={breadcrumb.link}
+                class="font-os capitalize hover:underline "
+              >
+                {breadcrumb.text}
+              </a>
+              {index !== breadcrumbs.length - 1 && (
+                <ChevronRight className="h-4 w-4" />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    )
+  }
+
+  {
+    breadcrumbs && breadcrumbs?.length > 0 && (
+      <div class="flex items-center gap-1.5  text-sm text-zinc-700 md:hidden md:text-base ">
+        <ChevronLeft className="h-4 w-4" />
+        <a
+          href={breadcrumbs[breadcrumbs.length - 2].link}
+          class="font-os hover:underline "
+        >
+          {breadcrumbs[breadcrumbs.length - 2].text}
+        </a>
+      </div>
+    )
+  }
+
+  <h1 class="text-2xl font-medium md:text-3xl lg:text-4xl">
+    {title}
+    {
+      subTitle && (
+        <span>
+          <br />
+          {subTitle}
+        </span>
+      )
+    }
+  </h1>
+  <p
+    class="mt-2 max-w-2xl font-os text-sm text-gray-500 md:text-base lg:text-lg"
+  >
+    {description}
+  </p>
+
+  {
+    buttons && buttons?.length > 0 && (
+      <div class="mt-6 flex flex-wrap items-start gap-4">
+        {buttons.map((button) => {
+          return (
+            <Button variant={button.type} href={button.link} arrow>
+              {button.text}
+            </Button>
+          );
+        })}
+      </div>
+    )
+  }
+</div>
