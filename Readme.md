@@ -1,29 +1,40 @@
 # Welcome to ArbitrumHub..
+
 ![1beecbc7-1023-45fc-a7fb-be6983747337](https://github.com/HoomanHQ/ArbitrumDAO_Hub/assets/126047668/c6418760-11ed-45de-9582-720e8aad9e7c)
 
-
-- [Welcome to Arbitrum Hub](#welcome-to-arbitrum-hub)
-  - [How to run Arbitrum DAO locally](#how-to-run-arbitrumhub-locally)
+- [Welcome to ArbitrumHub..](#welcome-to-arbitrumhub)
+  - [Welcome to Arbitrum Hub](#welcome-to-arbitrum-hub)
+  - [How to run ArbitrumHub locally](#how-to-run-arbitrumhub-locally)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
   - [Grant Hub](#grant-hub)
-      - [How to list a program to the Grant Hub Allocator](#how-to-list-a-program-to-the-grant-hub-allocator)
-      - [How to list a project to program of a Grant Hub Allocator](#how-to-list-a-project-to-program-of-a-grant-hub-allocator)
-      - [How to list a project to a allocator](#how-to-list-a-project-to-a-allocator)
+    - [How to create a new grant-program under grant-hub](#how-to-create-a-new-grant-program-under-grant-hub)
+    - [How to list an accepted project to grant](#how-to-list-an-accepted-project-to-grant)
+    - [How to list an accepted project to sub-grant program](#how-to-list-an-accepted-project-to-sub-grant-program)
+    - [How to list a project to a allocator](#how-to-list-a-project-to-a-allocator)
+    - [how to create an update blog under grant program](#how-to-create-an-update-blog-undergrantprogram)
   - [Community Hub](#community-hub)
     - [Ambassadors](#ambassadors)
-      - [How add a profile to the ambassadors page](#how-add-a-profile-to-the-ambassadors-page)
+      - [How add a new profile to the ambassadors page](#how-add-a-new-profile-to-the-ambassadors-page)
       - [How to add a contribution to the ambassador profile page](#how-to-add-a-contribution-to-the-ambassador-profile-page)
       - [How to add events to the ambassador profile page](#how-to-add-events-to-the-ambassador-profile-page)
       - [How to add achievements to the ambassador profile page](#how-to-add-achievements-to-the-ambassador-profile-page)
     - [Community Events](#community-events)
       - [How to list an event to the events page](#how-to-list-an-event-to-the-events-page)
       - [How to list an hackathon to the hackathon page](#how-to-list-an-hackathon-to-the-hackathon-page)
-      - [How to list a collaboration to the collaborations page](#how-to-list-a-collaboration-to-the-collaborations-page)
-      - [How to list a job to the jobs page](#how-to-list-a-job-to-the-jobs-page)
-      - [How to list a bounty to the bounties page](#how-to-list-a-bounty-to-the-bounties-page)
-    - [Blogs](#blogs)
-      - [How to list a blog to the blog page](#how-to-list-a-blog-to-the-blog-page)
+    - [How to list a collaboration to the collaborations page](#how-to-list-a-collaboration-to-the-collaborations-page)
+    - [How to list a job to the jobs page](#how-to-list-a-job-to-the-jobs-page)
+    - [How to list a bounty to the bounties page](#how-to-list-a-bounty-to-the-bounties-page)
+  - [Blogs](#blogs)
+    - [How to write a blog to the blog page](#how-to-write-a-blog-to-the-blog-page)
+  - [Working Groups](#working-groups)
+    - [how to create a new workgroup](#how-to-create-a-new-workgroup)
+    - [how to list the transcripts and notes](#how-to-list-the-transcripts-and-notes)
+      - [How to list a note to the meetings page](#how-to-list-a-note-to-the-meetings-page)
+      - [How to list a transcript to the meetings page](#how-to-list-a-transcript-to-the-meetings-page)
+    - [How to create a project under working group](#how-to-create-a-project-under-working-group)
+    - [How to write/update blog under working group](#how-to-writeupdate-blogunderworking-group)
+  - [Contact](#contact)
 
 ## Welcome to Arbitrum Hub
 
@@ -55,7 +66,7 @@ ArbitrumHub is the ultimate DAO synchronization platform designed to streamline 
 
 ## [Grant Hub](https://www.arbitrumhub.io/community-hub/grant-hub)
 
-### How to list a new grant-program to the [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
+### How to create a new grant-program under [grant-hub](https://www.arbitrumhub.io/community-hub/grant-hub)
 
 1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants`
    eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding`
@@ -93,7 +104,31 @@ points:
 ## Write the home page of the grant hub allocator
 ```
 
-### How to list a project to sub-program of a [Grant Hub Allocator](https://www.arbitrumhub.io/community-hub/grant-hub)
+### How to list an accepted project to [grant](https://www.arbitrumhub.io/grant-hub/foundation-grants/grants/)
+
+1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/your-project`
+   eg. `content/Grant_Hub/pluralistic/grants/your-project`
+
+```md
+---
+type: Grant # <- This is the type of the grant and should be Grant
+grantType: "Project" # <- This is the grant type and should be Project
+title: "0xidm's DAO governance analysis and AIP" # <- This is the title of the grant
+status: Completed # <- This is the status of the grant
+walletAddress: "0xidm.eth" # <- This is the wallet address of the grant
+fundingReceived: $149.67 # <- This is the funding received of the grant
+description: "Identified blind spot in STIP data, drafted AIP for resolution, now a live vote on Tally."
+date: 2023-11-25
+externalUrl: "https://explorer.gitcoin.co/#/round/42161/0x3ac78e1ae5086904d53b41c747188216789f59a7/0x3ac78e1ae5086904d53b41c747188216789f59a7-44"
+links:
+  twitter: "https://twitter.com/0x_idm"
+  website: "https://research.svy.gg/_static/reports/arbitrum-dao-stip-results.html"
+  github: "https://github.com/Wizard-Scientific"
+  github2: "https://github.com/0xidm"
+---
+```
+
+### How to list an accepted project to [sub-grant program](https://www.arbitrumhub.io/grant-hub/pluralistic/grants/allo-hackathon/)
 
 1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/sub-grants/your-project`
    eg. `content/Grant_Hub/pluralistic/grants/arbitrum-citizen-retro-funding/sub-grants/your-project`
@@ -133,6 +168,26 @@ externalLink: "#"
 type: "Grant"
 grantType: "Project"
 ---
+```
+
+### how to create an update blog under grant program
+
+1. Add a new file/folder to the `content/Grant_Hub/choose-grant-allocator/grants/choose-grant-program/updates/your-update`
+   eg. `content/Grant_Hub/pluralistic/updates/how-to-add-updates-tutorial`
+
+```md
+---
+title: "How to add updates tutorial"
+label: "UPDATES"
+description: "Click this card to access the GitHub repository. Fork the main branch, create your branch, update the grant information, and submit a merge request on the DAO Sync Platform."
+image: "./banner.png"
+type: "Update"
+externalUrl: "https://github.com/ArbitrumHub/ArbitrumHub"
+---
+
+## Summary
+
+9VRSE, Inc. is a blockchain technology company that is building a decentralized, scalable, and secure platform for the development of virtual reality (VR) and augmented reality (AR) applications. The company is developing a platform that will enable developers to create and deploy VR and AR applications on the blockchain. The platform will provide developers with the tools and infrastructure they need to build and deploy VR and AR applications, and will also provide users with a secure and scalable environment in which to experience VR and AR content.
 ```
 
 ## [Community Hub](https://www.arbitrumhub.io/community-hub/the-hub/)
@@ -325,6 +380,122 @@ Introducing the Arbitrum Arcade, an Onchain Gameathon designed to showcase Web3'
 
 ## Body of the Blog
 ```
+
+## [Working Groups](https://www.arbitrumhub.io/working-groups)
+
+### how to create a new workgroup
+
+1. Add a new file/folder to the `content/Working_Groups`
+   eg. `content/Working_Groups/wg-analytics`
+
+```md
+---
+title: How to contribute # <- This is the title of the workgroup
+description: Click this card to access the GitHub repository. Fork the main branch, create your branch,  update the WG info, and submit a merge request on the DAO Sync Platform. Disclaimer, WG update needs prior approval.
+type: "wg" # <- This is the type of the workgroup and should be wg
+tag: "Update" # <- This is the tag of the workgroup
+githubUrl: "https://github.com"
+discordUrl: "https://discord.com"
+meetingOn: "N/A"
+meetingLink: "https://meet.google.com"
+meetingTiming: "N/A"
+calendarId: "1ed9e6c0a914d3bf87aed85cbc041cfa3ef33a383e425d88cd3fec67e1057ef6@group.calendar.google.com" # <- This is the calendar id of the workgroup
+---
+
+## Member:
+
+- [Member 1](https://github.com)
+- [Member 2](https://github.com)
+- [Member 3](https://github.com)
+- [Member 4](https://github.com)
+- [Member 5](https://github.com)
+
+[View All Members](https://github.com)
+
+## Meeting Schedule:
+
+Bi-weekly on Tuesday at 10:00 AM EST
+
+## Communication Channels:
+
+- [GitHub](https://github.com)
+- [Discord](https://discord.com)
+```
+
+### how to list the transcripts and notes
+
+#### How to list a note to the [meetings page](https://www.arbitrumhub.io/working-groups/wg-analytics/meetings)
+
+1. Add a new file/folder to the `content/Working_Groups`
+   eg. `content/Working_Groups/wg-analytics/meetings/17-10-2023/notes.md`
+
+2. Name of the file should be `notes.md`
+
+```md
+---
+title: "WG Analytics"
+date: 2024-02-17
+type: "notes"
+recordingUrl: "https://www.youtube.com/embed/12345"
+---
+```
+
+#### How to list a transcript to the [meetings page](https://www.arbitrumhub.io/working-groups/wg-analytics/meetings)
+
+1. Add a new file/folder to the `content/Working_Groups`
+   eg. `content/Working_Groups/wg-analytics/meetings/17-10-2023/transcript.md`
+
+2. Name of the file should be `transcript.md`
+
+```md
+---
+title: "WG Analytics"
+date: 2024-02-17
+type: "transcript"
+recordingUrl: "https://www.youtube.com/embed/12345"
+---
+```
+
+### How to create a project under [working group](https://www.arbitrumhub.io/working-groups/wg-analytics/projects)
+
+1. Add a new file/folder to the `content/Working_Groups`
+   eg. `content/Working_Groups/wg-analytics/projects/robotics`
+
+```md
+---
+title: How to add Project? # <- This is the title of the project
+description: WG members can add projects by forking the main repository, updating the projects folder on the copy, and then submitting a merge request to the main branch. Click on the card to see the repository.
+tag: done # <- This is the tag of the project
+status: complete # <- This is the status of the project
+type: project
+externalUrl: https://github.com/ArbitrumHub/ArbitrumHub # <- This is the external url of the project
+---
+```
+
+### How to write/update blog under [working group](https://www.arbitrumhub.io/working-groups/wg-analytics/contributions)
+
+1. Add a new file/folder to the `content/Working_Groups`
+   eg. `content/Working_Groups/wg-analytics/contributions/robotics`
+
+```md
+---
+---
+
+title: "How to contribute"
+description: "Click this card to access the GitHub repository. Fork the main branch, create your branch, update the WG info, and submit a merge request on the DAO Sync Platform. Disclaimer, WG update needs prior approval."
+image: "./banner.png"
+externalUrl: "https://github.com/ArbitrumHub/ArbitrumHub"
+label: "WG Contribution"
+tag: "articles"
+type: "contribution"
+
+---
+
+## EIP 4844: What does it mean for L2 users?
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```
+
 ## Contact
 
 Twitter: [Arbitrum Hub](https://twitter.com/arbitrumDAO_hub)

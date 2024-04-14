@@ -25,12 +25,21 @@ const Transit = ({ item, address }: { item: any; address: string }) => {
   const txInfo = item?.transaction?.txInfo;
 
   const value: any = {
-    ETH: (Number(txInfo?.transferInfo?.value) / 10 ** 18)?.toFixed(2),
-    USDC: (Number(txInfo?.transferInfo?.value) / 10 ** 6)?.toFixed(2),
-    $ARB: (Number(txInfo?.transferInfo?.value) / 10 ** 18)?.toFixed(2),
-    ARB: (Number(txInfo?.transferInfo?.value) / 10 ** 18)?.toFixed(2),
+    ETH: txInfo?.transferInfo?.value
+      ? (Number(txInfo?.transferInfo?.value) / 10 ** 18)?.toFixed(2)
+      : 1,
+    USDC: txInfo?.transferInfo?.value
+      ? (Number(txInfo?.transferInfo?.value) / 10 ** 6)?.toFixed(2)
+      : 1,
+    $ARB: txInfo?.transferInfo?.value
+      ? (Number(txInfo?.transferInfo?.value) / 10 ** 18)?.toFixed(2)
+      : 1,
+    ARB: txInfo?.transferInfo?.value
+      ? (Number(txInfo?.transferInfo?.value) / 10 ** 18)?.toFixed(2)
+      : 1,
   };
 
+  console.log(value);
   return item?.type === "DATE_LABEL" ? (
     <div className="mt-6 ">
       <h1
