@@ -28,8 +28,8 @@
   - [Blogs](#blogs)
     - [How to write a blog to the blog page](#how-to-write-a-blog-to-the-blog-page)
   - [Working Groups](#working-groups)
-    - [how to create a new workgroup](#how-to-create-a-new-workgroup)
-    - [how to list the transcripts and notes](#how-to-list-the-transcripts-and-notes)
+    - [How to create a new workgroup](#how-to-create-a-new-workgroup)
+    - [How to list the transcripts and notes](#how-to-list-the-transcripts-and-notes)
       - [How to list a note to the meetings page](#how-to-list-a-note-to-the-meetings-page)
       - [How to list a transcript to the meetings page](#how-to-list-a-transcript-to-the-meetings-page)
     - [How to create a project under working group](#how-to-create-a-project-under-working-group)
@@ -383,7 +383,7 @@ Introducing the Arbitrum Arcade, an Onchain Gameathon designed to showcase Web3'
 
 ## [Working Groups](https://www.arbitrumhub.io/working-groups)
 
-### how to create a new workgroup
+### How to create a new workgroup
 
 1. Add a new file/folder to the `content/Working_Groups`
    eg. `content/Working_Groups/wg-analytics`
@@ -422,7 +422,7 @@ Bi-weekly on Tuesday at 10:00 AM EST
 - [Discord](https://discord.com)
 ```
 
-### how to list the transcripts and notes
+### How to list the transcripts and notes
 
 #### How to list a note to the [meetings page](https://www.arbitrumhub.io/working-groups/wg-analytics/meetings)
 
