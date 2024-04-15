@@ -10,6 +10,7 @@ interface Props extends VariantProps<typeof buttonVariants> {
   href?: string;
   className?: string;
   arrow?: boolean;
+  id?: string;
 }
 
 const { variant, href, size, className, arrow, ...buttonProps } = Astro.props;
