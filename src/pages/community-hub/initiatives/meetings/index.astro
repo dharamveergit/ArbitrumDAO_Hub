@@ -32,19 +32,13 @@ const deleteDuplicateMeeting = filteredMeetingsByRecording.filter(
 <MainLayout
   title={Events_HomePage.title}
   description={Events_HomePage.description}
+  smooth
 >
   <MainWrapper
     title={Events_HomePage.title}
     description={Events_HomePage.description}
-    buttons={[
-      {
-        text: "Host an Event",
-        link: "/community-hub/get-started",
-        type: "default",
-      },
-    ]}
   />
-  <Calendar />
+
   <Seperator />
   <section class="flex flex-col gap-4 py-5 lg:py-10" id="sub">
     <RoundedNav
@@ -59,6 +53,7 @@ const deleteDuplicateMeeting = filteredMeetingsByRecording.filter(
       variant="children"
     />
     <div class="flex flex-col gap-8 lg:gap-20">
+      <Calendar />
       <Mettings
         client:load
         meetings={deleteDuplicateMeeting}
