@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { roundedNavButtonClass } from "@/lib/cvas";
 
 import TopAmbassadors, { WhatNew } from "@/components/community-hub/what-new";
+import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
 
 const SwiperCards = ({
   tabs,
@@ -49,22 +50,13 @@ const SwiperCards = ({
             })}
           </TabsList>
           <div className=" flex gap-4 text-gray-500 md:gap-8">
-            <a
-              href={"https://github.com/ArbitrumHub/ArbitrumHub"}
-              target="_blank"
-            >
+            <a href={GITHUB_URL} target="_blank">
               {icons?.github}
             </a>
-            <a
-              href={"https://discord.com/invite/arbitrumnewsdao"}
-              target="_blank"
-            >
+            <a href={TWITTER_URL} target="_blank">
               {icons?.twitter}
             </a>
-            <a
-              href={"https://discord.com/invite/arbitrumnewsdao"}
-              target="_blank"
-            >
+            <a href={DISCORD_URL} target="_blank">
               {icons?.discord}
             </a>
           </div>
