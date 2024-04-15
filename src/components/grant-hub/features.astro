@@ -1,0 +1,71 @@
+---
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import { Image } from "astro:assets";
+import Button from "../ui/button.astro";
+import { Icon } from "astro-icon/components";
+import classNames from "classnames";
+interface Props {
+  apply: {
+    title: string;
+    description: string;
+    buttons?: {
+      text: string;
+      link: string;
+      type: string;
+    }[];
+    icons: {
+      image: string;
+      title: string;
+    }[];
+  };
+  className?: string;
+}
+
+const { apply, className } = Astro.props;
+---
+
+<section
+  class={classNames(
+    "not-prose flex flex-col gap-10 py-5 md:flex-row lg:gap-20 lg:py-10",
+    className,
+  )}
+>
+  <div class="flex flex-1 flex-col justify-between gap-4 lg:w-[60%]">
+    <div class="flex flex-col gap-4">
+      <h1 class={titleCva()}>
+        {apply.title}
+      </h1>
+      <p class={paragraphCva()}>
+        {apply.description}
+      </p>
+    </div>
+    <div class="flex gap-5">
+      {
+        apply?.buttons?.map((button) => (
+          <Button href={button.link} variant={button.type as any}>
+            {button.text}
+            <Icon name="arrow-circle" class="ml-2 h-4 w-4 -rotate-45" />
+          </Button>
+        ))
+      }
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col gap-10 lg:w-[40%]">
+    {
+      apply.icons.map((icon) => (
+        <div class="flex  items-center gap-3 lg:gap-4">
+          <Image
+            src={icon.image}
+            alt={icon.title}
+            width={50}
+            height={50}
+            class={"size-8 object-contain lg:size-12"}
+          />
+          <h2 class="md:ext-sm text-xs font-medium lg:text-base">
+            {icon.title}
+          </h2>
+        </div>
+      ))
+    }
+  </div>
+</section>

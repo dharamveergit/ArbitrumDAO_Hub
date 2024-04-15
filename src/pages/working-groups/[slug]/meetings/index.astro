@@ -1,0 +1,59 @@
+---
+import GradientHead from "@/components/ui/gradient-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainWrapper from "@/components/working-groups/Main-Wrapper.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+import Meet from "@/components/calenders/Meetings";
+// import Meetings from "@/components/calenders/Meetings";
+export async function getStaticPaths() {
+  const groups = await getCollection("Working_Groups");
+  const wb = groups.filter((group) => group.data.type === "wg");
+  const meetings = groups.filter(
+    (group) => group.data.type === "notes" || group.data.type === "transcript",
+  );
+
+  const filteredMeetingsByRecording = meetings.filter((meeting) => {
+    return meeting.data.recordingUrl;
+  });
+
+  //only take one from each slug link slug/name
+
+  const deleteDuplicateMeeting = filteredMeetingsByRecording.filter(
+    (meeting, index, self) => {
+      return (
+        index ===
+        self.findIndex(
+          (t) => t.slug.split("/")[2] === meeting.slug.split("/")[2],
+        )
+      );
+    },
+  );
+  return wb.map((group) => {
+    const currentMeetings = deleteDuplicateMeeting.filter(
+      (meeting) => meeting.slug.split("/")[0] === group.slug.split("/")[0],
+    );
+    return {
+      params: {
+        slug: group.slug,
+      },
+      props: { group, meetings: currentMeetings },
+    };
+  });
+}
+
+const {
+  group: { data, slug, render },
+  meetings,
+} = Astro.props;
+---
+
+<MainWrapper data={data} slug={slug} className="border-none">
+  <Meet
+    meetings={meetings}
+    client:load
+    type={data.title}
+    calendarId={data.calendarId}
+  />
+</MainWrapper>

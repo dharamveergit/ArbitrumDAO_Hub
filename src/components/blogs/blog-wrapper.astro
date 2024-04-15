@@ -1,0 +1,132 @@
+---
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import Tag from "@/components/ui/links/tag.astro";
+import BlogSearch from "@/components/ui/search/blog-search";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import type { Page } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import TagSelect from "@/components/blogs/tag-select.tsx";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import Paginate from "../ui/paginate.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  page: Page<CollectionEntry<"blogs">>;
+  all?: boolean;
+}
+
+const { title, description, tags, page, all } = Astro.props;
+
+const posts = await getCollection("blogs");
+const pathname = Astro.url.pathname;
+//find lastest blog
+const pinned = posts?.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+)[0];
+---
+
+<MainLayout image="/meta/blog.png" title={title} description={description}>
+  <section
+    class="my-5 flex flex-col items-center gap-4 rounded-2xl bg-sky px-5 pt-32 md:rounded-3xl md:pt-40 lg:my-10 lg:rounded-5xl"
+  >
+    <h1
+      class="text-center text-xl font-medium text-zinc-900 md:text-3xl lg:text-4xl"
+    >
+      {title}
+    </h1>
+    <p
+      class="max-w-lg text-center font-os text-xs text-zinc-700 md:text-sm lg:text-lg"
+    >
+      {description}
+    </p>
+    <BlogSearch client:load posts={posts} />
+    <div class="flex flex-wrap items-center justify-center gap-2 py-2">
+      <Tag href="/blog/"> All </Tag>
+      {
+        tags?.map((tag) => (
+          <Tag href={`/blog/${tag.toLowerCase()}/1/`}>{tag}</Tag>
+        ))
+      }
+    </div>
+  </section>
+  <Seperator />
+  <div
+    class="group flex w-full flex-col gap-2 transition-all duration-300 hover:-translate-y-1 md:flex-row md:gap-4"
+  >
+    <div
+      class="relative aspect-[16/8] w-full rounded-small border md:rounded-3xl lg:rounded-5xl"
+    >
+      <a href={`/blog/${pinned?.slug}`}>
+        <div
+          class={"h-full w-full  overflow-hidden rounded-small md:rounded-3xl lg:rounded-5xl "}
+        >
+          <Image
+            src={pinned.data?.image}
+            alt={`Image`}
+            class={"h-full  w-full object-cover "}
+            width={1000}
+            height={500}
+          />
+        </div></a
+      >
+    </div>
+
+    <div
+      class="group flex flex-col justify-between gap-4 rounded-small border p-4 md:w-[35rem] md:rounded-3xl lg:rounded-5xl"
+    >
+      <div class="flex flex-col gap-6">
+        <div class="flex justify-between gap-6">
+          <p
+            class="font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
+          >
+            {
+              pinned?.data?.pubDate?.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </p>
+          <Tag href={`/blog/${pinned?.data?.tag.toLowerCase()}/1/`}>
+            {pinned?.data?.tag}
+          </Tag>
+        </div>
+        <h1 class="text-base font-medium md:text-xl lg:text-2xl">
+          {pinned?.data?.title}
+        </h1>
+        <p
+          class="line-clamp-4 font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
+        >
+          {pinned?.data?.description}
+        </p>
+      </div>
+      <div class="mt-8 flex justify-end">
+        <a
+          href={`/blog/${pinned?.slug}`}
+          class="-rotate-45 transition-all duration-300 group-hover:rotate-0"
+        >
+          <Icon
+            name="arrow-circle"
+            class="size-8 stroke-[0.6] text-zinc-500 md:size-14"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+  <Seperator />
+  <section class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      page?.data
+        ?.filter(({ slug }) => slug !== pinned?.slug)
+        ?.map(({ data, slug }) => (
+          <BlogCard blog={data} link={`/blog/${slug}`} />
+        ))
+    }
+  </section>
+  <Paginate data={page} />
+</MainLayout>

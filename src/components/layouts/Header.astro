@@ -1,0 +1,72 @@
+---
+import { headerLinks } from "@/data/links/community-hub";
+import { Icon } from "astro-icon/components";
+import Button from "../ui/button.astro";
+import HamburgerMenu from "../ui/dropdowns/HamburgerMenu";
+import HeaderDropdown from "../ui/dropdowns/HeaderDropdown";
+import HeaderLink from "../ui/links/HeaderLink.astro";
+import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
+---
+
+<header class="sticky top-0 z-[5] bg-white/60 backdrop-blur-sm">
+  <nav class="container flex items-center justify-between py-5">
+    <h2 id="header-left" class="">
+      <a href="/">
+        <Icon name="logos/logo" height={31} width={164} />
+      </a>
+    </h2>
+    <div class="hidden items-center justify-center gap-6 lg:flex">
+      {
+        headerLinks.map((link) => {
+          if (link.sublinks) {
+            return (
+              <HeaderDropdown
+                client:load
+                name={link.name}
+                sublinks={link.sublinks}
+              />
+            );
+          } else {
+            return <HeaderLink href={link.href}>{link.name}</HeaderLink>;
+          }
+        })
+      }
+      <!-- 
+      <HeaderLink href="/community-hub/contributions/Videos"
+        >Community Hub</HeaderLink
+      >
+      <HeaderLink href="/about">Developer Hub</HeaderLink>
+      <HeaderDropdown client:load />
+      <HeaderLink href="/about">Blog</HeaderLink> -->
+    </div>
+    <div class="hidden items-center gap-4 lg:flex" id="header-right">
+      <div class="flex items-center gap-3">
+        <!-- <button>
+          <Icon name="sun" height={20} width={20} />
+        </button> -->
+        <div class="hidden items-center gap-3 xl:flex">
+          <a href={GITHUB_URL} target="_blank">
+            <Icon name="socials/github" height={16} width={16} />
+          </a>
+          <a href={TWITTER_URL} target="_blank">
+            <Icon name="socials/twitter" height={16} width={16} />
+          </a>
+          <a href={DISCORD_URL} target="_blank">
+            <Icon name="socials/discord" height={16} width={16} />
+          </a>
+        </div>
+      </div>
+
+      <Button href="https://docs.arbitrum.io/"
+        >Arbitrum Docs
+        <Icon
+          name="arrow-circle"
+          height={16}
+          width={16}
+          class={"ml-2 -rotate-45"}
+        />
+      </Button>
+    </div>
+    <HamburgerMenu client:load />
+  </nav>
+</header>

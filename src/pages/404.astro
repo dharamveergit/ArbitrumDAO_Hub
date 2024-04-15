@@ -1,0 +1,31 @@
+---
+import Button from "@/components/ui/button.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="Page Not Found"
+  className="flex aspect-[16/25] flex-col items-center justify-center  gap-6 bg-404 bg-[length:2080px_1400px] bg-top bg-no-repeat  px-4 md:aspect-[16/15] md:bg-[length:135dvw_120dvh] md:bg-[left_top_2rem] lg:aspect-[16/8] lg:bg-[length:100dvw_160dvh]  2xl:aspect-[16/6]"
+>
+  <section class="flex flex-col items-center">
+    <h1
+      class="inline-block bg-sky2 bg-clip-text text-center text-[80px] font-bold text-transparent md:text-[104px]"
+    >
+      Oops!
+    </h1>
+    <p class="mt-1 text-xl font-medium text-gray-900 md:text-4xl">
+      404 - Page not found
+    </p>
+
+    <p
+      class="mt-4 text-center font-os text-xs font-light text-gray-700 md:text-lg"
+    >
+      Arbitrum DAO is platform that lets you explore everything arbitrum.
+    </p>
+  </section>
+
+  <section class="flex gap-6">
+    <Button href="/"> Go back Home </Button>
+    <Button href="/" variant="secondary">Contact Support</Button>
+  </section>
+</MainLayout>

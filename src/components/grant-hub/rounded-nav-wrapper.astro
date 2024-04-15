@@ -1,0 +1,19 @@
+---
+import RoundedNav from "../ui/nav/rounded-nav.astro";
+
+const pathname = Astro.url.pathname;
+
+interface Props {
+  nav: {
+    slug: string;
+    title: string;
+    match?: boolean;
+  }[];
+}
+const { nav } = Astro.props;
+---
+
+<section class="my-5 flex flex-col gap-4 md:my-10">
+  <RoundedNav nav={nav} />
+  <slot />
+</section>

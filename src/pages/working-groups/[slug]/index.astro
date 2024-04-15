@@ -1,0 +1,36 @@
+---
+import GradientHead from "@/components/ui/gradient-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainWrapper from "@/components/working-groups/Main-Wrapper.astro";
+import { wgNav } from "@/data/links/workspaces";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const groups = await getCollection("Working_Groups");
+  const wb = groups.filter((group) => group.data.type === "wg");
+
+  return wb.map((group) => {
+    return {
+      params: {
+        slug: group.slug,
+      },
+      props: { group },
+    };
+  });
+}
+
+const {
+  group: { data, slug, render },
+} = Astro.props;
+
+const { Content } = await render();
+---
+
+<MainWrapper data={data} slug={slug} className="px-6 py-10 md:px-10 md:py-14">
+  <article class={proseClasses}>
+    <Content />
+  </article>
+</MainWrapper>

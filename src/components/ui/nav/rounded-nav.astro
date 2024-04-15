@@ -1,0 +1,50 @@
+---
+import classNames from "classnames";
+import MobileRoundedNav from "./mobile-rounded-nav.astro";
+import { roundedNavButtonClass } from "@/lib/cvas";
+interface Props extends VariantProps<typeof roundedNavButtonClass> {
+  nav: { title: string; slug: string; match?: boolean; disabled?: boolean }[];
+
+  className?: string;
+  disabled?: boolean;
+  size?: "default" | "large";
+}
+
+const { nav, className, variant, size } = Astro.props;
+
+import { cva, type VariantProps } from "class-variance-authority";
+---
+
+<div
+  class={classNames(
+    "hidden custom-scrollbar md:flex w-full gap-2 overflow-x-auto",
+    className,
+  )}
+>
+  {
+    nav.map((item) =>
+      item.disabled ? (
+        <button
+          class={classNames(
+            roundedNavButtonClass({ variant, size }),
+            "pointer-events-none cursor-not-allowed text-left text-gray-400",
+          )}
+        >
+          {item?.title}
+        </button>
+      ) : (
+        <a
+          href={`${item.slug}`}
+          class={classNames(roundedNavButtonClass({ variant, size }), {
+            "!bg-navy text-gray-100": item.match && !variant,
+            "!bg-secondary text-white": item.match && variant === "children",
+          })}
+        >
+          {item?.title}
+        </a>
+      ),
+    )
+  }
+</div>
+
+<MobileRoundedNav nav={nav} className={className} variant={variant} />

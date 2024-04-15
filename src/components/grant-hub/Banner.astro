@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+
+const { image } = Astro.props;
+---
+
+<section class="flex flex-col items-center gap-10 md:gap-20 lg:flex-row">
+  <div class={"lg:w-[60%]"}>
+    <slot />
+  </div>
+  <Image
+    src={image}
+    alt="image"
+    class="not-prose aspect-video w-full object-contain md:w-2/3 lg:w-[40%]"
+  />
+</section>

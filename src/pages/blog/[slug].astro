@@ -1,0 +1,173 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import Tag from "@/components/ui/links/tag.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { proseClasses } from "@/lib/classes";
+import Seperator from "@/components/ui/seperator.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import LinkCopy from "@/components/blogs/link-copy";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blogs");
+  const uniqueTag = new Set<string>();
+  allPosts.forEach((post) => {
+    uniqueTag.add(post.data.tag || "");
+  });
+  return allPosts.map((post) => {
+    return {
+      params: {
+        slug: post.slug,
+      },
+      props: {
+        post,
+        tags: Array.from(uniqueTag),
+        similarPosts: allPosts
+          .filter((p) => p.data.tag === post.data.tag && p.slug !== post.slug)
+          .slice(0, 3),
+        otherPosts: allPosts.filter((p) => p.slug !== post.slug).slice(0, 3),
+      },
+    };
+  });
+}
+
+const {
+  post: { data, render },
+  tags,
+  similarPosts,
+  otherPosts,
+} = Astro.props;
+
+const { slug } = Astro.params;
+
+const { Content } = await render();
+
+const heading = "text-lg lg:text-xl font-medium text-zinc-900";
+
+const author = data.author ? await getEntry(data.author) : null;
+console.log(tags);
+---
+
+<MainLayout
+  image={data.image.src}
+  title={data.title}
+  description={data.description}
+>
+  <section
+    class="flex flex-col items-start gap-16 rounded-small bg-sky px-2 py-5 pt-16 md:rounded-3xl md:px-4 md:pt-20 lg:my-10 lg:flex-row lg:rounded-5xl lg:px-5 lg:pt-32"
+  >
+    <div class="flex flex-1 flex-col gap-2">
+      <div class="flex items-center gap-4">
+        <p class="text-xs font-medium text-zinc-400 md:text-base">
+          {author?.data?.name}
+        </p>
+        <Tag href=`/blog/${data.tag.toLowerCase()}/1/`>
+          {data.tag}
+        </Tag>
+      </div>
+      <h1 class="text-2xl font-medium text-zinc-900 md:text-3xl lg:text-4xl">
+        {data.title}
+      </h1>
+      <div
+        class="flex gap-2.5 font-os text-xs text-zinc-600 md:text-sm lg:text-base"
+      >
+        <p class="">5 Min View</p>
+        <p>•</p>
+        <p class="">
+          {data.pubDate.toDateString()}
+        </p>
+      </div>
+      <div
+        class="mb-10 mt-2 aspect-video overflow-hidden rounded-2xl md:rounded-3xl lg:rounded-5xl"
+      >
+        <Image
+          src={data.image}
+          alt={data.title}
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <article class={proseClasses}>
+        <Content />
+      </article>
+    </div>
+    <div class="top-[100px] flex flex-col gap-10 lg:sticky lg:w-[16rem]">
+      <div class="flex flex-col gap-3 md:gap-2">
+        <h1 class={heading}>About Author</h1>
+        <p class="text-xs font-light text-zinc-600 md:text-sm">
+          {author?.data?.description}
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 md:gap-2">
+        <h1 class={heading}>Explore Topics</h1>
+        <div class="flex flex-wrap gap-2">
+          {
+            tags.map((tag) => (
+              <Tag href={`/blog/${tag.toLowerCase()}/1/`}>{tag}</Tag>
+            ))
+          }
+        </div>
+      </div>
+      {
+        similarPosts.length > 0 && (
+          <div class="flex flex-col gap-3 md:gap-2">
+            <h1 class={heading}>Related Blogs</h1>
+            <div class="flex flex-col gap-4">
+              {similarPosts.map((post) => (
+                <a
+                  href={`/blog/${post.slug}/`}
+                  class="font-os text-xs font-light text-zinc-700 hover:underline md:text-sm"
+                >
+                  {post.data.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+      <div class="flex flex-col gap-3 pb-5 md:gap-2 md:pb-0">
+        <h1 class={heading}>Share this Blog</h1>
+        <div class="flex items-center gap-4 text-gray-500">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              data.title,
+            )}&url=${encodeURIComponent(`https://www.arbitrumhub.io/blog/${slug}/`)}`}
+          >
+            <Icon name="socials/twitter" class="size-5" />
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+              `https://www.arbitrumhub.io/blog/${slug}/`,
+            )}`}
+          >
+            <Icon name="socials/facebook" class="size-5" />
+          </a>
+
+          <a
+            href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+              `https://www.arbitrumhub.io/blog/${slug}/`,
+            )}&title=${encodeURIComponent(data.title)}`}
+          >
+            <Icon name="socials/linkedin" class="size-5" />
+          </a>
+          <LinkCopy
+            link={`https://www.arbitrumhub.io/blog/${slug}/`}
+            client:load
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <Seperator />
+
+  <div class="flex flex-col gap-5 lg:py-10">
+    <h1 class="text-xl font-medium text-zinc-900 lg:text-2xl">More Blogs</h1>
+    <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        otherPosts.map(({ data, slug }) => (
+          <BlogCard blog={data} link={`/blog/${slug}/`} />
+        ))
+      }
+    </ul>
+  </div>
+</MainLayout>

@@ -1,0 +1,105 @@
+---
+import GradientHead from "@/components/ui/gradient-head.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import { DelegateHub_Page, Proposal_Homepage } from "@/consts";
+import Seperator from "@/components/ui/seperator.astro";
+
+import QuestionsTabs from "@/components/proposal-hub/delegate-hub/questions-tabs";
+import DelegatesSection from "@/components/proposal-hub/delegate-hub/delegates-section";
+import FeaturesLayout from "@/components/home/FeaturesLayout.astro";
+import HubTabs from "@/components/proposal-hub/hubTabs";
+import HubTabsMobile from "@/components/proposal-hub/hubTabsMobile";
+import Faq from "@/components/proposal-hub/faq";
+import HowToSubmitProposal from "@/components/proposal-hub/how-to-submit-proposal";
+import Button from "@/components/ui/button.astro";
+import RecentDelegatesGrid from "@/components/proposal-hub/recent-delegates-grid";
+
+const {
+  buttons,
+  title,
+  description,
+  getStarted,
+  questionsTabs,
+  questions,
+  howToSubmitProposal,
+} = Proposal_Homepage;
+---
+
+<MainLayout
+  title="Working Groups"
+  description="The working groups are the heart of the OpenJS Foundation. They are the primary mechanism for development and maintenance of the projects and programs under the foundation's umbrella."
+>
+  <GradientHead
+    title={title}
+    description={description}
+    className="my-5"
+    buttons={buttons as any}
+  />
+  <Seperator />
+
+  <FeaturesLayout
+    id="get-started"
+    title={getStarted.title}
+    disc={getStarted.description}
+  >
+    <HubTabs data={getStarted} client:load />
+    <HubTabsMobile data={getStarted} client:load />
+  </FeaturesLayout>
+
+  <div class="py-5 lg:py-10">
+    <section class="rounded-[32px] bg-[#213147] p-6">
+      <div>
+        <h3
+          class="font-sans text-lg font-medium uppercase text-zinc-50 md:text-xl lg:text-2xl"
+        >
+          PROPOSAL RESOURCE HUB
+        </h3>
+        <p
+          class="mt-2 w-[80%] font-os text-2xl font-normal text-zinc-300 md:text-3xl lg:max-w-[834px] lg:text-4xl"
+        >
+          Initiate proposals in Arbitrum DAO with ease and access vital
+          resources conveniently from one centralized guide.
+        </p>
+      </div>
+
+      <div class="mt-10 flex justify-end md:mt-5">
+        <Button
+          href="/proposal-hub/resources"
+          className="bg-white text-zinc-900 hover:bg-gray-100"
+          arrow>View Proposal Resources</Button
+        >
+      </div>
+    </section>
+  </div>
+
+  <Seperator />
+
+  <div class="py-5 lg:py-10">
+    <HowToSubmitProposal client:load steps={howToSubmitProposal.steps as any} />
+  </div>
+
+  <Seperator />
+
+  <FeaturesLayout
+    id="How to vote?"
+    title={"Delegates Empowering Community Voices"}
+    disc={"Dive into comprehensive profiles of our esteemed delegates. Explore their backgrounds, experiences, and notable achievements within the Arbitrum DAO community."}
+  />
+
+  <div class="py-5 lg:py-10">
+    <RecentDelegatesGrid client:load />
+  </div>
+
+  <Seperator />
+
+  <div class="py-5 lg:py-10">
+    <FeaturesLayout
+      id="How to vote?"
+      title={"How to vote?"}
+      disc={"Navigating Voting in the Arbitrum DAO: Explore inclusive participation in on-chain and off-chain voting mechanisms, empowering community members of all roles to engage in decision-making."}
+    />
+
+    <QuestionsTabs client:load data={questionsTabs} type="intro" size="large" />
+  </div>
+</MainLayout>

@@ -1,0 +1,84 @@
+---
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { Community_Contributions } from "@/consts";
+import { contributions } from "@/data/links/community-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"Community_Contributions"> & {
+    subEntries: CollectionEntry<"Community_Contributions">[];
+    tags: string[];
+  };
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection("Community_Contributions");
+  const filteredWithTag = entries.filter((entry) => entry.data.tag);
+
+  return filteredWithTag?.map((entry) => {
+    const subEntries = filteredWithTag?.filter(
+      (item) => item.data.tag === entry.data.tag,
+    );
+    return {
+      params: { tag: entry.data.tag },
+      props: {
+        entry: {
+          subEntries: subEntries,
+        },
+      },
+    };
+  });
+}
+const currentPage = "contributions";
+const { entry } = Astro.props;
+const { subEntries } = entry;
+const { tag } = Astro.params;
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  title={Community_Contributions?.title}
+  description={Community_Contributions?.description}
+>
+  <MainWrapper
+    title={Community_Contributions?.title}
+    description={Community_Contributions?.description}
+  />
+  <Seperator id="sub" />
+  <section class="flex flex-col gap-2 py-5 lg:py-10">
+    <RoundedNav
+      nav={contributions?.map((tag) => {
+        return {
+          title: tag.label,
+          slug: tag.link,
+          match: tag.link.includes(pathname.split("/")[3]),
+        };
+      })}
+      variant="children"
+    />
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        subEntries?.map(({ slug, data }) => {
+          return (
+            <BlogCard
+              blog={data}
+              link={`/community-hub/${currentPage}/${slug}`}
+              defaultImage={
+                pathname.split("/")[3] === "articles"
+                  ? "/default/com-article.png"
+                  : pathname.split("/")[3] === "guides"
+                    ? "/default/community-guides.png"
+                    : "/default/contribution.png"
+              }
+            />
+          );
+        })
+      }
+    </div>
+  </section>
+  <Seperator />
+</MainLayout>

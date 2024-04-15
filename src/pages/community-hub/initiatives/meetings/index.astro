@@ -1,0 +1,69 @@
+---
+import Mettings from "@/components/calenders/Meetings";
+import Calendar from "@/components/community-hub/calendar.astro";
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { Events_HomePage } from "@/consts";
+import { eventsNav } from "@/data/links/community-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+const pathname = Astro.url.pathname;
+
+const meetings = await getCollection("Community_Meetings");
+
+const filteredMeetingsByRecording = meetings.filter((meeting) => {
+  return meeting.data.recordingUrl;
+});
+
+//only take one from each slug link slug/name
+
+const deleteDuplicateMeeting = filteredMeetingsByRecording.filter(
+  (meeting, index, self) => {
+    return (
+      index ===
+      self.findIndex((t) => t.slug.split("/")[0] === meeting.slug.split("/")[0])
+    );
+  },
+);
+---
+
+<MainLayout
+  title={Events_HomePage.title}
+  description={Events_HomePage.description}
+>
+  <MainWrapper
+    title={Events_HomePage.title}
+    description={Events_HomePage.description}
+    buttons={[
+      {
+        text: "Host an Event",
+        link: "/community-hub/get-started",
+        type: "default",
+      },
+    ]}
+  />
+  <Calendar />
+  <Seperator />
+  <section class="flex flex-col gap-4 py-5 lg:py-10" id="sub">
+    <RoundedNav
+      className="w-[70%] md:w-[50%]"
+      nav={eventsNav?.map((tag) => {
+        return {
+          title: tag.label,
+          slug: `${tag.link}#sub`,
+          match: tag.link === pathname,
+        };
+      })}
+      variant="children"
+    />
+    <div class="flex flex-col gap-8 lg:gap-20">
+      <Mettings
+        client:load
+        meetings={deleteDuplicateMeeting}
+        calendarId="5f11a8ce151f0d2f64de29604a986414de770ef2328319e180974b7630042ee6@group.calendar.google.com"
+      />
+    </div>
+  </section>
+</MainLayout>

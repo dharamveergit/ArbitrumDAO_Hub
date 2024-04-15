@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @font-face {
+	font-family: 'Clash Grotesk';
+	src: url('//cdn.fontshare.com/wf/5TRO2J3HJNIQODLQ4CTSMGSLAWSE5YUY/GHXENXHZCDIOE5E73364PNNASRNO3JVW/GLZTRU2GIKPV5HYT3E6HDLWOXAWPNZDV.woff2') format('woff2'),
+		 url('//cdn.fontshare.com/wf/5TRO2J3HJNIQODLQ4CTSMGSLAWSE5YUY/GHXENXHZCDIOE5E73364PNNASRNO3JVW/GLZTRU2GIKPV5HYT3E6HDLWOXAWPNZDV.woff') format('woff'),
+		 url('//cdn.fontshare.com/wf/5TRO2J3HJNIQODLQ4CTSMGSLAWSE5YUY/GHXENXHZCDIOE5E73364PNNASRNO3JVW/GLZTRU2GIKPV5HYT3E6HDLWOXAWPNZDV.ttf') format('truetype');
+	font-weight: 100 200 300 400 500 600 700 800;
+	font-display: swap;
+	font-style: normal;
+  }
+   */
+
+
+@layer components {
+	.container {
+	  @apply mx-auto max-w-[1500px] self-center  px-4 md:px-5 lg:px-10  ;
+	}
+	.border,
+	  .border-r,
+	  .border-l,
+	  .border-t,
+	  .border-b,
+	  .border-x,
+	  .border-y ,
+	  .border-2
+	  {
+	  @apply border-zinc-200 dark:border-[hsl(0,0%,18%)];
+	}
+  }
+
+  @layer base {
+	html {
+	  @apply text-zinc-900;
+	}
+	p{
+		@apply font-os
+	
+	}
+}
+
+
+
+/* custom scroll bar */
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar {
+ 
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d4d4d4;
+
+  border: 3px solid #d4d4d4;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #d4d4d4;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: #d4d4d4;
+}
+

@@ -1,0 +1,9 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="h-px w-full bg-zinc-200" id={id}></div>

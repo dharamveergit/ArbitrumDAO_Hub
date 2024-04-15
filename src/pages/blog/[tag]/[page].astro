@@ -1,0 +1,45 @@
+---
+import BlogWrapper from "@/components/blogs/blog-wrapper.astro";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const allPosts = await getCollection("blogs");
+  const uniqueTag = new Set<string>();
+  allPosts.forEach((post) => {
+    uniqueTag.add(post.data.tag || "");
+  });
+
+  const tags = Array.from(uniqueTag);
+  const formattedPosts = allPosts
+    .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+    .reverse();
+
+  return tags.flatMap((tag) => {
+    return paginate(
+      formattedPosts.filter((post) => post.data.tag === tag),
+      {
+        params: { tag: tag.toLowerCase() },
+        pageSize: 9,
+
+        props: { tags: Array.from(uniqueTag), tag },
+      },
+    );
+  });
+}
+
+const { page, tags, tag } = Astro.props;
+
+console.log(page, tags, tag);
+---
+
+<BlogWrapper
+  page={page}
+  tags={tags}
+  description="A collection of blogs on various topics."
+  title={tag}
+/>

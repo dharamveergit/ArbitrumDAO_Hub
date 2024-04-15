@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import type { PaginateFunction } from "astro";
+import BlogWrapper from "@/components/blogs/blog-wrapper.astro";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const allPosts = await getCollection("blogs");
+  const uniqueTag = new Set<string>();
+  allPosts.forEach((post) => {
+    uniqueTag.add(post.data.tag || "");
+  });
+  const formattedPosts = allPosts
+    .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+    .reverse();
+
+  return paginate(formattedPosts, {
+    props: {
+      tags: Array.from(uniqueTag),
+    },
+    pageSize: 9,
+  });
+}
+
+const { page, tags } = Astro.props;
+---
+
+<BlogWrapper
+  tags={tags}
+  page={page}
+  title="Blogs"
+  all
+  description="Explore the latest blog for deep dives, updates, and analysis on everything Arbitrum DAO."
+/>

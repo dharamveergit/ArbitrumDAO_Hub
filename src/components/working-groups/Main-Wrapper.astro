@@ -1,0 +1,72 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import GradientHead from "../ui/gradient-head.astro";
+import RoundedNav from "../ui/nav/rounded-nav.astro";
+import Seperator from "../ui/seperator.astro";
+import type { CollectionEntry } from "astro:content";
+import classNames from "classnames";
+import { wgNav } from "@/data/links/workspaces";
+import { wg } from "@/data/schema/workspaces";
+interface Props {
+  data?: CollectionEntry<"Working_Groups">["data"];
+  slug?: string;
+  className?: string;
+}
+const { data, slug, className } = Astro.props;
+const pathname = Astro.url.pathname;
+console.log(
+  wgNav(slug ?? "").map((item) => ({
+    match: item.slug.split("/")?.[3]?.includes(pathname.split("/")?.[3]),
+    r2: item.title === "Home" && pathname.split("/")?.[3] === undefined,
+  })),
+);
+---
+
+<MainLayout
+  image="/meta/wg.png"
+  title={data?.title}
+  description={data?.description}
+>
+  <GradientHead
+    className="lg:py-10"
+    title={data?.title}
+    description={data?.description}
+    buttons={[
+      {
+        text: "Github",
+        type: "secondary",
+
+        link: data?.githubUrl || "#",
+      },
+      {
+        text: "Discord",
+        type: "secondary",
+
+        link: data?.discordUrl || "#",
+      },
+    ]}
+  />
+  <Seperator id="sub" />
+
+  <section class="flex flex-col gap-4 py-5 lg:py-10">
+    <RoundedNav
+      variant={"children"}
+      nav={wgNav(slug ?? "").map((item) => ({
+        ...item,
+        slug: `${item.slug}#sub`,
+        match:
+          item?.slug?.split("/")?.[3] === pathname?.split("/")?.[3] ||
+          (item.title === "Home" && pathname === `/working-groups/${slug}/`),
+      }))}
+    />
+    <div
+      class={classNames(
+        "rounded-small border-2  md:rounded-3xl lg:rounded-5xl",
+        className,
+      )}
+    >
+      <slot />
+    </div>
+  </section>
+  <Seperator />
+</MainLayout>

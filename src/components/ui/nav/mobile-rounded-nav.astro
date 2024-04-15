@@ -1,0 +1,62 @@
+---
+import classNames from "classnames";
+interface Props extends VariantProps<typeof buttonClass> {
+  nav: { title: string; slug: string; match?: boolean; disabled?: boolean }[];
+
+  className?: string;
+}
+
+const { nav, className, variant } = Astro.props;
+
+import { cva, type VariantProps } from "class-variance-authority";
+
+const buttonClass = cva(
+  "flex-1 whitespace-nowrap  rounded-full px-3 min-w-[8.5rem] md:min-w-fit md:px-5 py-2 md:py-3",
+  {
+    variants: {
+      variant: {
+        default: "font-medium text-xs md:text-sm bg-primary-sky",
+        children: "font-os  text-xs md:text-sm bg-primary-light",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
+const reorderedNav = nav.sort((a, b) => {
+  if (a.match) return -1;
+  if (b.match) return 1;
+  return 0;
+});
+---
+
+<div
+  class={classNames("md:hidden flex w-full gap-2 overflow-x-auto", className)}
+>
+  {
+    reorderedNav.map((item) =>
+      item.disabled ? (
+        <button
+          class={classNames(
+            buttonClass({ variant }),
+            "pointer-events-none cursor-not-allowed text-left text-gray-400",
+          )}
+        >
+          {item?.title}
+        </button>
+      ) : (
+        <a
+          href={`${item.slug}`}
+          class={classNames(buttonClass({ variant }), {
+            "!bg-navy text-gray-100": item.match && !variant,
+            "!bg-secondary text-white": item.match && variant === "children",
+          })}
+        >
+          {item?.title}
+        </a>
+      ),
+    )
+  }
+</div>

@@ -1,0 +1,192 @@
+---
+import MainWrapperProfile from "@/components/community-hub/main-wrapper-profile.astro";
+import Events from "@/components/swipers/Events";
+import Gallery from "@/components/swipers/Gallery";
+import Button from "@/components/ui/button.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+import { ArrowUpCircle } from "lucide-react";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("Community_Ambassadors");
+
+  return entries.map((entry) => {
+    const contributions = entries.filter(
+      (contribution) =>
+        contribution.slug.split("/")[0] === entry.slug.split("/")[0] &&
+        contribution.id.split("/")[1] === "contributions",
+    );
+
+    const achievements = entries.filter(
+      (activement) =>
+        activement.slug.split("/")[0] === entry.slug.split("/")[0] &&
+        activement.id.split("/")[1] === "achievements",
+    );
+
+    const events = entries.filter(
+      (event) =>
+        event.slug.split("/")[0] === entry.slug.split("/")[0] &&
+        event.id.split("/")[1] === "events",
+    );
+
+    const gallery = entries.filter(
+      (gallery) =>
+        gallery.slug.split("/")[0] === entry.slug.split("/")[0] &&
+        gallery.id.split("/")[1] === "gallery.md",
+    );
+
+    const profile = entries.find(
+      (profile) =>
+        profile.slug.split("/")[0] === entry.slug.split("/")[0] &&
+        profile.id.split("/")[1] === "profile.md",
+    );
+
+    return {
+      params: {
+        slug: entry.slug.split("/")[0],
+        tag: entry.slug.split("/")[1] ?? "contributions",
+      },
+      props: {
+        entry: profile,
+        contributions,
+        achievements,
+        events,
+        gallery,
+      },
+    };
+  });
+}
+
+const { entry, contributions, achievements, events, gallery } = Astro.props;
+const { slug, tag } = Astro.params;
+const mainGallery = gallery
+  .map((g) => g.data)
+  .map((g) => g.gallery)
+  .flat();
+
+console.log(achievements);
+
+const data = entry?.data;
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout title={data?.title} description={data?.description}>
+  <MainWrapperProfile
+    title={data?.title}
+    description={data?.description}
+    location={data?.location}
+    image={data?.image}
+    links={data?.links}
+  />
+
+  <Seperator id="sub" />
+
+  <section class="flex flex-col gap-2 py-5 lg:py-10">
+    <RoundedNav
+      nav={[
+        {
+          title: "Contributions",
+          slug: `/community-hub/ambassadors/near-you/${slug}/contributions/#sub`,
+          match: pathname.includes("contributions"),
+        },
+        {
+          title: "Achievements",
+          slug: `/community-hub/ambassadors/near-you/${slug}/achievements/#sub`,
+          match: pathname.includes("achievements"),
+          disabled: achievements?.length === 0,
+        },
+        {
+          title: "Events",
+          slug: `/community-hub/ambassadors/near-you/${slug}/events/#sub`,
+          match: pathname.includes("events"),
+          disabled: events?.length === 0,
+        },
+        {
+          title: "Gallery",
+          slug: `/community-hub/ambassadors/near-you/${slug}/gallery/#sub`,
+          match: pathname.includes("gallery"),
+          disabled: mainGallery.length === 0,
+        },
+      ]}
+      variant="children"
+    />
+    {
+      tag === "contributions" && (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {contributions?.map(({ slug: slug2, data }) => {
+            return (
+              <BlogCard
+                blog={data}
+                link={`/community-hub/ambassadors/near-you/${slug2}`}
+              />
+            );
+          })}
+        </div>
+      )
+    }
+    {
+      tag === "achievements" && achievements?.length > 0 && (
+        <div class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5">
+          <ul class="flex flex-col gap-4">
+            {achievements.map(({ data, slug: slug2 }, i) => (
+              <li class="flex flex-col gap-3 rounded-xl border bg-white p-4 md:rounded-2xl lg:rounded-xl">
+                <div class="flex gap-5 md:items-center  ">
+                  <img
+                    src={"/temp3.png"}
+                    alt={data.title}
+                    class="size-16 md:size-28"
+                  />
+                  <div class="flex flex-col gap-1.5 md:gap-2.5">
+                    <p class="font-os text-xs text-zinc-500 lg:text-sm">
+                      {data?.label}
+                    </p>
+                    <h1 class="text-lg font-medium text-zinc-600 md:text-xl lg:text-2xl">
+                      {data?.title}
+                    </h1>
+                    <p class="hidden font-os text-xs text-zinc-500 md:block md:text-base">
+                      {data?.description}
+                    </p>
+                  </div>
+                </div>
+                <p class=" font-os text-sm text-zinc-500 md:hidden md:text-base">
+                  {data?.description}
+                </p>
+                <div class="flex justify-end">
+                  <Button
+                    variant={"secondary"}
+                    href={`/community-hub/ambassadors/near-you/${slug2}`}
+                  >
+                    Read More
+                    <ArrowUpCircle className="ml-2 h-4 w-4 rotate-45 stroke-[1] text-zinc-500 " />
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      tag === "events" && (
+        <Events
+          events={
+            events?.map(({ data }) => ({
+              title: data.title ?? "Event Title",
+              description: data.description ?? "Event Description",
+              date: data.date ?? new Date(),
+              image: {
+                src: data.image?.src ?? "https://via.placeholder.com/150",
+              },
+            })) ?? []
+          }
+          client:load
+        />
+      )
+    }
+    {tag === "gallery" && <Gallery gallery={mainGallery} client:load />}
+  </section>
+  <Seperator />
+</MainLayout>

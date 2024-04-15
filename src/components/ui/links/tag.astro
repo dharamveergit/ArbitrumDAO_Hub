@@ -1,0 +1,22 @@
+---
+import { tagCva } from "@/lib/cvas";
+interface Props {
+  href?: string;
+  active?: boolean;
+}
+
+const { href, active } = Astro.props;
+console.log({ href, active });
+---
+
+{
+  href ? (
+    <a href={href} class={tagCva({ active, href: !!href })}>
+      <slot />
+    </a>
+  ) : (
+    <div class={tagCva({ active, href: !!href })}>
+      <slot />
+    </div>
+  )
+}

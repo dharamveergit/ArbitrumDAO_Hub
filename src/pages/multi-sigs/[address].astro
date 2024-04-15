@@ -1,0 +1,23 @@
+---
+import { multisigs } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import Multisig from "@/components/network/miltisig";
+export async function getStaticPaths() {
+  return multisigs?.map((group) => {
+    return {
+      params: {
+        address: group.address,
+      },
+      props: { group },
+    };
+  });
+}
+
+const { group } = Astro.props;
+
+console.log(group);
+---
+
+<MainLayout image="/meta/network.png" title={group.name}>
+  <Multisig client:idle name={group.name} address={group.address} />
+</MainLayout>

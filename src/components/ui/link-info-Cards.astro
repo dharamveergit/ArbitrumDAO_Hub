@@ -1,0 +1,41 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+interface Props {
+  item: {
+    title: string;
+    description: string;
+    image: string;
+    url: string;
+  };
+}
+
+const { item } = Astro.props;
+---
+
+<a href={item.url} target="_blank" class="h-full">
+  <li
+    class="group flex h-full overflow-hidden rounded-small border border-zinc-100"
+  >
+    <div class="flex flex-1 flex-col gap-1 bg-zinc-100 p-3 lg:p-5">
+      <h2 class="text-base font-medium lg:text-lg">{item.title}</h2>
+      <p class="text-sm font-light text-zinc-500 lg:text-base">
+        {item.description}
+      </p>
+    </div>
+    <div class="flex flex-col items-center justify-between gap-3 p-2.5">
+      <Image
+        width={50}
+        height={50}
+        src={item.image}
+        alt={item.title}
+        class="size-12 object-cover"
+      />
+      <Icon
+        name="arrow-circle"
+        class="size-8 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0"
+      />
+    </div>
+  </li>
+</a>

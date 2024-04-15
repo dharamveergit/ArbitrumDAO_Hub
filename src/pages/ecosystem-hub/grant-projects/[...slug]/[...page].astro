@@ -1,0 +1,212 @@
+---
+import ProjectCard from "@/components/grant-hub/project-card.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Paginate from "@/components/ui/paginate.astro";
+import EcosystemSearch from "@/components/ui/search/ecosystem-search";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+import Filter from "@/components/ecosystem/filter";
+import classNames from "classnames";
+import { getUrl, getRemoveUrl } from "@/lib/utils";
+import { X } from "lucide-react";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  function generateNewData(slugs: string[]): string[] {
+    const newData: string[] = [];
+
+    function generateCombinations(index: number, prefix: string): void {
+      if (index === slugs.length) {
+        if (!newData.includes(prefix)) {
+          newData.push(`/${prefix}`);
+        }
+        return;
+      }
+
+      // Include the current slug
+      generateCombinations(
+        index + 1,
+        prefix + (prefix === "" ? "" : "/") + slugs[index],
+      );
+
+      // Exclude the current slug
+      generateCombinations(index + 1, prefix);
+    }
+
+    generateCombinations(0, "");
+
+    return newData;
+  }
+  const grants = await getCollection("Grant_Hub");
+
+  const home = grants.filter(({ data }) => data.type === "Home");
+
+  const slugs = home.map(({ slug }) => slug);
+
+  const res = generateNewData(slugs).filter((d) => d !== "/");
+  const newData = ["/all", ...res];
+
+  return newData.flatMap((s) => {
+    const allPosts = grants.filter(
+      (d) =>
+        d.data.grantType === "Project" &&
+        (s === "/all" || s.split("/").includes(d.slug.split("/")[0])) &&
+        d.data.status !== "Rejected" &&
+        d.data.status !== "Resubmitted" &&
+        d.data.status !== "Reject",
+    );
+    return paginate(allPosts, {
+      params: { slug: s },
+      props: {
+        newData: res,
+      },
+      pageSize: 10,
+    });
+  });
+}
+
+const grants = await getCollection("Grant_Hub");
+const homes = grants.filter(({ data }) => data.type === "Home");
+
+const projects = homes.map(({ data, slug }) => {
+  return {
+    title: data.title,
+    description: data.description ?? "",
+    projects:
+      grants.filter(
+        ({ data, slug: slug2 }) =>
+          data.grantType === "Project" && slug2.includes(slug),
+      ) ?? [],
+
+    projectsLength:
+      grants.filter(
+        ({ data, slug: slug2 }) =>
+          data.grantType === "Project" && slug2.includes(slug),
+      ).length ?? 0,
+  };
+});
+
+const { page, newData } = Astro.props;
+const pathname = Astro.url.pathname;
+const slugs = homes.map(({ slug }) => slug);
+const appliedFilters = slugs.filter((d) => pathname.split("/").includes(d));
+
+console.log(appliedFilters);
+
+const colors = [
+  "bg-green-100",
+  "bg-yellow-100",
+
+  "bg-purple-100",
+  "bg-blue-100",
+];
+
+const textColor = [
+  "text-green-600",
+  "text-yellow-600",
+  "text-purple-600",
+  "text-blue-600",
+];
+
+const borderColor = [
+  "border-green-600",
+  "border-yellow-600",
+  "border-purple-600",
+  "border-blue-600",
+];
+---
+
+<MainLayout
+  image="/meta/ecosystem.png"
+  title="Arbitrum DAO Grant Projects"
+  description="Arbitrum DAO Grants help innovators turn their vision into reality. Arbitrum Grants offers a variety of grant programs designed to support developers building on the Arbitrum platform."
+>
+  <GradientHead
+    title="Arbitrum DAO Grant Projects"
+    description="Arbitrum DAO Grants help innovators turn their vision into reality. Arbitrum Grants offers a variety of grant programs designed to support developers building on the Arbitrum platform."
+  />
+  <Seperator />
+  <section class="flex flex-col gap-5 py-5 md:gap-10 lg:py-10">
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {
+        projects.map((project, index) => (
+          <div class=" flex rounded-small border p-2">
+            <div class="flex flex-1 flex-col gap-3 p-2">
+              <h1
+                class={titleCva({
+                  size: "xs",
+                })}
+              >
+                {project.title}
+              </h1>
+              <p class="line-clamp-4 font-os text-xs font-light text-black lg:text-sm">
+                {project.description}
+              </p>
+            </div>
+            <div
+              id={index === projects.length - 1 ? "filter" : ""}
+              class="flex flex-col items-center gap-1 rounded-r-xl bg-blue-light  p-2"
+            >
+              <p class="text-base font-medium">{project.projectsLength}</p>
+              <h1 class="font-os text-xs font-light">Projects</h1>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="flex flex-col justify-between gap-3 md:flex-row">
+      <h1 class={titleCva()}>Grant Projects</h1>
+      <div class="flex flex-wrap items-center gap-3">
+        {
+          appliedFilters.length > 0
+            ? appliedFilters.map((filter, index) => (
+                <a
+                  href={getUrl(filter, pathname, slugs)}
+                  class={classNames(
+                    "flex items-center gap-2 rounded-full border px-3 py-1.5 font-os text-xs capitalize hover:bg-opacity-80",
+                    {
+                      [colors[index % colors.length]]: true,
+                      [textColor[index % textColor.length]]: true,
+                      [borderColor[index % borderColor.length]]: true,
+                    },
+                  )}
+                >
+                  {filter} <X size={12} />
+                </a>
+              ))
+            : homes.map(({ slug }, index) => (
+                <a
+                  href={getRemoveUrl(slug, pathname, slugs)}
+                  class={classNames(
+                    "flex items-center gap-2 rounded-full border px-3 py-1.5 font-os text-xs capitalize hover:bg-opacity-80",
+                    {
+                      [colors[index % colors.length]]: true,
+                      [textColor[index % textColor.length]]: true,
+                      [borderColor[index % borderColor.length]]: true,
+                    },
+                  )}
+                >
+                  {slug} <X size={12} />
+                </a>
+              ))
+        }
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-5">
+      <EcosystemSearch collection={projects} client:load />
+      <Filter data={slugs} pathname={pathname} client:load />
+    </div>
+    <ul class="grid gap-4 md:grid-cols-2 lg:gap-5">
+      {page.data?.map(({ data }, i) => <ProjectCard project={data} />)}
+    </ul>
+
+    <Paginate data={page} />
+  </section>
+  <Seperator />
+</MainLayout>

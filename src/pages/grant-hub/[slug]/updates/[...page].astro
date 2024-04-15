@@ -1,0 +1,81 @@
+---
+import Card from "@/components/grant-hub/card.astro";
+import Features from "@/components/grant-hub/features.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { GrantHub_Homepage } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+import Paginate from "@/components/ui/paginate.astro";
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import { fundedGrants } from "@/data/links/grant-hub";
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const data = await getCollection("Grant_Hub");
+  const homes = data.filter((d) => d.data.type === "Home");
+  return homes.flatMap((home) => {
+    const allPosts = data.filter(
+      (d) => d.data.type === "Update" && d.slug.split("/")[0] === home.slug,
+    );
+    return paginate(allPosts, {
+      params: { slug: home.slug },
+      props: {
+        home,
+      },
+      pageSize: 9,
+    });
+  });
+}
+
+const {
+  page,
+  home: {
+    slug,
+    data: { title, update },
+  },
+} = Astro.props;
+const pathname = Astro.url.pathname;
+console.log(slug);
+---
+
+<MainLayout
+  image="/meta/grant.png"
+  title={update?.title}
+  description={update?.description}
+>
+  <RoundedNavWrapper nav={fundedGrants(pathname, slug)}>
+    <GradientHead
+      title={update?.title}
+      description={update?.description}
+      breadcrumbs={[
+        { text: "Grant Hub", link: "/grant-hub/" },
+        {
+          text: title,
+          link: `/grant-hub/${slug}/`,
+        },
+        {
+          text: "Update",
+          link: `/grant-hub/${slug}/updates/`,
+        },
+      ]}
+    />
+  </RoundedNavWrapper>
+  <Seperator />
+
+  <section class="flex flex-col gap-4">
+    <h1 class={titleCva()}>Grant Updates</h1>
+    <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        page?.data?.map(({ data, slug: slug2 }) => (
+          <Card blog={data} link={`/grant-hub/${slug2}/`} />
+        ))
+      }
+    </ul>
+  </section>
+  <Paginate data={page} />
+</MainLayout>

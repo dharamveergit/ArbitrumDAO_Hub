@@ -1,0 +1,96 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  location?: string;
+  image?: any;
+  links?: any;
+  type?: "ambassador" | "delegate";
+}
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { communityNav } from "../../data/links/community-hub";
+import RoundedNav from "../ui/nav/rounded-nav.astro";
+const pathname = Astro.url.pathname;
+
+const {
+  title = "Not defined",
+  description,
+  location,
+  image,
+  links,
+  type = "ambassador",
+} = Astro.props;
+
+console.log(links);
+---
+
+<div class="flex flex-col py-5 lg:py-10">
+  <section class="flex flex-col gap-3 md:gap-4">
+    <RoundedNav
+      nav={communityNav?.map((item) => {
+        return {
+          title: item.label ?? "",
+          slug: item.slug,
+          match: pathname?.split("/")?.[2] === item?.slug?.split("/")?.[2],
+        };
+      }) ?? []}
+    />
+    <div
+      class="rounded-4xl bg-sky px-3 pt-32 md:rounded-3xl md:px-4 lg:rounded-5xl lg:px-5"
+    >
+      <div class="flex flex-col gap-10 md:flex-row">
+        <Image
+          class="size-40 rounded-small object-cover md:size-64 md:rounded-3xl lg:size-80 lg:rounded-5xl"
+          src={image
+            ? image
+            : type === "ambassador"
+              ? "/default/ambassador.png"
+              : "/default/delegate.png"}
+          alt={title}
+          width={320}
+          height={320}
+        />
+        <div class="flex flex-col justify-end gap-4">
+          <div>
+            <p
+              class="text-xs uppercase tracking-widest text-zinc-500 md:text-sm lg:text-base"
+            >
+              {location}
+            </p>
+            <h1 class="text-lg font-medium md:text-3xl lg:text-4xl">
+              {title}
+            </h1>
+          </div>
+          <p class="font-os text-xs text-zinc-500 md:text-base lg:text-lg">
+            {description}
+          </p>
+          <div class="mt-4 flex gap-8 text-gray-500">
+            {
+              links?.github && (
+                <a href={links?.github} target="_blank">
+                  <Icon name="socials/github" class="size-4 md:size-8" />
+                </a>
+              )
+            }
+            {
+              links?.twitter && (
+                <a href={links?.twitter} target="_blank">
+                  <Icon name="socials/twitter" class="size-4 md:size-8" />
+                </a>
+              )
+            }
+            {
+              links?.discord && (
+                <a href={links?.discord} target="_blank">
+                  <Icon name="socials/discord" class="size-4 md:size-8" />
+                </a>
+              )
+            }
+          </div>
+        </div>
+      </div>
+      <slot />
+    </div>
+  </section>
+</div>

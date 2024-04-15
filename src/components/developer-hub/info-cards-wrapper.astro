@@ -1,0 +1,58 @@
+---
+import { titleCva } from "@/lib/cvas";
+import Button from "../ui/button.astro";
+import InfoCard from "./info-card.astro";
+import classNames from "classnames";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  data: {
+    subTitle: string;
+    title: string;
+    description: string;
+    buttonTitle?: string;
+    url: string;
+    cards: {
+      image: string;
+      title: string;
+      description: string;
+    }[];
+  };
+
+  grid?: boolean;
+}
+
+const { data, grid } = Astro.props;
+---
+
+<section class="not-prose flex flex-col gap-20 py-5 md:py-10">
+  <div class="flex flex-col">
+    <small
+      class="text-light mb-2 font-os text-xs uppercase tracking-wide lg:text-sm"
+    >
+      {data.subTitle}
+    </small>
+    <h1
+      class={titleCva({
+        size: "lg",
+      })}
+    >
+      {data.title}
+    </h1>
+    <p class="mb-6 mt-3 max-w-2xl text-sm text-zinc-700 lg:text-base">
+      {data.description}
+    </p>
+    <Button href={data.url}>
+      {data.buttonTitle ?? "View in Docs"}
+      <Icon name="arrow-circle" class="ml-2 -rotate-45" />
+    </Button>
+  </div>
+  <ul
+    class={classNames(
+      "grid grid-cols-2 gap-4 md:gap-8  lg:gap-6",
+      grid ? "lg:grid-cols-3" : "lg:grid-cols-4",
+    )}
+  >
+    {data.cards.map((item) => <InfoCard {...item} />)}
+  </ul>
+</section>

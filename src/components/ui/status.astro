@@ -1,0 +1,37 @@
+---
+import classNames from "classnames";
+interface Astro {
+  type: "green" | "red" | "yellow" | "blue";
+}
+
+const { type = "green" } = Astro.props;
+---
+
+<div
+  class={classNames("flex items-center gap-1 rounded-full px-2 py-1", {
+    "bg-green-100": type === "green",
+    "bg-red-100": type === "red",
+    "bg-yellow-100": type === "yellow",
+    "bg-blue-100": type === "blue",
+  })}
+>
+  <div
+    class={classNames("size-2 rounded-full ", {
+      "bg-green-400": type === "green",
+      "bg-red-400": type === "red",
+      "bg-yellow-400": type === "yellow",
+      "bg-blue-400": type === "blue",
+    })}
+  >
+  </div>
+  <p
+    class={classNames("font-os text-xs ", {
+      "text-green-700": type === "green",
+      "text-red-700": type === "red",
+      "text-yellow-700": type === "yellow",
+      "text-blue-700": type === "blue",
+    })}
+  >
+    <slot />
+  </p>
+</div>

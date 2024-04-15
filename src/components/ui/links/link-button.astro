@@ -1,0 +1,23 @@
+---
+import { Icon } from "astro-icon/components";
+import classNames from "classnames";
+
+interface Props {
+  url: string;
+  type: "discord" | "telegram" | "email" | "twitter";
+  className?: string;
+}
+
+const { url, type, className } = Astro.props;
+---
+
+<a
+  href={url}
+  target={"_blank"}
+  class={classNames(
+    "rounded-full border p-1.5 text-secondary shadow hover:text-gray-600",
+    className,
+  )}
+>
+  <Icon name={`socials/${type ?? "twitter"}`} class="h-4 w-4" />
+</a>

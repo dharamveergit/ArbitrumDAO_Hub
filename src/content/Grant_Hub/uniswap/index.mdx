@@ -1,0 +1,168 @@
+---
+title: "Uniswap-Arbitrum : Grant Program"
+description: "the UAGP (Uniswap-Arbitrum Grant Program) is tailored to bolster developers crafting within the Uniswap-Arbitrum ecosystem, emphasizing the augmentation of liquidity, usability, and composability. Prioritizing the acceleration of adoption and showcasing collaborative opportunities between Uniswap and Arbitrum DAO, the program invites developers focusing on decentralized applications (dApps) and infrastructure within this ecosystem to apply for grants. With a substantial grant budget exceeding 1 million ARB tokens, the UAGP is poised to incentivize innovation and propel growth within the Uniswap-Arbitrum community."
+overview: "The Uniswap-Arbitrum Grant Program (UAGP) is a 6-month initiative providing grants from $50,000 to $250,000 in ARB tokens to developers building within the Uniswap-Arbitrum ecosystem. With over 1m $ARB tokens in the program, the goal is to accelerate adoption and highlight the expansive opportunities that emerge in overlapping areas of the two ecosystems."
+type: "Home"
+label: "Managed by Uniswap DAO Working Group Zero"
+points:
+  - Accelerate adoption
+  - Showcases opportunities from Uniswap-Arbitrum collaboration
+image: "./banner.png"
+buttons:
+  - link: "https://uagp.notion.site/Uniswap-Arbitrum-Grant-Program-UAGP-1c1e8b33bc60436993dd65e37d022f9d"
+    text: "Learn More"
+    type: "secondary"
+
+grants:
+  title: Uniswap
+  description: "The Uniswap-Arbitrum Grant Program (UAGP) fosters Uniswap-Arbitrum ecosystem development through grants which aim to enhance liquidity, usability, and composability while strengthening ties between Uniswap and Arbitrum with community input and transparency."
+  buttons:
+    - link: "/grant-hub/uniswap/update"
+      text: "View Updates"
+      type: "default"
+update:
+  title: "Uniswap"
+  description: "Discover the latest updates from the Uniswap Program! Follow the progress of grant recipients as they drive growth in the Arbitrum DAO ecosystem through innovative projects and community initiatives. Stay informed on their advancements in adoption, infrastructure enhancement, and sustainable development efforts. Join in shaping the future of decentralized technology on Arbitrum chains."
+---
+
+import Features from "@/components/grant-hub/features.astro";
+import { titleCva } from "@/lib/cvas";
+
+<Features apply={ {
+    title: "Who Can Apply?",
+    description:
+      "The Arbitrum ecosystem encourages innovation and welcomes participation from diverse builders. We are looking for Individuals or groups who can:",
+
+    buttons: [
+      {
+        link: "https://explorer.gitcoin.co/#/round/42161/0x6142eedc06d80f3b362ce43b4ac52fad679dc850",
+        text: "Apply Here",
+        type: "secondary",
+      },
+      {
+        link: "https://uagp.notion.site/How-to-Apply-98f0daa71c6047fe8ed3e05d82001814",
+        text: "How to Apply",
+        type: "secondary",
+      },
+    ],
+    icons: [
+      {
+        title:
+          "Your project must enhance Uniswap specifically within the Arbitrum ecosystem",
+        image: "/images/grant-hub/connect.svg",
+      },
+      {
+        title: "Funding requests can range from $50,000 to $250,000 USD.",
+        image: "/images/grant-hub/data.svg",
+      },
+      {
+        title: "Project idea based on published RFPs.",
+        image: "/images/grant-hub/code2.svg",
+      },
+    ],
+
+}} />
+
+---
+
+import Teams from "@/components/grant-hub/teams.astro";
+import Team1 from "./assets/team1.png";
+import Team2 from "./assets/team2.png";
+import Team3 from "./assets/team3.png";
+import Team4 from "./assets/team4.png";
+
+<Teams
+  team={[
+    {
+      name: "Bernard - Operational Lead",
+      image: Team1,
+      url: "https://twitter.com/bernard_xyz",
+      designation: "(web3 Studios)",
+    },
+    {
+      name: "Doo Wan Nam - Grant Reviewer  ",
+      image: Team2,
+      url: "https://twitter.com/DooWanNam",
+      designation: "(Stablelab)",
+    },
+    {
+      name: "Jojo - Grant Reviewer ",
+      image: Team3,
+      url: "https://twitter.com/jojo17568",
+      designation: "(JonesDAO)",
+    },
+    {
+      name: "Nneoma - Grant Reviewer",
+      image: Team4,
+      url: "https://twitter.com/nneomack",
+      designation: "(StableLab)",
+    },
+  ]}
+/>
+
+---
+
+### Mission of the UAGP
+
+The UNI/ARB Grant Program (UAGP) aims to:
+
+- Fund High-Impact Projects: The program allocates grants specifically to projects that demonstrate the potential for substantial positive impact on the Uniswap and Arbitrum ecosystems with grants from 50,000 to 250,000 $ARB.
+- Strengthen the Uniswap and Arbitrum Ecosystems: The UNI/ARB Grant Program (UAGP) aims to strengthen the ties and facilitate exchange between the Uniswap and Arbitrum ecosystems.
+- Ensure Transparency and Community Input: The program mandates regular progress reports and seeks community feedback to influence the direction of funded projects.
+
+---
+
+### Project Allocation & Support
+
+UAGP team approach to grant allocation focuses on achieving high impact, which we believe comes from bigger, more substantial projects:
+
+- ocus on $50-250k High-Impact Projects: Our grant allocation strategy prioritizes projects with the potential for significant impact. We concentrate our financial support in the $50,000 to $250,000 ARB range; thereby, project funding requirements will be denominated in USD to mitigate the risk of ARB volatility for builders and guarantee secure financial planning.
+- Providing Non-financial Support: Offer more than just funding by assisting selected projects with selective strategic guidance, and other key areas that contribute to long-term success.
+- Discord Support Channel: We aim to establish a dedicated Discord channel for project to project exchange and bi-monthly office hours for direct support interactions.
+
+---
+
+### Budget
+
+The Uniswap-Arbitrum Grant Program (UAGP) has allocated a total budget of $1,100,000. Within this budget, $924,000 is designated for expected grants to be awarded, covering the costs of projects within the ecosystem. Additionally, the program has set aside $176,000 for operations, including a maximum compensation of $156,000. A portion of the budget, $20,000, is reserved for tooling, subscriptions, and miscellaneous expenses. This comprehensive budgeting approach ensures the effective allocation of resources to support the growth and development of projects within the Uniswap-Arbitrum ecosystem.
+
+---
+
+import Resources from "@/components/grant-hub/Resources.astro";
+
+<Resources
+  resources={[
+    {
+      title: "Learn KPIs & Milestones",
+      description:
+        "Key Performance Indicators (KPIs) are vital metrics that quantify a project's performance and success. They track efficiency and effectiveness in meeting objectives, guiding projects towards strategic goals with tangible evidence of progress.",
+      image: "/images/grant-hub/uniswap/target.png",
+      url: "https://uagp.notion.site/Learn-KPIs-Milestones-cab6e634338d4cefbb2ba7b345d7d879",
+    },
+
+    {
+      title: "Example of Proposal",
+      description:
+        "The program understands that creating a grant proposal can be a nuanced and intricate process. To assist you in crafting an application that aligns with the expectations of the UAGP, we present an example proposal.",
+      image: "/images/grant-hub/uniswap/bulb.png",
+      url: "https://uagp.notion.site/Example-of-Proposal-ab96cd9390714e579ed8d05531d159ae",
+    },
+    {
+      title: "Reporting",
+      description:
+        "The program provides monthly updates on our selections and updates on funded projects. These updates will include general project trajectory and progress toward milestones.",
+      image: "/images/grant-hub/uniswap/graph.png",
+      url: "https://uagp.notion.site/a2eefd803e2c4c93aef2ff545b8bc72e?v=32832e623a5b4a75b3c77b3f1a4fe870",
+    },
+    {
+      title: "Contact",
+      description:
+        "As the program presses forward, it wants to work collaboratively on this — for any insights, questions, or concerns feel free to reach out to Bernard.",
+      image: "/images/grant-hub/uniswap/letterbox.png",
+      url: "https://uagp.notion.site/Contact-00b8134e97394d69babc07020c476435",
+    },
+
+]}
+/>
+
+---

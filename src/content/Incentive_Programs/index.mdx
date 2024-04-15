@@ -1,0 +1,115 @@
+---
+title: Incentive Programs Hub
+description: Welcome to a Comprehensive incentive program Hub consolidating frameworks, discussions, and information, empowering developers with a curated handbook into Arbitrum DAO's ecosystem, and promoting a dynamic ecosystem.
+---
+
+import InfoCardsWrapper from "@/components/developer-hub/info-cards-wrapper.astro";
+import IntroCard from "@/components/grant-hub/Intro-card.astro";
+
+<IntroCard
+subtitle="Information"
+title="What are Incentive Programs?"
+para = {[
+  "Incentive programs in the Arbitrum DAO community refer to initiatives aimed at incentivizing the use of existing Arbitrum DAO dApps and attracting new protocols to the platform. These programs are designed to increase the volume, transactions, users, and liquidity on the Arbitrum network, promoting a dynamic ecosystem. ",
+  "The Arbitrum Short-Term Incentive Program (STIP) is a grant program developed by the Arbitrum Foundation and community to stimulate usage and attract new projects. The STIP has a budget of up to 50,000,000 ARB tokens, which are distributed to eligible projects through a transparent and accountable process. Additionally, the Arbitrum DAO community has proposed a long-term incentive program that aims to distribute ARB tokens to protocols within a 12-week timeframe, with any remaining funds slated to be returned to the DAO"
+]
+}
+
+linkCard={{
+        title: "Forum",
+        description:
+          "The forum is a vital platform for the Arbitrum DAO community to engage, discuss grant programs, and share updates and initiatives. It fosters communication, collaboration, and transparency within the ecosystem regarding grants and related developments.",
+        image: "/arbitrum.svg",
+        url: "https://forum.arbitrum.foundation/c/dao-grant-programs/16/none",
+      }}
+/>
+
+---
+
+<InfoCardsWrapper
+  data={{
+    subTitle: "Program",
+    title: "Short-Term Incentive Program",
+    description:
+      "This proposal outlines a one-time, community-created consensus framework to distribute up to 50,000,000 ARB of DAO-funded incentives targeting active Arbitrum protocols. Aimed at fulfilling short-term community needs, the program plans to allocate DAO-owned ARB towards incentives while ensuring transparent consensus and distribution methods. It spans two voting rounds and provides incentives to eligible programs designed to fund incentives through January 31, 2024.",
+    url: "/incentive-programs/short-term-incentive-program/",
+    buttonTitle: "Learn More",
+    cards: [
+      {
+        title: "Budget Increase",
+        description:
+          "The STIP budget was increased by $23.4 million through a successful community vote, allowing for additional funding to projects.",
+        image: "/images/developer-hub/dapps/tweaks.svg",
+      },
+      {
+        title: "Community Governance",
+        description:
+          "The program operates under the governance of ARB token holders, who participate in decision-making processes of voting on proposals for fund distribution.",
+        image: "/images/developer-hub/dapps/secure.svg",
+      },
+      {
+        title: "Project Support",
+        description:
+          " The STIP aims to support a total of 56 projects, fostering an inclusive environment for emerging builders and promoting diversity within the ecosystem",
+        image: "/images/developer-hub/dapps/custom.svg",
+      },
+      {
+        title: "Controversy and Feedback",
+        description:
+          "Despite budget increase, there were debates within the community regarding the fund distribution, with some members advocating for a more selective allocation.",
+        image: "/images/developer-hub/dapps/star.svg",
+      },
+    ],
+  }}
+/>
+
+---
+
+<InfoCardsWrapper
+  data={{
+    subTitle: "Program",
+    title: "Long-Term Incentive Pilot Program ",
+    description:
+      "The pilot program is for protocols that did not receive ARB during STIP or the Backfund. However, protocols that received grants from the Arbitrum Foundation, Questbook’s grant program, or any other Arbitrum DAO Grants program are eligible to receive Pilot Program funding. Additionally, receiving funding from the Pilot Program does not prohibit protocols from applying for funding from other DAO or foundation programs including the Long Term Incentives Program.",
+    url: "/incentive-programs/long-term-incentive-pilot-program/",
+    buttonTitle: "Learn More",
+    cards: [
+      {
+        title: "Application Template",
+        description:
+          "The LTIPP has an application template that protocols interested in applying for ARB incentives can utilize to submit their proposals.",
+        image: "/images/developer-hub/stylus/rust.svg",
+      },
+      {
+        title: "Updates and Efficiency",
+        description:
+          "SeriousPeople proposed updates to the LTIPP application template to enhance efficiency and align with StableLab's new voting process, aiming to streamline the application process.",
+        image: "/images/developer-hub/stylus/wasm.svg",
+      },
+      {
+        title: "Incentive Opportunities",
+        description:
+          "The LTIPP provides protocols with opportunities to receive incentives in ARB tokens, fostering growth and development within the Arbitrum ecosystem.",
+        image: "/images/developer-hub/stylus/intero.svg",
+      },
+      {
+        title: "Community Engagement",
+        description:
+          "The LTIPP encourages community engagement by offering a structured program for protocols to participate in and benefit from the incentives provided by Arbitrum.",
+        image: "/images/developer-hub/stylus/secure.svg",
+      },
+    ],
+  }}
+/>
+
+---
+
+import CardLink from "@/components/ui/links/card-link.astro";
+
+<CardLink
+  title="Important Discussions"
+  description="Engage in community discussions aimed at improving the vibrant and dynamic platform of Arbitrum DAO."
+  link="/incentive-programs/important-discussions/"
+/>
+
+---

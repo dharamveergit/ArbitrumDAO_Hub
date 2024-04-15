@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/layouts/Header.astro";
+import Footer from "../components/layouts/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import TailwindResponsive from "../components/dev/tailwindresponsive.astro";
+import classNames from "classnames";
+import { ViewTransitions } from "astro:transitions";
+type Props = {
+  title?: string;
+  description?: string;
+  className?: string;
+  image?: string;
+  smooth?: boolean;
+  addClass?: string;
+};
+const { title, description, className, image, smooth, addClass } = Astro.props;
+const isProd = import.meta.env.PROD;
+
+const pathname = Astro.url.pathname;
+
+const metaImage = pathname.includes("/community-hub/")
+  ? "/meta/community-hub.png"
+  : undefined;
+---
+
+<html lang="en" class={classNames(smooth ? "scroll-smooth" : "", "")}>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image ?? metaImage}
+    />
+    <ViewTransitions />
+  </head>
+  <body>
+    <Header />
+    <main
+      class={className
+        ? className
+        : classNames(
+            "container flex  flex-col gap-5 md:gap-11 lg:gap-10 ",
+            addClass,
+          )}
+    >
+      <slot />
+      {!isProd && <TailwindResponsive />}
+    </main>
+    <Footer />
+    <!-- <script is:inline>
+      const aTags = document.querySelectorAll(".prose a");
+      aTags.forEach((a) => {
+        a.setAttribute("target", "_blank");
+      });
+    </script> -->
+  </body>
+</html>

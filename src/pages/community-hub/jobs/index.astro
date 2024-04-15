@@ -1,0 +1,78 @@
+---
+import MainWrapper from "@/components/community-hub/head/community-head.astro";
+import Button from "@/components/ui/button.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection, type CollectionEntry } from "astro:content";
+import classNames from "classnames";
+import NoData from "@/components/ui/placeholders/no-data.astro";
+import { isNoDataAvailable } from "@/lib/utils";
+const community = await getCollection("Community_Jobs");
+console.log(community);
+const isNoJobs = isNoDataAvailable(community);
+---
+
+<MainLayout
+  title={"Jobs"}
+  description={"Browse Through a Variety of Job Openings in the Arbitrum DAO Ecosystem – Your Next Career Move Could be One Click Away!"}
+>
+  <MainWrapper
+    title={"Jobs"}
+    description={"Browse Through a Variety of Job Openings in the Arbitrum DAO Ecosystem – Your Next Career Move Could be One Click Away!"}
+  />
+  <Seperator />
+
+  <section class="flex flex-col gap-2 py-5 md:gap-3 lg:gap-4 lg:py-10" id="sub">
+    <button
+      class="self-start rounded-full bg-primary-light px-3 py-2 font-os text-xs text-zinc-900 md:px-5 md:py-2.5 md:text-sm lg:py-3"
+      >Jobs at arbitrum</button
+    >
+    <div
+      class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
+    >
+      <ul class="flex flex-col gap-4">
+        {
+          isNoJobs ? (
+            <NoData>
+              Currently, no job positions are open. Kindly revisit later for
+              potential updates. We appreciate your understanding. Thank you!{" "}
+            </NoData>
+          ) : (
+            community?.map(({ data, slug }) => (
+              <li
+                class={classNames(
+                  "flex flex-col gap-3 rounded-xl border bg-white p-4 md:rounded-2xl lg:rounded-xl",
+                )}
+              >
+                <div class="flex flex-col gap-2">
+                  <div class="flex  items-center justify-between border-b pb-4 font-os text-sm text-zinc-400 md:text-sm lg:text-base">
+                    <p>{data?.subTitle}</p>
+                    <p>17 Jan, 2024</p>
+                  </div>
+                  <h1 class="text-base font-medium text-zinc-900 md:text-lg lg:text-xl">
+                    {data?.title}
+                  </h1>
+                  <p class="font-os text-xs text-zinc-700 md:text-sm lg:text-base">
+                    {data?.description}
+                  </p>
+                </div>
+                <div class="mt-1 flex justify-end gap-3">
+                  <Button href={data?.link}>
+                    Apply{" "}
+                    <Icon name="arrow-circle" class="ml-3 h-4 w-4 -rotate-45" />
+                  </Button>
+                  <Button href={`/community-hub/jobs/${slug}#sub`}>
+                    View Details{" "}
+                    <Icon name="arrow-circle" class="ml-3 h-4 w-4 -rotate-45" />
+                  </Button>
+                </div>
+              </li>
+            ))
+          )
+        }
+      </ul>
+    </div>
+  </section>
+  <Seperator />
+</MainLayout>

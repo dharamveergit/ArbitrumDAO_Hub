@@ -1,0 +1,45 @@
+---
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { incentiveProgram } from "@/data/links/grant-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { proseClasses } from "@/lib/classes";
+import { getCollection, getEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const pages = (await getCollection("Incentive_Programs")).filter(
+    (page) => !page.slug.startsWith("important-discussions"),
+  );
+  return (
+    pages?.map((page) => ({
+      params: { slug: page.slug },
+      props: page,
+    })) ?? []
+  );
+}
+
+const pathname = Astro.url.pathname;
+
+const { render, data } = await Astro.props;
+const { Content } = await render();
+---
+
+<MainLayout
+  image="/meta/incentive.png"
+  title={data.title}
+  description={data.description}
+  smooth
+>
+  <RoundedNavWrapper nav={incentiveProgram(pathname)}>
+    <GradientHead
+      title={data.title}
+      description={data.description}
+      buttons={data.buttons}
+    />
+  </RoundedNavWrapper>
+  <Seperator />
+  <article class={proseClasses}>
+    <Content />
+  </article>
+</MainLayout>

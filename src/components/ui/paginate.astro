@@ -1,0 +1,62 @@
+---
+import type { PaginateFunction } from "astro";
+
+interface Props {
+  data: {
+    start: number;
+
+    end: number;
+
+    total: number;
+
+    currentPage: number;
+
+    size: number;
+
+    lastPage: number;
+    url: {
+      current: string;
+
+      prev: string | undefined;
+
+      next: string | undefined;
+    };
+  };
+}
+const { data } = Astro.props;
+
+console.log(data);
+---
+
+<div class="flex justify-center">
+  <nav class="flex w-full items-center justify-between rounded-md bg-white">
+    <div class="flex w-full justify-between">
+      {
+        data.url.prev && (
+          <a
+            href={`${data.url.prev}/`}
+            class="flex items-center rounded-md px-2 py-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+          >
+            Previous
+          </a>
+        )
+      }
+      <div class="items -center
+        flex">
+        <span class="rounded-md px-2 py-1 text-sm font-medium text-gray-700">
+          Page {data.currentPage} of {data.lastPage}
+        </span>
+      </div>
+      {
+        data.url.next && (
+          <a
+            href={data.url.next}
+            class="flex items-center rounded-md px-2 py-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+          >
+            Next
+          </a>
+        )
+      }
+    </div>
+  </nav>
+</div>

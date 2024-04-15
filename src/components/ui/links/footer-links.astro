@@ -1,0 +1,137 @@
+---
+import { TWITTER_URL } from "@/consts";
+import { DISCORD_URL } from "@/consts";
+import { TELEGRAM_URL } from "@/consts";
+import { GITHUB_URL } from "@/consts";
+import { Youtube_URL } from "@/consts";
+import { Icon } from "astro-icon/components";
+
+const links = [
+  {
+    title: "Community",
+    subLinks: [
+      {
+        title: "Ambassadors",
+        link: "/community-hub/ambassadors/",
+      },
+      {
+        title: "Contributions",
+        link: "/community-hub/contributions/videos/",
+      },
+      {
+        title: "Collab-Lab",
+        link: "/community-hub/collaborations/",
+      },
+      {
+        title: "Jobs",
+        link: "/community-hub/jobs/",
+      },
+      {
+        title: "Initiatives",
+        link: "/community-hub/initiatives/events/",
+      },
+    ],
+  },
+  {
+    title: "Developers",
+    subLinks: [
+      {
+        title: "Getting Started",
+        link: "/developer-hub",
+      },
+      {
+        title: "References ",
+        link: "https://docs.arbitrum.io/build-decentralized-apps/reference/node-providers",
+      },
+    ],
+  },
+  {
+    title: "Workspaces",
+    subLinks: [
+      {
+        title: "Grant Hub",
+        link: "/grant-hub",
+      },
+      {
+        title: "Proposal Hub",
+        link: "/proposal-hub",
+      },
+      {
+        title: "Work Group Hub",
+        link: "/working-groups",
+      },
+    ],
+  },
+  {
+    title: "Other",
+    subLinks: [
+      {
+        title: "Blog",
+        link: "/blog",
+      },
+
+      {
+        title: "Docs",
+        link: "https://docs.arbitrum.foundation/gentle-intro-dao-governance",
+      },
+      {
+        title: "Brand & Press",
+        link: "/brandkit",
+      },
+    ],
+  },
+];
+
+const socials = [
+  {
+    title: "socials/twitter",
+    link: TWITTER_URL,
+  },
+  {
+    title: "socials/github",
+    link: GITHUB_URL,
+  },
+  {
+    title: "socials/discord",
+    link: DISCORD_URL,
+  },
+  {
+    title: "socials/youtube",
+    link: Youtube_URL,
+  },
+  {
+    title: "socials/telegram",
+    link: TELEGRAM_URL,
+  },
+];
+---
+
+<div class="flex flex-col justify-between gap-20 md:gap-0">
+  <div class="flex justify-between md:gap-10">
+    {
+      links.map((link) => (
+        <div class="flex flex-col gap-4 font-os">
+          <div class="text-xxs font-medium text-zinc-500  md:text-sm">
+            {link.title}
+          </div>
+          <div class="flex flex-col gap-4 text-xxs font-light  text-secondary-light  md:text-xs">
+            {link.subLinks.map((subLink) => (
+              <a href={subLink.link}>{subLink.title}</a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="flex justify-between gap-6 md:ml-auto">
+    {
+      socials.map((social) => (
+        <a href={social.link}>
+          <div class="rounded-full border p-2.5 text-zinc-700 ">
+            <Icon name={social.title} width={20} height={20} />
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>

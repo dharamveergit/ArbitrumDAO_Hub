@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "@/components/ui/button.astro";
+---
+
+<MainLayout
+  title="Coming Soon"
+  description="We are working on something awesome. Stay tuned!"
+  className="bg-gradient-sky flex min-h-[90dvh] flex-col items-center justify-center gap-6 md:min-h-dvh"
+>
+  <Image
+    src="/coming-soon.svg"
+    alt="Coming Soon"
+    class="w-[90%] md:w-[500px]"
+    width="400"
+    height="400"
+  />
+
+  <h1
+    class="inline-block bg-sky2 bg-clip-text py-2 text-center text-3xl font-bold text-transparent md:text-5xl lg:text-6xl"
+  >
+    Coming soon...
+  </h1>
+
+  <section class="flex gap-6">
+    <Button href="/"> Go back Home </Button>
+    <Button href="/" variant="secondary">Contact Support</Button>
+  </section>
+</MainLayout>
