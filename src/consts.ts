@@ -9,7 +9,7 @@ export const SITE_DESCRIPTION =
   "Your Gateway to Decentralized Excellence, Where Community Shapes Tomorrow's Innovations.";
 
 //socials
-export const GITHUB_URL = "https://github.com/ArbitrumHub/ArbitrumHub";
+export const GITHUB_URL = "https://github.com/ArbitrumHub/ArbitrumDAO_Hub";
 export const TWITTER_URL = "https://twitter.com/arbitrumdao_hub";
 export const DISCORD_URL = "https://discord.com";
 export const TELEGRAM_URL = "https://t.me/s/arbitrum?before=53";
