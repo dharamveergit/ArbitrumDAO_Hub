@@ -24,10 +24,24 @@ const isNoJobs = isNoDataAvailable(community);
   <Seperator />
 
   <section class="flex flex-col gap-2 py-5 md:gap-3 lg:gap-4 lg:py-10" id="sub">
-    <button
-      class="self-start rounded-full bg-primary-light px-3 py-2 font-os text-xs text-zinc-900 md:px-5 md:py-2.5 md:text-sm lg:py-3"
-      >Jobs at arbitrum</button
-    >
+    <div class="flex items-center justify-between">
+      <button
+        class="self-start rounded-full bg-primary-light px-3 py-2 font-os text-xs text-zinc-900 md:px-5 md:py-2.5 md:text-sm lg:py-3"
+        >Jobs at arbitrum</button
+      >
+      <p class="font-os text-xs text-zinc-700 md:text-sm lg:text-base">
+        Visit
+        <span class="font-os text-xs underline md:text-sm lg:text-base">
+          <a
+            href="https://jobs.arbitrum.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-primary">jobs.arbitrum.io</a
+          >
+        </span>
+        for more jobs
+      </p>
+    </div>
     <div
       class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
     >

@@ -8,6 +8,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import classNames from "classnames";
 import NoData from "@/components/ui/placeholders/no-data.astro";
 import { isNoDataAvailable } from "@/lib/utils";
+import { GITHUB_URL } from "@/consts";
 const community: Array<CollectionEntry<"Community_Bounties">> =
   await getCollection("Community_Bounties");
 const isNoData = isNoDataAvailable(community);
@@ -22,8 +23,8 @@ const isNoData = isNoDataAvailable(community);
     description={"Arbitrum DAO Bounties incentivize contributors to tackle specific tasks or challenges within the ecosystem. These rewards, paid in cryptocurrencies or the DAO's native token, attract talent and accelerate development. Proposals are publicly announced, interested parties submit solutions, and selected contributors receive bounties upon completion and approval of their work."}
     buttons={[
       {
-        link: "www.github.com",
-        text: "List a Bounty ",
+        link: `${GITHUB_URL}/tree/main/src/content/Community_Bounties`,
+        text: "List a Bounty",
         type: "default",
       },
     ]}
@@ -33,7 +34,7 @@ const isNoData = isNoDataAvailable(community);
   <section class="flex flex-col gap-2 py-5 md:gap-3 lg:gap-4 lg:py-10" id="sub">
     <button
       class="self-start rounded-full bg-primary-light px-3 py-2 font-os text-xs text-zinc-900 md:px-5 md:py-2.5 md:text-sm lg:py-3"
-      >Bounties at Arbitrum</button
+      >Bounties on Arbitrum DAO</button
     >
     <div
       class="flex flex-col gap-5 rounded-small border-[5px] border-zinc-200 bg-zinc-50 p-2 md:rounded-5xl lg:p-5"
