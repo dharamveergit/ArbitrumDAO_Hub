@@ -1,9 +1,9 @@
 ---
-title: "EIP 4844: What does it mean for L2 users?"
-description: "As of this writing, EIP-4844 and the rest of Dencun upgrade are currently scheduled to go live on Ethereum mainnet on March 13."
-image: "./thumb.webp"
-# externalUrl: "https://medium.com/offchainlabs/eip-4844-what-does-it-mean-for-l2-users-5e86ebc4c028"
-label: "Ed Felten"
+title: "How to contribute"
+description: "Click this card to access the GitHub repository. Fork the main branch, create your branch, update the WG info, and submit a merge request on the DAO Sync Platform. Disclaimer, WG update needs prior approval."
+image: "./banner.png"
+externalUrl: "https://github.com/ArbitrumHub/ArbitrumHub"
+label: "WG Contribution"
 tag: "articles"
 type: "contribution"
 ---

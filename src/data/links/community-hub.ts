@@ -111,4 +111,8 @@ export const headerLinks = [
     name: "Blogs",
     href: "/blog",
   },
+  {
+    name: "Forum",
+    href: "https://forum.arbitrum.foundation/",
+  },
 ];

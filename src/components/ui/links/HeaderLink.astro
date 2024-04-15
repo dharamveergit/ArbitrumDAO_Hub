@@ -10,6 +10,11 @@ const { pathname } = Astro.url;
 const isActive = false;
 ---
 
-<a href={href} class="text-sm font-medium text-secondary" {...props}>
+<a
+  href={href}
+  target={String(href)?.startsWith("http") ? "_blank" : undefined}
+  class="text-sm font-medium text-secondary"
+  {...props}
+>
   <slot />
 </a>

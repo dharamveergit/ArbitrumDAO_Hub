@@ -9,6 +9,14 @@ const { href, active } = Astro.props;
 console.log({ href, active });
 ---
 
-<a href={href} class={tagCva({ active, href: !!href })}>
-  <slot />
-</a>
+{
+  href ? (
+    <a href={href} class={tagCva({ active, href: !!href })}>
+      <slot />
+    </a>
+  ) : (
+    <div class={tagCva({ active, href: !!href })}>
+      <slot />
+    </div>
+  )
+}

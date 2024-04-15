@@ -16,6 +16,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useStorage } from "@/lib/store";
 
 ChartJS.register(
   CategoryScale,
@@ -34,6 +35,8 @@ const Transactions = ({
   address: string;
   setTransactions: any;
 }) => {
+  const token = useStorage((state: any) => state?.token);
+  const token2 = useStorage((state: any) => state?.token2);
   const { data, status, error } = useQuery({
     queryFn: async () => {
       const res = await fetch(
@@ -134,10 +137,13 @@ const Transactions = ({
 
               return (
                 acc +
-                (tranfer?.tokenSymbol === "USDC" ||
-                tranfer?.tokenSymbol === "ARB"
+                (tranfer?.tokenSymbol === "USDC"
                   ? inNumber / 10 ** 6
-                  : inNumber / 10 ** 18)
+                  : tranfer?.tokenSymbol === "$ARB" ||
+                      tranfer?.tokenSymbol === "ARB"
+                    ? (inNumber / 10 ** 18) *
+                      (token2?.market_data?.current_price?.usd ?? 1.44)
+                    : inNumber / 10 ** 18)
               );
             }, 0)
           : 0
@@ -155,7 +161,8 @@ const Transactions = ({
                   ? outNumber / 10 ** 6
                   : tranfer?.tokenSymbol === "$ARB" ||
                       tranfer?.tokenSymbol === "ARB"
-                    ? (outNumber / 10 ** 18) * 1.44
+                    ? (outNumber / 10 ** 18) *
+                      (token2?.market_data?.current_price?.usd ?? 1.44)
                     : outNumber / 10 ** 18)
               );
             }, 0)
@@ -199,11 +206,11 @@ const Transactions = ({
         <div className="flex gap-6">
           <div className="flex items-center gap-1.5">
             <div className="h-4 w-4 rounded-full bg-[#12AAFF]"></div>
-            <p className="text-xs font-medium  text-zinc-500">Inflows</p>
+            <p className="text-xs font-medium  text-zinc-500">Inflows (USD)</p>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="h-4 w-4 rounded-full bg-[#213147]"></div>
-            <p className="text-xs font-medium  text-zinc-500">Outflows</p>
+            <p className="text-xs font-medium  text-zinc-500">Outflows (USD)</p>
           </div>
         </div>
         <div className="flex gap-2">

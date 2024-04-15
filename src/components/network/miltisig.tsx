@@ -1,14 +1,16 @@
 import {
   QueryClient,
   QueryClientProvider,
+  useQueries,
   useQuery,
 } from "@tanstack/react-query";
 
 import { titleCva } from "@/lib/cvas";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Signers from "./signers";
 import Transactions from "./transactions";
 import Transit from "./transit";
+import { useStorage } from "@/lib/store";
 
 export const arbAbi =
   "https://safe-transaction-arbitrum.safe.global/api/v1/safes";
@@ -23,6 +25,94 @@ const Multisig = ({ name, address }: { name: string; address: string }) => {
 
 export default Multisig;
 
+const coinGekko = "https://api.coingecko.com/api/v3/coins";
+
+const fetchInterval = 1000 * 60 * 60;
+
+const useEthData = (currentTime: number) => {
+  const token = useStorage((state: any) => state?.token);
+  const [enabled, setEnabled] = useState(false);
+
+  const setToken = useStorage((state: any) => state?.setToken);
+  const { data, status, error } = useQuery({
+    queryFn: async () => {
+      const res = await fetch(`${coinGekko}/ethereum`);
+      return res.json();
+    },
+    queryKey: ["ethData"],
+    refetchInterval: fetchInterval,
+    retry: true,
+    enabled: enabled,
+    initialData: token,
+  });
+
+  useEffect(() => {
+    if (data?.time !== token?.time && data) {
+      setToken({
+        ...data,
+        time: new Date().getTime(),
+      });
+    }
+    if (token === null) {
+      setToken({
+        time: 0,
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!token || currentTime - token?.time > fetchInterval) {
+      setEnabled(true);
+    } else {
+      setEnabled(false);
+    }
+  }, [currentTime, token]);
+
+  return { data, status, error };
+};
+
+const useArbData = (currentTime: number) => {
+  const token = useStorage((state: any) => state?.token2);
+  const [enabled, setEnabled] = useState(false);
+
+  const setToken = useStorage((state: any) => state?.setToken2);
+  const { data, status, error } = useQuery({
+    queryFn: async () => {
+      const res = await fetch(`${coinGekko}/arbitrum`);
+      return res.json();
+    },
+    queryKey: ["arbData"],
+    refetchInterval: fetchInterval,
+    retry: true,
+    enabled: enabled,
+    initialData: token,
+  });
+
+  useEffect(() => {
+    if (data?.time !== token?.time && data) {
+      setToken({
+        ...data,
+        time: new Date().getTime(),
+      });
+    }
+    if (token === null) {
+      setToken({
+        time: 0,
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!token || currentTime - token?.time > fetchInterval) {
+      setEnabled(true);
+    } else {
+      setEnabled(false);
+    }
+  }, [currentTime, token]);
+
+  return { data, status, error };
+};
+
 const Page = ({ name, address }: { name: string; address: string }) => {
   const { data, status, error } = useQuery({
     queryFn: async () => {
@@ -33,6 +123,31 @@ const Page = ({ name, address }: { name: string; address: string }) => {
     },
     queryKey: ["balances", address],
   });
+
+  const [currentTime, setCurrentTime] = useState(new Date().getTime());
+  const {
+    data: ethData,
+    status: ethStatus,
+    error: ethError,
+  } = useEthData(currentTime);
+
+  const {
+    data: arbData,
+    status: arbStatus,
+    error: arbError,
+  } = useArbData(currentTime);
+
+  console.log(
+    ethData?.market_data?.current_price?.usd,
+    arbData?.market_data?.current_price?.usd,
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().getTime());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const eth =
     data?.length > 0
@@ -51,8 +166,8 @@ const Page = ({ name, address }: { name: string; address: string }) => {
         10 ** 6
       : 0;
 
-  const ethToUsd = eth * 3335.93;
-  const arbToUsd = arb * 1.44;
+  const ethToUsd = eth * ethData?.market_data?.current_price?.usd ?? 3335.93;
+  const arbToUsd = arb * arbData?.market_data?.current_price?.usd ?? 1.44;
   const total = ethToUsd + arbToUsd + usdc;
 
   const convertToMillionOrThousand = (value: number) => {
