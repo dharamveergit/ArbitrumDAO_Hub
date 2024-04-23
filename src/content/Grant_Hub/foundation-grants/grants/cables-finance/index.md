@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Cables Finance
 category:
   - Defi
 ApprovedOn: Q1 2024

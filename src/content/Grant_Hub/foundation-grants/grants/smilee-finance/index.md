@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Smilee Finance
 category:
   - Defi
 ApprovedOn: Q1 2024

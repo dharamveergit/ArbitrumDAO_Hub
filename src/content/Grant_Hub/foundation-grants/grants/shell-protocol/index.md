@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Shell Protocol
 category:
   - Defi
 ApprovedOn: Q1 2024

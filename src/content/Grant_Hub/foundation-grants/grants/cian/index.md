@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: CIAN
 category:
   - Defi
 ApprovedOn: Q1 2024

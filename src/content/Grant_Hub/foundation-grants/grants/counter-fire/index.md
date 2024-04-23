@@ -1,9 +1,9 @@
 ---
-title: "Counter Fire"
+title: Counter Fire
 category:
-  - "Gaming"
-ApprovedOn: "Q4 2023"
-externalLink: "#"
-type: "Grant"
-grantType: "Project"
+  - Gaming
+ApprovedOn: Q1 2024
+externalUrl: "#"
+type: Grant 
+grantType: Project
 ---

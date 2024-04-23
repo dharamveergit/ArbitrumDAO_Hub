@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Surf Protocol
 category:
   - Defi
 ApprovedOn: Q1 2024

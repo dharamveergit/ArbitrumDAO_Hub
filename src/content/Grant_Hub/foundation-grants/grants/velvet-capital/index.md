@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Velvet Capital
 category:
   - Defi
 ApprovedOn: Q1 2024
