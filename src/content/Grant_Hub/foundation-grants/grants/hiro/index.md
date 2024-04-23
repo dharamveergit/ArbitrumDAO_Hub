@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Hiro
 category:
   - Defi
 ApprovedOn: Q1 2024

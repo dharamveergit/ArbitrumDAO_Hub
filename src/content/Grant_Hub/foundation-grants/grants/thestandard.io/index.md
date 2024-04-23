@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: TheStandard.io
 category:
   - Defi
 ApprovedOn: Q1 2024

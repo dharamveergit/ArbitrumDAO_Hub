@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: MugglePay
 category:
-  - Defi
+  - Infrastructure
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

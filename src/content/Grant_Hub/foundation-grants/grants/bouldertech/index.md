@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: BoulderTech
 category:
-  - Defi
+  - RWA
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

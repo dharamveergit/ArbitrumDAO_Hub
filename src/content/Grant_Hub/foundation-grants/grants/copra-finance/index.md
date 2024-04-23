@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Copra Finance
 category:
   - Defi
 ApprovedOn: Q1 2024

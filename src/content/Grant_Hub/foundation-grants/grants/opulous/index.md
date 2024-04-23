@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: Opulous
 category:
-  - Defi
+  - NFT
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

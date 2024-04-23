@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: Smol Age
 category:
-  - Defi
+  - Gaming
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

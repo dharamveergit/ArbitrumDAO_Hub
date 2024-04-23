@@ -26,20 +26,28 @@ const { apply, className } = Astro.props;
 
 <section
   class={classNames(
-    "not-prose flex flex-col gap-10 py-5 md:flex-row lg:gap-20 lg:py-10",
+    " flex flex-col gap-10 py-5 md:flex-row lg:gap-20 lg:py-10",
     className,
   )}
 >
   <div class="flex flex-1 flex-col justify-between gap-4 lg:w-[60%]">
     <div class="flex flex-col gap-4">
-      <h1 class={titleCva()}>
+      <h1 class={classNames(titleCva(), "not-prose")}>
         {apply.title}
       </h1>
-      <p class={paragraphCva()}>
-        {apply.description}
-      </p>
+      {
+        apply?.description ? (
+          <p class={classNames(paragraphCva(), "not-prose")}>
+            {apply.description}
+          </p>
+        ) : (
+          <div class="[&>p]:my-0">
+            <slot />
+          </div>
+        )
+      }
     </div>
-    <div class="flex gap-5">
+    <div class="not-prose flex gap-5">
       {
         apply?.buttons?.map((button) => (
           <Button href={button.link} variant={button.type as any}>
@@ -50,7 +58,7 @@ const { apply, className } = Astro.props;
       }
     </div>
   </div>
-  <div class="flex flex-1 flex-col gap-10 lg:w-[40%]">
+  <div class="not-prose flex flex-1 flex-col gap-10 lg:w-[40%]">
     {
       apply.icons.map((icon) => (
         <div class="flex  items-center gap-3 lg:gap-4">
