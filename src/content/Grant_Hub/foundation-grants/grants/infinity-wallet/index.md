@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: Infinity Wallet
 category:
-  - Defi
+  - Infrastructure
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

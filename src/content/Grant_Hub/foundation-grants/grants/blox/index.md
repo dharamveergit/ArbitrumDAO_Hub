@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: BLOX
 category:
   - Defi
 ApprovedOn: Q1 2024

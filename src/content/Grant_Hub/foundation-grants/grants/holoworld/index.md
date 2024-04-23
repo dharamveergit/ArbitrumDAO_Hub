@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: Holoworld
 category:
-  - Defi
+  - Social
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

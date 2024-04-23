@@ -1,5 +1,5 @@
 ---
-title: DAOStar
+title: Whitematrix
 category:
   - Defi
 ApprovedOn: Q1 2024

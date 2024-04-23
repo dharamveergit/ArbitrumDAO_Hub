@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: TurtleShell
 category:
-  - Defi
+  - Developer Tooling
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 

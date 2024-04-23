@@ -1,7 +1,7 @@
 ---
-title: DAOStar
+title: Space and Time
 category:
-  - Defi
+  - Infrastructure
 ApprovedOn: Q1 2024
 externalUrl: "#"
 type: Grant 
