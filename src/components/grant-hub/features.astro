@@ -47,7 +47,7 @@ const { apply, className } = Astro.props;
         )
       }
     </div>
-    <div class="not-prose flex gap-5">
+    <div class="not-prose flex flex-wrap gap-5">
       {
         apply?.buttons?.map((button) => (
           <Button href={button.link} variant={button.type as any}>

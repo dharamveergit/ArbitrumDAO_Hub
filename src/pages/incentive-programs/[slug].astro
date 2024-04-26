@@ -1,8 +1,9 @@
 ---
 import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
 import GradientHead from "@/components/ui/gradient-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
 import Seperator from "@/components/ui/seperator.astro";
-import { incentiveProgram } from "@/data/links/grant-hub";
+import { incentiveProgram, incentiveGrants } from "@/data/links/grant-hub";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { proseClasses } from "@/lib/classes";
 import { getCollection, getEntry } from "astro:content";
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
 
 const pathname = Astro.url.pathname;
 
-const { render, data } = await Astro.props;
+const { render, data, slug } = await Astro.props;
 const { Content } = await render();
 ---
 
@@ -39,6 +40,8 @@ const { Content } = await render();
     />
   </RoundedNavWrapper>
   <Seperator />
+
+  <RoundedNav nav={incentiveGrants(pathname, slug)} />
   <article class={proseClasses}>
     <Content />
   </article>

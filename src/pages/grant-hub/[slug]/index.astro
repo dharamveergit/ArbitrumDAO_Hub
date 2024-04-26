@@ -27,6 +27,7 @@ export async function getStaticPaths() {
           d.slug.split("/")[0] === page.slug &&
           !d.data.subCollection,
       );
+
       return {
         params: { slug: page.slug },
         props: {
@@ -49,6 +50,29 @@ const button = {
   link: `/grant-hub/${slug}/grants/`,
   type: "default",
 };
+
+let nav = fundedGrants(pathname, slug);
+console.log(!data?.grants?.title && !data?.update?.title);
+
+if (!data?.grants?.title && !data?.update?.title) {
+  nav = nav?.map((n, i) => ({ ...n, disabled: i !== 0 ? true : false }));
+}
+
+if (data?.grants?.title && !data?.update?.title) {
+  nav = nav?.map((n, i) => ({
+    ...n,
+    disabled: i === 2 ? true : false,
+  }));
+}
+
+if (!data?.grants?.title && data?.update?.title) {
+  nav = nav?.map((n, i) => ({
+    ...n,
+    disabled: i === 1 ? true : false,
+  }));
+}
+
+console.log(nav);
 ---
 
 <MainLayout
@@ -56,11 +80,15 @@ const button = {
   title={data.title}
   description={data.description}
 >
-  <RoundedNavWrapper nav={fundedGrants(pathname, slug)}>
+  <RoundedNavWrapper nav={nav}>
     <GradientHead
       title={data.title}
       description={data.description}
-      buttons={data?.buttons ? ([button, ...data?.buttons] as any) : [button]}
+      buttons={data?.buttons && data?.grants?.title
+        ? ([button, ...data?.buttons] as any)
+        : data?.grants?.title
+          ? [button]
+          : data?.buttons}
       breadcrumbs={[
         { text: "Grant Hub", link: "/grant-hub#grand-programs" },
         {

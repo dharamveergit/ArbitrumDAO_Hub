@@ -20,6 +20,25 @@ export const fundedGrants = (pathname: string, slug: string) => {
     },
   ];
 };
+export const incentiveGrants = (pathname: string, slug: string) => {
+  return [
+    {
+      slug: `/incentive-programs/${slug}/`,
+      title: "Home",
+      match: pathname === `/incentive-programs/${slug}/`,
+    },
+    {
+      slug: `/incentive-programs/${slug}/projects/`,
+      title: "Accepted Projects",
+      match: pathname === `/incentive-programs/${slug}/projects/`,
+    },
+    {
+      slug: `/incentive-programs/${slug}/updates/`,
+      title: "Updates",
+      match: pathname === `/incentive-programs/${slug}/updates/`,
+    },
+  ];
+};
 export const projectsHome = (
   pathname: string,
   slug: string,

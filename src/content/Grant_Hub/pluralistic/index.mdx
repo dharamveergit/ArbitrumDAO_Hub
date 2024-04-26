@@ -55,104 +55,73 @@ import { titleCva } from "@/lib/cvas";
 
 ---
 
-import Teams from "@/components/grant-hub/teams.astro";
-import Team1 from "./assets/team1.png";
-import Team2 from "./assets/team2.png";
-import Team3 from "./assets/team3.png";
-import Team4 from "./assets/team4.png";
-
-<Teams
-  noPadding
-  team={[
-    {
-      name: "Disruption Joe - Grants ",
-      image: Team1,
-      url: "https://twitter.com/DisruptionJoe",
-      designation: "Operations Lead",
-    },
-    {
-      name: "Pepperoni Jo3 - Cofounder",
-      image: Team2,
-      url: "https://twitter.com/Pepperoni_Jo3",
-      designation: "(r3gen.finance) ",
-    },
-    {
-      name: "Mary Quandt - Strategic Design ",
-      image: Team3,
-
-      designation: "Lead",
-    },
-    {
-      name: "Shawn Grubb - Governance Leader",
-      image: Team4,
-      url: "https://twitter.com/shawnlgrubb?lang=en",
-      designation: "(Gitcoin)",
-    },
-  ]}
-/>
-------
-
-### Mission of Pluralistic Lab Grant Program Allocator
-
-The mission of the Pluralistic Grant Program in Arbitrum is to provide an ecosystem of grant programs that support builders with milestone-based funding for growth. This program, facilitated by Plurality Labs, aims to distribute 2,600,000 ARB tokens to projects within the Arbitrum ecosystem, focusing on decentralized applications, infrastructure, tools, and various project types. The goal is to foster a pluralist democracy in decision-making processes related to grants, promoting experimentation, decentralization of decisions, and improved resource allocation outcomes within the ecosystem
-
----
-
-import img from "./assets/launch.png";
+import img from "./assets/value.png";
 
 <Banner
   image={img}
 >
 
-### Launching the Arbitrum DAO Pluralistic Grants program
+### From Milestone 1a to 1b(bridge)
 
-The Pluralist Grants program strikes a balance between Decentralized and Centralized Grants programs, offering the best of both worlds. It involves 4-6 pluralist grants managers responsible for distributing funds to benefit the Arbitrum Ecosystem, using innovative approaches facilitated by Plurality Labs. Each manager focuses on specific ecosystem needs, allowing for experimentation and tailored solutions. Initially centralized, the program progressively decentralizes through Milestones 2 & 3, aiming for fully decentralized allocation mechanisms. This approach ensures flexibility, accountability, and adaptability to the evolving needs of the Arbitrum ecosystem.
+In Milestone 1a, 12 grant programs were funded using diverse decision-making methods to swiftly pinpoint scalable strategies. The newly established Plurality Labs board and community feedback will steer grant allocations in Milestone 1b, identifying areas to expand, refine, or discontinue based on a success rubric. Achievements included the passage of four Firestarters program proposals and the introduction of retroactive grants and quadratic funding via Gitcoin. However, the experience underscored the importance of improved documentation, communication, and the utilization of internal resources. The overarching goal continues to be the creation of a robust, decentralized grants ecosystem for the Arbitrum DAO, with ongoing refinements throughout Milestone 1b.
+
+In the initial proposal, the goal was to demonstrate substantial value creation through a pluralistic grants framework. While the initiative was recognized for its value, feedback indicated a need for enhanced documentation and better preparedness for scaling. Consequently, Milestone 1b is set to maintain the same ARB amount and timeframe with the objectives to:
+
+- Build upon successful grants and discontinue underperforming ones.
+- Continue experimentation with grant allocations.
+- Fulfill all Milestone 1 deliverables to the satisfaction of the delegates.
+- Implement improved technology and systems to facilitate scalability in Milestone 2.
+- To meet these goals, Thrive's best practices and delegate feedback will be integrated by:
+- Forming a Plurality Labs Board for decentralized oversight.
+- Employing the Thrive Protocol for human validations and fund disbursements.
+- Strengthening the team with experts in grants, DAOs, and scalability.
 
 </Banner>
 
 ---
 
-### Plurality Team
+import img2 from "./assets/team.png";
+import Button from "@/components/ui/button.astro";
 
-**Disruption Joe**
+<Banner
+  image={img2}
+>
 
-Ran grants operations for Gitcoin Grants rounds 8-10 growing gross marketplace value from $2 - $10 million. First Gitcoin employee to leave the company and work full-time for the DAO. Started the Fraud Detection & Defense (FDD) workstream. FDD is responsible for stopping over $3 million in fraud while Gitcoin Grants delivered over $50 million in funding.
-More reading about the work done in the [FDD Review](https://gov.gitcoin.co/t/introducing-the-fdd-review/11095) 1. Joe will be supporting overall project management and grants framework design.
+### Advisory Board
 
-**Pepperoni Jo3** (on behalf of [r3gen.finance 5](https://www.r3gen.finance/))
+Trusted and recognized figures from the Arbitrum community have been assembled to gather community feedback, data, and make strategic decisions regarding grant allocation, specific contributions, and validations. This board represents various stakeholder groups within Arbitrum, and their selection is subject to community ratification, even including members who opposed the Milestone 2 temp check.
 
-Cofounder of r3gen, a web3 financial service provider working with clients including Squid, Coordinape, Inverse Finance and Treasure DAO. Previously PwC consulting alumni specializing in Org Design, Operational Excellence and Change. Joined web3 full time at [Index Coop](https://indexcoop.com/) where he served on the Leadership Council as Head of People and Community.
-More information on the r3gen services and team [can be found here 8](https://docsend.com/view/xj359rx3fj83irdg).
+This Advisory Board, comprising distinguished members from the Arbitrum community and web3 experts, is dedicated to providing consultation, guidance, and insightful feedback to the Arbitrum grants ecosystem in order to ensure ongoing alignment with community objectives. This board embodies and reflects Arbitrum and Thrive’s commitment to a pluralistic and scalable grants process capable of driving significant value for the benefit of the entire ecosystem.
 
-**Mary Quandt**
+Moving forward, grants will be disbursed at distinct value creation milestones. White-listed community members from Arbitrum will play a pluralistic role in determining value creation and will be compensated for their contributions. Details on this compensation will be provided later.
+In addition to fully leveraging the existing 26-person ThriveCoin team, key additions have been made to the team, including Ben West from GitCoin grants, Kyler Wandler from DAO Research Collective, and Scott Mandel from Complex Labs, Flexa, and 2Q Ventures.
 
-People-first strategic design-thinking and organizational development leader. Partners with global business leaders to accelerate business strategies and execute people- and organization-focused solutions. Leadership approach combines possibility and participation while keeping firm foot in practical implementation. Thrives on building, leading and growing inclusive cross-functional teams to challenge the status quo. Experience includes IndexCoop, US Election Assistance Commission, Johnson & Johnson, Human Performance Institute, GE, Amazon, Martha Stewart and Charles Schwab to name a few.
+<Button
+  arrow
+  href="https://forum.arbitrum.foundation/t/thank-arb-oversight-board-charter/23273"
+  variant="secondary"
+>
+  View Charter
+</Button>
 
-**Shawn Grubb**
-
-As former CIO, CEO, and non-profit chairman of the board, Shawn spent his corporate career preparing for DAO governance. Introduced to the blockchain in 2015 he went full-time degen in 2019 but moved to DAOs in 2021 when he joined [Index Coop](https://indexcoop.com/) leading the governance communications and people operations. In August 2022, he joined [Gitcoin 2](https://www.gitcoin.co/) where he currently leads governance
+</Banner>
 
 ---
 
-### Funds
+### Costs
 
-This proposal requests 3,360,000 ARB (0.07% of the total treasury) to fund the first of three milestones in a comprehensive plan to build an Arbitrum DAO Pluralistic Grants Program.
-Milestone 1 is the start of this journey with a funding request that breaks down as follows:
+As aligned with the feedback we've received from delegates and community members, we made this proposal easy: The total cost and timeframe are the same as the first proposal: 3.36M ARB and 6 months, with 336k ARB to Plurality Labs and 224k ARB to program management, as in the first proposal.
 
-**Fund Allocation** (on behalf of [r3gen.finance](https://www.r3gen.finance/) 5)
+2.8M ARB will be funding ecosystem development, including demonstrating that we can create incrementally more value with our emerging pluralistic grants framework. We are also adding a layer of oversight to our work - welcoming an esteemed Plurality Labs board. They will, among other things, help ensure we deliver the value we promise.
 
-- 2.5 million ARB: Funding Ecosystem Development
-- 300k ARB: Matching Gitcoin Funding Pools which use Arbitrum
-  - Total Funds to be Allocated = 2.8 million ARB
+The 560k ARB services fee (same ARB and same buckets as first proposal) includes:
 
-**Services**
+<div className="xl:w-[80%]">![Costs](./assets/costs.png)</div>
 
-- 336k ARB (12%): Plurality Labs Services
-- 224k ARB (8%): Grant Program Managers
-  - Total Service Fees (20%) = 560k ARB
+---
 
-#### Proposal Total = 3,360,000 ARB
+### Impact
 
-Successful completion of these Milestone 1 deliverables will be a major value driver for the Arbitrum ecosystem further establishing Arbitrum as the go to scaling solution for Ethereum… Plurality Labs is committing to being held accountable for the following Milestone 1 deliverables.
+The intention behind this initiative is to make it one of the most impactful AIPs in Arbitrum's history. If executed successfully, it aims to catalyze sustained, positive ecosystem growth on Arbitrum for years ahead. This will be achieved through a pluralistic grants framework with a strong emphasis on value creation, increased decentralization, and resilience against capture. The goal is to shape the future of Arbitrum.
 
 ---
