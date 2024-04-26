@@ -149,6 +149,13 @@ export const incentive = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
+      type: z
+        .union([
+          z.literal("Grant"),
+          z.literal("Home"),
+          z.literal("Incentive-Home"),
+        ])
+        .optional(),
       title: z.string(),
       description: z.string().optional(),
       externalUrl: z.string().optional(),
