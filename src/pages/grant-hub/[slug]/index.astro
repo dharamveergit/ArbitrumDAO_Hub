@@ -55,15 +55,21 @@ let nav = fundedGrants(pathname, slug);
 console.log(!data?.grants?.title && !data?.update?.title);
 
 if (!data?.grants?.title && !data?.update?.title) {
-  nav = [nav[0]];
+  nav = nav?.map((n, i) => ({ ...n, disabled: i !== 0 ? true : false }));
 }
 
 if (data?.grants?.title && !data?.update?.title) {
-  nav = [nav[0], nav[1]];
+  nav = nav?.map((n, i) => ({
+    ...n,
+    disabled: i === 2 ? true : false,
+  }));
 }
 
 if (!data?.grants?.title && data?.update?.title) {
-  nav = [nav[0], nav[2]];
+  nav = nav?.map((n, i) => ({
+    ...n,
+    disabled: i === 1 ? true : false,
+  }));
 }
 
 console.log(nav);
