@@ -96,14 +96,16 @@ const pinned = posts?.sort(
             {pinned?.data?.tag}
           </Tag>
         </div>
-        <h1 class="text-base font-medium md:text-xl lg:text-2xl">
-          {pinned?.data?.title}
-        </h1>
-        <p
-          class="line-clamp-4 font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
-        >
-          {pinned?.data?.description}
-        </p>
+        <a class="flex flex-col gap-6" href={`/blog/${pinned?.slug}`}>
+          <h1 class="text-base font-medium md:text-xl lg:text-2xl">
+            {pinned?.data?.title}
+          </h1>
+          <p
+            class="line-clamp-4 font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
+          >
+            {pinned?.data?.description}
+          </p>
+        </a>
       </div>
       <div class="mt-8 flex justify-end">
         <a

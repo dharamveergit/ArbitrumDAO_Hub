@@ -27,7 +27,7 @@ import { cva, type VariantProps } from "class-variance-authority";
         <button
           class={classNames(
             roundedNavButtonClass({ variant, size }),
-            "pointer-events-none cursor-not-allowed text-left text-gray-400",
+            "pointer-events-none cursor-not-allowed bg-zinc-400 text-left",
           )}
         >
           {item?.title}
@@ -36,7 +36,7 @@ import { cva, type VariantProps } from "class-variance-authority";
         <a
           href={`${item.slug}`}
           class={classNames(roundedNavButtonClass({ variant, size }), {
-            "!bg-navy text-gray-100": item.match && !variant,
+            "!bg-navy text-zinc-100": item.match && !variant,
             "!bg-secondary text-white": item.match && variant === "children",
           })}
         >
