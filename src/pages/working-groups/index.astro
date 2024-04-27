@@ -121,18 +121,21 @@ const wg = groups.filter((group) => group.data.type === "wg");
               )}
               <div class="flex items-center justify-between gap-3">
                 <div class="flex gap-2">
-                  {data?.buttons?.map(({ text, link, icon, type }) => (
-                    <Button
-                      variant={type}
-                      size="sm"
-                      className="flex gap-1"
-                      href={link}
-                      icon={icon}
-                      arrow={!icon}
-                    >
-                      {text}
-                    </Button>
-                  ))}
+                  {data?.buttons
+                    ?.filter((b) => b.icon)
+                    ?.slice(0, 2)
+                    ?.map(({ text, link, icon, type }) => (
+                      <Button
+                        variant={type}
+                        size="sm"
+                        className="flex gap-1"
+                        href={link}
+                        icon={icon}
+                        arrow={!icon}
+                      >
+                        {text}
+                      </Button>
+                    ))}
                 </div>
                 <ArrowRotate href={`/working-groups/${slug}`} />
               </div>
