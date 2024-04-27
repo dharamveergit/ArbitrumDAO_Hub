@@ -1,0 +1,71 @@
+---
+import ProjectCard from "@/components/grant-hub/project-card.astro";
+import RoundedNavWrapper from "@/components/grant-hub/rounded-nav-wrapper.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import Paginate from "@/components/ui/paginate.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import {
+  fundedGrants,
+  incentiveGrants,
+  incentiveProgram,
+} from "@/data/links/grant-hub";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { titleCva } from "@/lib/cvas";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const data = await getCollection("Incentive_Programs");
+  const filteredData = data.filter((d) => d.data.type === "Home");
+  return filteredData.flatMap((home) => {
+    const allPosts = data.filter(
+      (d) => d.data.type === "Grant" && home.slug === d.slug.split("/")[0],
+    );
+
+    return paginate(allPosts, {
+      params: { slug: home.slug },
+      props: {
+        home,
+      },
+      pageSize: 10,
+    });
+  });
+}
+
+const {
+  page,
+  home: {
+    slug,
+    data: { title, description, buttons },
+  },
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  image="/meta/incentive.png"
+  title={title}
+  description={description}
+  smooth
+>
+  <RoundedNavWrapper nav={incentiveProgram(pathname)}>
+    <GradientHead title={title} description={description} buttons={buttons} />
+  </RoundedNavWrapper>
+  <Seperator />
+
+  <RoundedNav nav={incentiveGrants(pathname, slug)} />
+
+  <section class="flex flex-col gap-4">
+    <h1 class={titleCva()}>Accepted Projects</h1>
+    <ul class="grid gap-5 lg:grid-cols-2">
+      {page?.data?.map(({ data }) => <ProjectCard project={data as any} />)}
+    </ul>
+  </section>
+
+  <Paginate data={page} />
+</MainLayout>
