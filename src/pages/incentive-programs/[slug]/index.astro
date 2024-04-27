@@ -10,7 +10,7 @@ import { getCollection, getEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const pages = (await getCollection("Incentive_Programs")).filter(
-    (page) => !page.slug.startsWith("important-discussions"),
+    (page) => page.data.type === "Home",
   );
   return (
     pages?.map((page) => ({
