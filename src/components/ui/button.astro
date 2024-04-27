@@ -11,9 +11,11 @@ interface Props extends VariantProps<typeof buttonVariants> {
   className?: string;
   arrow?: boolean;
   id?: string;
+  icon?: string;
 }
 
-const { variant, href, size, className, arrow, ...buttonProps } = Astro.props;
+const { variant, href, size, className, arrow, icon, ...buttonProps } =
+  Astro.props;
 ---
 
 <a href={href} target={href?.startsWith("http") ? "_blank" : undefined}>
@@ -21,10 +23,26 @@ const { variant, href, size, className, arrow, ...buttonProps } = Astro.props;
     {...buttonProps}
     class={classNames(buttonVariants({ variant, size }), className)}
   >
+    {
+      icon && (
+        <Icon
+          name={icon}
+          class={classNames({
+            "mr-2 size-4": size === "lg",
+            "mr-1 size-3": size === "sm",
+          })}
+        />
+      )
+    }
     <slot />
     {
       arrow && (
-        <Icon name="arrow-circle" class="ml-2  size-3 -rotate-45 md:size-4" />
+        <Icon
+          name="arrow-circle"
+          class={classNames(" size-3 -rotate-45 md:size-4", {
+            "ml-2": size !== "sm",
+          })}
+        />
       )
     }
   </button>

@@ -31,20 +31,7 @@ console.log(
     className="lg:py-10"
     title={data?.title}
     description={data?.description}
-    buttons={[
-      {
-        text: "Github",
-        type: "secondary",
-
-        link: data?.githubUrl || "#",
-      },
-      {
-        text: "Discord",
-        type: "secondary",
-
-        link: data?.discordUrl || "#",
-      },
-    ]}
+    buttons={data?.buttons ?? []}
   />
   <Seperator id="sub" />
 
