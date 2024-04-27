@@ -3,7 +3,7 @@ title: "ADPC Public Consultation Sync Meeting Minutes - 2024-03-06"
 date: 2024-03-06
 meetingTiming: "12:30 PM - 1:30 PM UTC "
 type: "notes"
-recordingUrl: "https://drive.google.com/file/d/1imbqD8a_G7-TV4VIZZPzYCS0BYAyzrqi/view"
+recordingUrl: "#"
 ---
 
 ### ADPC Public Consultation Sync Meeting Minutes - 2024-03-06

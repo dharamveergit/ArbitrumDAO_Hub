@@ -3,6 +3,7 @@ title: "ADPC Standing Meeting Minutes - 2024-04-10"
 date: 2024-04-10
 meetingTiming: "1:00 PM - 2:00 PM UTC"
 type: "notes"
+recordingUrl: "#"
 ---
 
 ### ADPC Standing Meeting Minutes - 2024-04-10
