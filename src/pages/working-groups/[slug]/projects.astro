@@ -1,6 +1,7 @@
 ---
 import GradientHead from "@/components/ui/gradient-head.astro";
 import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
+import NoData from "@/components/ui/placeholders/no-data.astro";
 import Seperator from "@/components/ui/seperator.astro";
 import MainWrapper from "@/components/working-groups/Main-Wrapper.astro";
 import { wgNav } from "@/data/links/workspaces";
@@ -35,9 +36,14 @@ console.log(projects);
 ---
 
 <MainWrapper data={data} slug={slug} className="p-3 md:p-4">
+  {
+    projects.length === 0 && (
+      <NoData>Currently there are no projects in this working group</NoData>
+    )
+  }
   <ul class="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
     {
-      projects.map(({ data: project }) => (
+      projects?.map(({ data: project }) => (
         <a
           href={project.externalUrl}
           target="_blank"
