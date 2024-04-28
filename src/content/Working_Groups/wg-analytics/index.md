@@ -1,6 +1,7 @@
 ---
 title: How to contribute
 description: Click this card to access the Working Group Hub. Follow instruction to fork the main branch, create your branch, update the WG info, and submit a merge request on the DAO Sync Platform. Disclaimer, WG update needs prior approval.
+overview: Click this card to access the Working Group Hub. Follow instruction to fork the main branch, create your branch, update the WG info, and submit a merge request on the DAO Sync Platform. Disclaimer, WG update needs prior approval.
 type: "wg"
 tag: "Update"
 githubUrl: "https://github.com/ArbitrumHub/ArbitrumHub"

@@ -96,7 +96,7 @@ const wg = groups.filter((group) => group.data.type === "wg");
                 <h1 class="text-base font-medium">{data.title}</h1>
                 <Tag>{data.tag}</Tag>
               </div>
-              <p class="text-sm text-zinc-500">{data.description}</p>
+              <p class="text-sm text-zinc-500">{data.overview}</p>
             </a>
             <div class="mt-32 flex flex-col gap-4">
               {data.meetingOn && data.meetingLink && (
@@ -121,28 +121,21 @@ const wg = groups.filter((group) => group.data.type === "wg");
               )}
               <div class="flex items-center justify-between gap-3">
                 <div class="flex gap-2">
-                  {data.githubUrl && (
-                    <Button
-                      variant={"secondary"}
-                      size="sm"
-                      className="flex gap-1"
-                      href={data.githubUrl}
-                    >
-                      <Icon name="socials/github-outline" class="size-4" />
-                      Github
-                    </Button>
-                  )}
-                  {data.discordUrl && (
-                    <Button
-                      variant={"secondary"}
-                      size="sm"
-                      className="flex gap-1"
-                      href={data.discordUrl}
-                    >
-                      <Icon name="socials/discord-outline" class="size-4" />
-                      Discord
-                    </Button>
-                  )}
+                  {data?.buttons
+                    ?.filter((b) => b.icon)
+                    ?.slice(0, 2)
+                    ?.map(({ text, link, icon, type }) => (
+                      <Button
+                        variant={type}
+                        size="sm"
+                        className="flex gap-1"
+                        href={link}
+                        icon={icon}
+                        arrow={!icon}
+                      >
+                        {text}
+                      </Button>
+                    ))}
                 </div>
                 <ArrowRotate href={`/working-groups/${slug}`} />
               </div>
