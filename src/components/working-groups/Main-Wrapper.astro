@@ -37,7 +37,10 @@ console.log(slug);
   description={data?.description}
 >
   <GradientHead
-    breadcrumbs={breadcrumbsmain}
+    breadcrumbs={breadcrumbsmain.map(({ text, link }) => ({
+      text: text || "",
+      link,
+    }))}
     className="lg:py-10"
     title={data?.title}
     description={data?.description}
