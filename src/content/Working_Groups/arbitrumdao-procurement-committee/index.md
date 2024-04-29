@@ -26,10 +26,52 @@ buttons:
 
 ### Member:
 
-- Angela and Euge from Web3 Citizen 3
-- Rika from 404 DAO
-- Manu from SEEDLatam
-- Krzysztof and Sinkas from L2Beat 1
+- Axis Adivisory
+- Areta -Diamon Legal
+
+### Goal
+
+1. Primary Mandate Execution:
+
+- Progress update on setting up the procurement framework RFP for security service providers.
+- Overview of the components included in the RFP, such as the Framework Agreement, Order Form, and Contract Details.
+- Timeline for publishing the RFP and subsequent application review process.
+
+2. Subsidy Fund Proposal:
+
+- Status update on the drafted Subsidy Fund proposal and its availability for DAO voting.
+- Introduction of Grant Application T&Cs for subsidy applicants.
+- Clarification on the acceptance timeline for subsidy applications.
+
+3. Means Test Implementation:
+
+- Discussion of the Means Test included in the Subsidy Fund proposal.
+- Explanation of how the Means Test will assess project eligibility for security service fee subsidies.
+
+4. Future Procurement Frameworks:
+
+- Overview of plans to establish procurement frameworks for various verticals/service-types.
+- Update on conversations with BlockScience regarding Expert Service Provider Networks.
+
+5. Guidance Notes & Circulars:
+
+- Progress report on the development of guidance notes and circulars to accompany procurement frameworks.
+- Expected timeline for publishing these documents.
+
+### Deliverables
+
+1. Timeline:
+   - Details on the planned timeline for key milestones, including RFP publication, application period, and whitelisting/evaluation period.
+2. Open Items:
+   - Discussion on obtaining feedback from the community regarding the proposed separate committee.
+   - Plans for ratifying the Subsidy Fund proposal on Snapshot and Tally.
+
+### Outcome:
+
+- Links to ADPC resources for community access:
+- Notion Dashboard
+- Archive of Meeting Minutes
+- Bi-Weekly Call Recordings
 
 ### Discussion Channels:
 

@@ -15,6 +15,22 @@ buttons:
   - text: "Learn More"
     type: "secondary"
     link: "https://forum.arbitrum.foundation/t/announcing-the-arbitrum-ventures-initiative-working-group/23012"
+  - text: "Telegram"
+    link: "https://t.me/+DQn51hWOIUg0NTQx"
+    type: "secondary"
+    icon: "socials/telegram"
 ---
 
-### All the minutes of the meetings are provided on this miro document [here](https://miro.com/app/board/uXjVKeSMoC8=/)
+**_All the minutes of the meetings are provided on this miro document [here](https://miro.com/app/board/uXjVKeSMoC8=/)_**
+
+### Goals:
+
+- Examination of the importance of deploying treasury funds into the builder ecosystem.
+- Explanation of Development Venture Capital (dVC) and its potential impact on ecosystem growth.
+- Importance of leveraging talent and practices from matured dVC approaches in the Web2 world.
+
+### Outcomes:
+
+- Rewrite of the GovHack proposal in the correct format for DAO feedback.
+- Progress on legal structure concept in collaboration with relevant stakeholders.
+- Consultations with the Foundation and interested VCs/program operators.

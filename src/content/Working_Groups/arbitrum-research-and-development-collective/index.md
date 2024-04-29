@@ -29,3 +29,19 @@ buttons:
 - Risk Member-Chaos Labs
 
 **_All the minutes of the meetings are provided on this miro document [here](https://loving-bank-303.notion.site/26928aa0e45745f995ef83b7e4061958?v=e976f07aebf548c393c382e6b41934ce)_**
+
+### Goals:
+
+- Purpose: The ARDC aims to facilitate the transformation of ideas within the Arbitrum DAO into actionable initiatives that enhance the ecosystem's growth and success.
+- Formation: Established through a passed proposal, the ARDC is a collective effort to address the need for specialized research, development, and governance optimization within the Arbitrum ecosystem.
+- Mandate: The ARDC's mandate encompasses various critical areas including governance proposal review, security assessment, risk management, quantitative analysis, and community engagement.
+  Verticals: The ARDC is structured into distinct verticals, including:
+- DAOAdvocate: Represents the DAO's interests and ensures alignment with ARDC's mandate.
+  Risk Management-Oriented Member: Focuses on identifying, assessing, and mitigating economic risks.
+- Security-Oriented Member: Conducts code reviews, identifies security vulnerabilities, and ensures protocol integrity.
+  Research-Oriented Member: Engages in objective research, contributes to innovation, and promotes data-driven decision-making.
+
+### Outcomes:
+
+- Community Engagement: The ARDC fosters active participation and engagement from the Arbitrum community through regular reporting, public meetings, and collaborative initiatives.
+- Impact: Through its comprehensive services and contributions, the ARDC aims to enhance governance decision-making, bolster security, promote transparency, and drive the growth and success of the Arbitrum ecosystem.

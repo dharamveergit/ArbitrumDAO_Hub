@@ -28,6 +28,25 @@ buttons:
 - Manu from SEEDLatam
 - Krzysztof and Sinkas from L2Beat 1
 
+### Goal
+
+- Identification of challenges faced by Arbitrum DAO in contributor onboarding
+- Overview of proposed solutions and experiment duration
+
+### Deliverables
+
+- Onboarding Hub in Notion
+- Description of the onboarding hub's purpose and functionality
+- Introduction of the initial version (V1) of the onboarding hub
+- Weekly Onboarding Calls and Dedicated Telegram Account
+- Explanation of communication channels provided for new contributors
+- Schedule for weekly onboarding calls and access to the Telegram account
+
+### Outcome:
+
+- Qualitative expectations including increased participation, enhanced understanding of governance, strengthened community bonds, and better internal organization within the DAO
+- Quantitative KPIs to measure engagement metrics, placement rate, and retention rate
+
 ### Discussion Channels:
 
 - [Telegram](https://t.me/+P2ic2MsNLipmMWFk)

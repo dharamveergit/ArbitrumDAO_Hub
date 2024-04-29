@@ -91,14 +91,17 @@ const wg = groups.filter((group) => group.data.type === "wg");
       {
         wg?.map(({ data, slug }, i) => (
           <li class="group flex min-h-96 flex-col justify-between rounded-small border bg-white p-5 md:rounded-3xl lg:rounded-5xl">
-            <a class="flex flex-col gap-6" href={`/working-groups/${slug}`}>
+            <a
+              class="flex flex-col gap-6 pb-32"
+              href={`/working-groups/${slug}`}
+            >
               <div class="flex items-center justify-between">
                 <h1 class="text-base font-medium">{data.title}</h1>
                 <Tag>{data.tag}</Tag>
               </div>
               <p class="text-sm text-zinc-500">{data.overview}</p>
             </a>
-            <div class="mt-32 flex flex-col gap-4">
+            <div class=" flex flex-col gap-4">
               {data.meetingOn && data.meetingLink && (
                 <div class="flex gap-2 rounded-xl bg-zinc-100 p-2">
                   <div class="h-full w-2 rounded-full bg-zinc-400" />
