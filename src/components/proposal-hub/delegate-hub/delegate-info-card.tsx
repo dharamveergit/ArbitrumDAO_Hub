@@ -44,7 +44,7 @@ export const DelegatesInfoCard = ({
   if (cardType === "FULL") {
     return (
       <a
-        href={`/proposal-hub/${address}`}
+        href={`/proposal-hub/delegate-info?userid=${address}`}
         className="flex min-h-[289px]  flex-col justify-between overflow-hidden rounded-2xl border p-5"
       >
         <div>
