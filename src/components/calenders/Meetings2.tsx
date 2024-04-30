@@ -7,6 +7,9 @@ import {
 import type { CollectionEntry } from "astro:content";
 import { ArrowUpRight } from "lucide-react";
 import { DatePickerWithRange } from "./DateRangePicker";
+import classNames from "classnames";
+import type { DateRange } from "react-day-picker";
+import { addDays } from "date-fns";
 
 interface Meeting {
   summary: string;
@@ -65,8 +68,6 @@ const CustomCalendar = ({
   type?: string;
   calendarId?: string;
 }) => {
-  const [date, setDate] = useState<Date | null>(null);
-
   const [month, setMonth] = useState<Date | null>(
     new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   );
@@ -81,9 +82,12 @@ const CustomCalendar = ({
   > | null>(null);
 
   const [booked, setBooked] = useState<Date[]>([]);
-
+  const currentDate = new Date();
   const [recourses, setRecourses] = useState<boolean>(true);
-
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: addDays(new Date(), -20),
+    to: new Date(),
+  });
   // console.log(res);
 
   useEffect(() => {
@@ -94,9 +98,10 @@ const CustomCalendar = ({
             ?.filter((event) => {
               const eventDate = event?.data?.date;
               return (
-                eventDate?.getFullYear() === date.getFullYear() &&
-                eventDate?.getMonth() === date.getMonth() &&
-                eventDate?.getDate() === date.getDate()
+                date.from &&
+                date?.to &&
+                eventDate >= date?.from &&
+                eventDate <= date?.to
               );
             })
             .map((event) => {
@@ -118,8 +123,10 @@ const CustomCalendar = ({
       const e = meetings?.filter((event) => {
         const eventDate = event?.data?.date;
         return (
-          eventDate?.getFullYear() === month.getFullYear() &&
-          eventDate?.getMonth() === month.getMonth()
+          date?.from &&
+          date?.to &&
+          eventDate >= date?.from &&
+          eventDate <= date?.to
         );
       });
 
@@ -143,29 +150,27 @@ const CustomCalendar = ({
         ),
       );
     }
-  }, [month]);
+  }, [month, date]);
 
   console.log(recourses);
 
   return (
     <div className="flex flex-col  overflow-hidden rounded-small border-4 border-zinc-200  md:flex-row md:rounded-3xl lg:rounded-5xl">
       <div className=" w-full   pt-6">
-        <div className="sticky top-0 flex items-center justify-between border-b bg-white px-5 pb-4 pt-4 md:pt-0">
-          <h1 className="  text-center text-sm font-medium ">
-            {month
-              ? month.toLocaleString("default", {
-                  month: "long",
-                  year: "numeric",
-                })
-              : date
-                ? date.toLocaleString("default", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })
-                : "Select a date"}
+        <div className="sticky top-0 flex flex-col items-center justify-between gap-5 border-b bg-white px-5 pb-4 pt-4 md:flex-row md:pt-0">
+          <h1 className="  hidden text-center text-sm font-medium md:block ">
+            Showing events for{" "}
+            {date?.from?.toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+            })}{" "}
+            to{" "}
+            {date?.to?.toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+            })}
           </h1>
-          <DatePickerWithRange />
+          <DatePickerWithRange date={date} setDate={setDate} />
         </div>
         <div className="custom-scrollbar flex flex-col gap-4 overflow-y-auto pb-5 pt-4 md:max-h-[20.5rem] md:pb-0">
           <>
@@ -182,17 +187,32 @@ const CustomCalendar = ({
                 No events found for this day
               </p>
             )}
-            <div className="grid grid-cols-5 gap-2 border-b px-5 pb-4">
+            <div className="grid grid-cols-3 gap-2 border-b px-5 pb-4 md:grid-cols-5">
               {["Meeting", "Time", "Notes", "Transcript", "Recording"]?.map(
                 (item, index) => (
                   <h2
                     key={index}
-                    className="text-xs font-medium text-zinc-500 md:text-sm"
+                    className={classNames(
+                      "text-xs font-medium text-zinc-500 md:text-sm",
+                      item === "Notes" ||
+                        item === "Transcript" ||
+                        item === "Recording"
+                        ? "hidden md:block"
+                        : "",
+                    )}
                   >
                     {item}
                   </h2>
                 ),
               )}
+
+              <h2
+                className={
+                  "text-xs font-medium text-zinc-500 md:hidden md:text-sm"
+                }
+              >
+                Recourses
+              </h2>
             </div>
             {eventsByMonth &&
               Object?.keys(eventsByMonth)?.map((date, i) => (
@@ -225,8 +245,8 @@ const Event = ({
   type?: string;
 }) => {
   return (
-    <div key={event.id} className="grid grid-cols-5 gap-2">
-      <h1 className="font-medium">{event.summary}</h1>
+    <div key={event.id} className="grid grid-cols-3 gap-2 md:grid-cols-5">
+      <h1 className="text-sm font-medium md:text-base">{event.summary}</h1>
       <p className="font-os text-xs text-zinc-400">
         {new Date(event.start.dateTime).toLocaleTimeString("en-US", {
           hour: "numeric",
@@ -235,6 +255,14 @@ const Event = ({
         })}{" "}
         PST
       </p>
+      <Links event={event} type={type} />
+    </div>
+  );
+};
+
+const Links = ({ event, type }: { event: Meeting; type?: string }) => {
+  return (
+    <div className="grid gap-2 md:col-span-3 md:grid-cols-3">
       <a
         href={
           type

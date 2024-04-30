@@ -12,15 +12,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { buttonVariants2 } from "@/lib/cvas";
+import type React from "react";
 
 export function DatePickerWithRange({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  });
-
+  date,
+  setDate,
+}: {
+  className?: string;
+  date: DateRange | undefined;
+  setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+}) {
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
