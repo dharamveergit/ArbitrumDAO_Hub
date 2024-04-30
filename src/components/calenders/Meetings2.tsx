@@ -85,7 +85,7 @@ const CustomCalendar = ({
   const currentDate = new Date();
   const [recourses, setRecourses] = useState<boolean>(true);
   const [date, setDate] = useState<DateRange | undefined>({
-    from: addDays(new Date(), -20),
+    from: addDays(new Date(), -30),
     to: new Date(),
   });
   // console.log(res);
