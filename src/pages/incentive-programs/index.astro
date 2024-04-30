@@ -18,9 +18,12 @@ const { Content } = await render();
   title={data.title}
   description={data.description}
 >
-  <RoundedNavWrapper nav={incentiveProgram(pathname)}>
-    <GradientHead title={data.title} description={data.description} />
-  </RoundedNavWrapper>
+  <GradientHead
+    className="my-5 md:my-10 "
+    title={data.title}
+    description={data.description}
+  />
+
   <Seperator />
   <article class={proseClasses}>
     <Content />

@@ -32,8 +32,13 @@ const { Content } = await render();
   description={data.description}
   smooth
 >
-  <RoundedNavWrapper nav={incentiveProgram(pathname)}>
+  <RoundedNavWrapper nav={incentiveGrants(pathname, slug)}>
     <GradientHead
+      breadcrumbs={[
+        { text: "Incentive Program", link: "/incentive-programs" },
+        { text: data.title, link: `/incentive-programs/${slug}/` },
+        { text: "Home", link: `/incentive-programs/${slug}/` },
+      ]}
       title={data.title}
       description={data.description}
       buttons={data.buttons}
@@ -41,7 +46,6 @@ const { Content } = await render();
   </RoundedNavWrapper>
   <Seperator />
 
-  <RoundedNav nav={incentiveGrants(pathname, slug)} />
   <article class={proseClasses}>
     <Content />
   </article>
