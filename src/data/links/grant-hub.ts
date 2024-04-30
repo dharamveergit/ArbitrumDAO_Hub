@@ -31,11 +31,13 @@ export const incentiveGrants = (pathname: string, slug: string) => {
       slug: `/incentive-programs/${slug}/projects/`,
       title: "Accepted Projects",
       match: pathname === `/incentive-programs/${slug}/projects/`,
+      disabled: true,
     },
     {
       slug: `/incentive-programs/${slug}/updates/`,
       title: "Updates",
       match: pathname === `/incentive-programs/${slug}/updates/`,
+      disabled: true,
     },
   ];
 };

@@ -20,8 +20,19 @@ export const wg = defineCollection({
         meetingTiming: z.string().optional(),
         recordingUrl: z.string().optional(),
         description: z.string().optional(),
-        githubUrl: z.string().optional(),
-        discordUrl: z.string().optional(),
+        overview: z.string().optional(),
+        buttons: z
+          .array(
+            z.object({
+              text: z.string(),
+              link: z.string(),
+              type: z
+                .union([z.literal("default"), z.literal("secondary")])
+                .optional(),
+              icon: z.string().optional(),
+            }),
+          )
+          .optional(),
         image: image().optional(),
         externalUrl: z.string().optional(),
         calendarId: z.string().optional(),
@@ -47,18 +58,6 @@ export const wg = defineCollection({
             ctx.addIssue({
               code: "custom",
               message: "Working group must have a description",
-            });
-          }
-          if (!data.githubUrl) {
-            ctx.addIssue({
-              code: "custom",
-              message: "Working group must have a github url",
-            });
-          }
-          if (!data.discordUrl) {
-            ctx.addIssue({
-              code: "custom",
-              message: "Working group must have a discord url",
             });
           }
         }

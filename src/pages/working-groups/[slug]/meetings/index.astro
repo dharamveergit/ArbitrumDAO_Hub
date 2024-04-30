@@ -47,9 +47,16 @@ const {
   group: { data, slug, render },
   meetings,
 } = Astro.props;
+
+console.log(meetings);
 ---
 
-<MainWrapper data={data} slug={slug} className="border-none">
+<MainWrapper
+  breadcrumbs={[{ text: "Meetings", link: `/working-groups/${slug}/meetings` }]}
+  data={data}
+  slug={slug}
+  className="border-none"
+>
   <Meet
     meetings={meetings}
     client:load
