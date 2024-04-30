@@ -16,11 +16,18 @@ const { title, description } = Working_HomePage;
 const wg = groups.filter((group) => group.data.type === "wg");
 ---
 
-<MainLayout title={title} description={description} image="/meta/wg.png">
+<MainLayout smooth title={title} description={description} image="/meta/wg.png">
   <GradientHead
     className="my-5 lg:my-10"
     title={title}
     description={description}
+    buttons={[
+      {
+        text: "View Workgroups",
+        link: "#working-groups",
+        type: "default",
+      },
+    ]}
   />
   <Seperator />
   <section
@@ -82,7 +89,7 @@ const wg = groups.filter((group) => group.data.type === "wg");
       />
     </div>
   </section>
-  <Seperator />
+  <Seperator id="working-groups" />
   <section class="flex flex-col gap-4 py-5 lg:py-10">
     <h1 class="text-xl font-medium md:text-2xl lg:text-3xl">
       Current Workgroups
