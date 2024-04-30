@@ -61,7 +61,7 @@ const pinned = posts?.sort(
     <div
       class="relative aspect-[16/8] w-full rounded-small border md:rounded-3xl lg:rounded-5xl"
     >
-      <a href={`/blog/${pinned?.slug}`}>
+      <a href={pinned?.data.externalUrl ?? `/blog/${pinned?.slug}`}>
         <div
           class={"h-full w-full  overflow-hidden rounded-small md:rounded-3xl lg:rounded-5xl "}
         >
@@ -79,8 +79,8 @@ const pinned = posts?.sort(
     <div
       class="group flex flex-col justify-between gap-4 rounded-small border p-4 md:w-[35rem] md:rounded-3xl lg:rounded-5xl"
     >
-      <div class="flex flex-col gap-6">
-        <div class="flex justify-between gap-6">
+      <div class="flex flex-1 flex-col gap-6">
+        <div class="flex items-center justify-between gap-6">
           <p
             class="font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
           >
@@ -96,7 +96,7 @@ const pinned = posts?.sort(
             {pinned?.data?.tag}
           </Tag>
         </div>
-        <a class="flex flex-col gap-6" href={`/blog/${pinned?.slug}`}>
+        <a class="flex flex-1 flex-col gap-6" href={`/blog/${pinned?.slug}`}>
           <h1 class="text-base font-medium md:text-xl lg:text-2xl">
             {pinned?.data?.title}
           </h1>
@@ -105,17 +105,12 @@ const pinned = posts?.sort(
           >
             {pinned?.data?.description}
           </p>
-        </a>
-      </div>
-      <div class="mt-8 flex justify-end">
-        <a
-          href={`/blog/${pinned?.slug}`}
-          class="-rotate-45 transition-all duration-300 group-hover:rotate-0"
-        >
-          <Icon
-            name="arrow-circle"
-            class="size-8 stroke-[0.6] text-zinc-500 md:size-14"
-          />
+          <div class="mt-auto flex justify-end pt-8">
+            <Icon
+              name="arrow-circle"
+              class="size-8 -rotate-45 stroke-[0.6] text-zinc-500 transition-all duration-300 group-hover:rotate-0 md:size-14"
+            />
+          </div>
         </a>
       </div>
     </div>

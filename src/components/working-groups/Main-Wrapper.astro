@@ -11,8 +11,9 @@ interface Props {
   data?: CollectionEntry<"Working_Groups">["data"];
   slug?: string;
   className?: string;
+  breadcrumbs?: { text: string; link: string }[];
 }
-const { data, slug, className } = Astro.props;
+const { data, slug, className, breadcrumbs } = Astro.props;
 const pathname = Astro.url.pathname;
 console.log(
   wgNav(slug ?? "").map((item) => ({
@@ -20,6 +21,14 @@ console.log(
     r2: item.title === "Home" && pathname.split("/")?.[3] === undefined,
   })),
 );
+
+const breadcrumbsmain = [
+  { text: "Working Groups", link: "/working-groups" },
+  { text: data?.title, link: `/working-groups/${slug}` },
+  ...(breadcrumbs ?? []),
+];
+
+console.log(slug);
 ---
 
 <MainLayout
@@ -28,6 +37,10 @@ console.log(
   description={data?.description}
 >
   <GradientHead
+    breadcrumbs={breadcrumbsmain.map(({ text, link }) => ({
+      text: text || "",
+      link,
+    }))}
     className="lg:py-10"
     title={data?.title}
     description={data?.description}
