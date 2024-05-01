@@ -17,6 +17,10 @@ interface Props {
       title: string;
       description: string;
     }[];
+    tag?: {
+      className?: string;
+      text: string;
+    };
   };
 
   grid?: boolean;
@@ -32,13 +36,27 @@ const { data, grid } = Astro.props;
     >
       {data.subTitle}
     </small>
-    <h1
-      class={titleCva({
-        size: "lg",
-      })}
-    >
-      {data.title}
-    </h1>
+    <div class="flex gap-4">
+      <h1
+        class={titleCva({
+          size: "lg",
+        })}
+      >
+        {data.title}
+      </h1>
+      {
+        data?.tag?.text && (
+          <span
+            class={classNames(
+              "rounded-full p-2 font-medium",
+              data?.tag?.className ?? "",
+            )}
+          >
+            {data?.tag?.text}
+          </span>
+        )
+      }
+    </div>
     <p class="mb-6 mt-3 max-w-2xl text-sm text-zinc-700 lg:text-base">
       {data.description}
     </p>
