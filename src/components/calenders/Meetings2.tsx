@@ -10,6 +10,7 @@ import { DatePickerWithRange } from "./DateRangePicker";
 import classNames from "classnames";
 import type { DateRange } from "react-day-picker";
 import { addDays } from "date-fns";
+import clsx from "clsx";
 
 interface Meeting {
   summary: string;
@@ -20,6 +21,7 @@ interface Meeting {
   htmlLink: string;
   id: string;
   items: any;
+  recordingUrl: string;
 }
 
 const queryClient = new QueryClient();
@@ -110,6 +112,7 @@ const CustomCalendar = ({
                 start: {
                   dateTime: event?.data.date.toISOString(),
                 },
+                recordingUrl: event?.data?.recordingUrl,
                 slug: event.slug,
               };
             }),
@@ -145,6 +148,7 @@ const CustomCalendar = ({
                 dateTime: event?.data?.date.toISOString(),
               },
               slug: event.slug,
+              recordingUrl: event?.data?.recordingUrl,
             };
           }),
         ),
@@ -156,7 +160,7 @@ const CustomCalendar = ({
 
   return (
     <div className="flex flex-col  overflow-hidden rounded-small border-4 border-zinc-200  md:flex-row md:rounded-3xl lg:rounded-5xl">
-      <div className=" w-full   pt-6">
+      <div className=" w-full   md:pt-6">
         <div className="sticky top-0 flex flex-col items-center justify-between gap-5 border-b bg-white px-5 pb-4 pt-4 md:flex-row md:pt-0">
           <h1 className="  hidden text-center text-sm font-medium md:block ">
             Showing events for{" "}
@@ -174,19 +178,6 @@ const CustomCalendar = ({
         </div>
         <div className="custom-scrollbar flex flex-col gap-4 overflow-y-auto pb-5 pt-4 md:max-h-[20.5rem] md:pb-0">
           <>
-            {eventsByMonth &&
-              month &&
-              Object?.keys(eventsByMonth).length === 0 && (
-                <p className=" pb-5 text-center text-sm font-medium">
-                  No events found for this month
-                </p>
-              )}
-
-            {date && events && Object?.keys(events).length === 0 && (
-              <p className=" text-center text-sm font-medium">
-                No events found for this day
-              </p>
-            )}
             <div className="grid grid-cols-3 gap-2 border-b px-5 pb-4 md:grid-cols-5">
               {["Meeting", "Time", "Notes", "Transcript", "Recording"]?.map(
                 (item, index) => (
@@ -228,6 +219,13 @@ const CustomCalendar = ({
                   ))}
                 </div>
               ))}
+            {eventsByMonth &&
+              month &&
+              Object?.keys(eventsByMonth).length === 0 && (
+                <p className=" pb-5 text-center text-sm font-medium">
+                  No events found for this Range
+                </p>
+              )}
           </>
         </div>
       </div>
@@ -288,10 +286,14 @@ const Links = ({ event, type }: { event: Meeting; type?: string }) => {
       <a
         href={
           type
-            ? `/working-groups/${event?.slug}/#sub`
+            ? event?.recordingUrl
             : `/community-hub/initiatives/meetings/${event?.slug}/#sub`
         }
-        className="flex gap-1 font-os text-xs  "
+        className={clsx(
+          "flex gap-1 font-os text-xs",
+          !event?.recordingUrl && "text-gray-300",
+          event?.recordingUrl === "#" && "text-gray-300",
+        )}
       >
         View Recording
         <ArrowUpRight size={16} />
