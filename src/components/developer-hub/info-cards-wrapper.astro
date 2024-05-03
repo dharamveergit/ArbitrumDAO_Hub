@@ -7,15 +7,17 @@ import { Icon } from "astro-icon/components";
 
 interface Props {
   data: {
-    subTitle: string;
+    subTitle?: string;
     title: string;
+    titleSize?: "sm" | "md" | "lg";
     description: string;
     buttonTitle?: string;
-    url: string;
+    url?: string;
     cards: {
       image: string;
       title: string;
       description: string;
+      normal?: boolean;
     }[];
     tag?: {
       className?: string;
@@ -24,22 +26,29 @@ interface Props {
   };
 
   grid?: boolean;
+  id?: string;
+  className?: string;
 }
 
-const { data, grid } = Astro.props;
+const { data, grid, id, className } = Astro.props;
 ---
 
-<section class="not-prose flex flex-col gap-20 py-5 md:py-10">
+<section
+  id={id}
+  class={classNames("not-prose flex flex-col gap-20 py-5 md:py-10", className)}
+>
   <div class="flex flex-col">
-    <small
-      class="text-light mb-2 font-os text-xs uppercase tracking-wide lg:text-sm"
-    >
-      {data.subTitle}
-    </small>
+    {
+      data?.subTitle && (
+        <small class="text-light mb-2 font-os text-xs uppercase tracking-wide lg:text-sm">
+          {data.subTitle}
+        </small>
+      )
+    }
     <div class="flex items-start gap-4">
       <h1
         class={titleCva({
-          size: "lg",
+          size: data?.titleSize ?? "lg",
         })}
       >
         {data.title}
@@ -60,15 +69,20 @@ const { data, grid } = Astro.props;
     <p class="mb-6 mt-3 max-w-2xl text-sm text-zinc-700 lg:text-base">
       {data.description}
     </p>
-    <Button href={data.url}>
-      {data.buttonTitle ?? "View in Docs"}
-      <Icon name="arrow-circle" class="ml-2 -rotate-45" />
-    </Button>
+    {
+      data?.url && (
+        <Button href={data.url}>
+          {data.buttonTitle ?? "View in Docs"}
+          <Icon name="arrow-circle" class="ml-2 -rotate-45" />
+        </Button>
+      )
+    }
   </div>
   <ul
     class={classNames(
-      "grid grid-cols-2 gap-4 md:gap-8  lg:gap-6",
+      "grid  gap-4 md:gap-8  lg:gap-6",
       grid ? "lg:grid-cols-3" : "lg:grid-cols-4",
+      data?.cards?.[0]?.normal ? "md:grid-cols-2" : "grid-cols-2",
     )}
   >
     {data.cards.map((item) => <InfoCard {...item} />)}

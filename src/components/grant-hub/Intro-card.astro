@@ -3,9 +3,9 @@ import { titleCva } from "@/lib/cvas";
 import LinkInfoCards from "../ui/link-info-Cards.astro";
 import classNames from "classnames";
 interface Props {
-  subtitle: string;
+  subtitle?: string;
   title: string;
-  para: string[];
+  para?: string[];
   linkCard: {
     title: string;
     description: string;
