@@ -18,7 +18,7 @@ const HubTabs = ({ data }: any) => {
             <TabsTrigger
               key={product.label}
               value={product.label}
-              className=" data-[state=active]:bg-primary-[#F3F7F8] w-full justify-start border-b px-5  py-2.5  text-left text-xs font-medium  text-secondary data-[state=active]:rounded-full   data-[state=active]:bg-[#F3F7F8] data-[state=active]:text-secondary md:py-2.5 md:text-base lg:py-5 lg:text-xl"
+              className=" data-[state=active]:bg-primary-[#F3F7F8]  line-clamp-1 w-full justify-start border-b px-5  py-2.5  text-left text-xs font-medium  text-secondary data-[state=active]:rounded-full   data-[state=active]:bg-[#F3F7F8] data-[state=active]:text-secondary md:py-2.5 md:text-sm lg:py-5 lg:text-lg xl:text-xl"
             >
               {product.label}
             </TabsTrigger>
