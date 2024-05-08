@@ -1,0 +1,162 @@
+---
+import InfoCard from "@/components/developer-hub/info-card.astro";
+import IntroCard from "@/components/grant-hub/Intro-card.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import CardLink from "@/components/ui/links/card-link.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import classNames from "classnames";
+import { titleCva, smallCva } from "@/lib/cvas";
+import { Icon } from "astro-icon/components";
+const data = {
+  title: "Get Started with Incentive Program Hub",
+  description:
+    "Get Started with Arbitrum’s Incentive Program Hub - your step by step guide to navigating and getting started with the Arbitrum Incentive Program! Here, you'll find everything you need to dive into the world of Arbitrum DAO, from understanding its incentive programs to exploring its innovative projects.",
+  buttons: [
+    {
+      text: "Explore the programs",
+      link: "/docs",
+      type: "default",
+    },
+    {
+      text: "How to contribute",
+      link: "/getting-started",
+      type: "secondary",
+    },
+  ],
+  cards: [
+    {
+      title: "Comprehensive Information",
+      description:
+        "Being connected yields insights, updates, collaboration opportunities, and ensures alignment with community needs, enhancing program effectiveness and success.",
+      image: "/images/incentive-hub/getting-started/eye.svg",
+    },
+    {
+      title: "Engage with the Community",
+      description:
+        "Engaging with the community fosters collaboration, feedback, and shared learning, enriching projects and fostering a supportive ecosystem.",
+      image: "/images/incentive-hub/getting-started/person.svg",
+    },
+    {
+      title: "Developer Resources",
+      description:
+        "Accessing developer resources empowers innovation, problem-solving, and skill development, driving project quality and sustainability within the ecosystem.",
+      image: "/images/incentive-hub/getting-started/person.svg",
+    },
+    {
+      title: "Grants and Incentives",
+      description:
+        "Grant and incentive information provides opportunities for funding, growth, and project acceleration, aligning with community goals and fostering ecosystem development.",
+      image: "/images/incentive-hub/getting-started/card.svg",
+    },
+  ],
+  programs: [
+    {
+      title: "STIP",
+      subtitle: "Connect, Collaborate, Innovate",
+      description:
+        "The Community Hub is your central spot for all things Arbitrum. Explore resources, connect with others, and stay updated on events and initiatives. Dive into collaboration and innovation here!",
+      link: "/incentive-programs/short-term-incentive-program",
+    },
+    {
+      title: "LTIPP",
+      subtitle: "Build, Innovate, Create",
+      description:
+        "The Developer Hub is your gateway to the full potential of Arbitrum. Access resources, tools, and tutorials to streamline development. Collaborate with developers, stay updated and build the future of decentralized applications.",
+      link: "/incentive-programs/long-term-incentive-pilot-program",
+    },
+    {
+      title: "Important Discussions",
+      subtitle: "Empowering Innovation, Fueling Growth",
+      description:
+        "The Arbitrum Grant Hub empowers innovation and fuels growth in the ecosystem. Explore grant programs, objectives, and application processes. Dive into insights on funded projects, accelerating development and adoption.",
+      link: "/incentive-programs/important-discussions",
+    },
+  ],
+};
+---
+
+<MainLayout
+  image="/meta/incentive.png"
+  title={data.title}
+  description={data.description}
+  smooth
+>
+  <GradientHead
+    breadcrumbs={[
+      {
+        text: "Incentive Program Hub",
+        link: "/incentive-programs",
+      },
+      {
+        text: "Getting Started",
+        link: "/incentive-programs/getting-started",
+      },
+    ]}
+    className="my-5 md:my-10 "
+    title={data.title}
+    description={data.description}
+    buttons={data.buttons as any}
+  />
+
+  <Seperator />
+  <IntroCard
+    title="Get connected"
+    para={[
+      "Staying connected to the community is crucial for incentive programs as it promotes collaboration, transparency, and collective growth. Active engagement fosters communication, accountability, and alignment with community needs, driving the success and effectiveness of the program.",
+    ]}
+    linkCard={{
+      title: "Discord",
+      description:
+        "The primary hub for communication and collaboration is the Discord server. Users and applicants should join the server to access information, ask questions, and engage with others in the community.",
+      image: "/arbitrum.svg",
+      url: "https://discord.gg/dh76Mccd",
+    }}
+  />
+  <ul
+    class={classNames(
+      "grid md:grid-cols-2 gap-4 md:gap-8  lg:gap-6",
+      "lg:grid-cols-4",
+    )}
+  >
+    {data.cards.map((item) => <InfoCard {...item} normal />)}
+  </ul>
+  <Seperator />
+  <section class="flex flex-col gap-8 py-5 md:gap-10 lg:py-10">
+    <h1 class={titleCva()}>
+      Explore and learn about <br /> Incentive Programs
+    </h1>
+    <ul class="grid gap-10 lg:grid-cols-3 lg:gap-6 xl:gap-10">
+      {
+        data.programs.map((program) => (
+          <a href={program.link}>
+            <li class="group flex h-full flex-col justify-between rounded-large bg-zinc-50 p-4 ">
+              <div>
+                <div class="mb-5 mt-12 h-1 w-1/3 bg-zinc-900" />
+                <small class={"mb-2 font-os text-sm text-zinc-400"}>
+                  {program.subtitle}
+                </small>
+                <h1
+                  class={titleCva({
+                    size: "md",
+                  })}
+                >
+                  {program.title}
+                </h1>
+                <p class="mb-5 mt-5 font-light text-zinc-600">
+                  {program.description}
+                </p>
+              </div>
+              <div class="mt-auto flex justify-end">
+                <Icon
+                  name="arrow-circle"
+                  class=" size-14 -rotate-45 stroke-[0.5] text-zinc-600 transition-all group-hover:rotate-0"
+                />
+              </div>
+            </li>
+          </a>
+        ))
+      }
+    </ul>
+  </section>
+</MainLayout>

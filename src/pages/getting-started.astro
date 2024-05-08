@@ -1,0 +1,126 @@
+---
+import InfoCard from "@/components/developer-hub/info-card.astro";
+import IntroCard from "@/components/grant-hub/Intro-card.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import CardLink from "@/components/ui/links/card-link.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import classNames from "classnames";
+import { titleCva, smallCva } from "@/lib/cvas";
+import { Icon } from "astro-icon/components";
+import { GITHUB_URL } from "@/consts";
+import InfoCardsWrapper from "@/components/developer-hub/info-cards-wrapper.astro";
+import { Image } from "astro:assets";
+import ContributionDropdown from "@/components/community-hub/contributeDropdown";
+import Faq from "@/components/developer-hub/faq";
+import { gettingStarted } from "@/data/homepage/getting-started";
+
+const data = gettingStarted;
+---
+
+<MainLayout
+  image="/meta/incentive.png"
+  title={data.title}
+  description={data.description}
+  smooth
+>
+  <GradientHead
+    className="my-5 md:my-10 "
+    title={data.title}
+    description={data.description}
+    buttons={data.buttons as any}
+  />
+
+  <Seperator />
+
+  <InfoCardsWrapper
+    data={{
+      title: "What to Expect?",
+      description:
+        "Embark on a journey of discovery as you delve into the Arbitrum DAO hub, your all-in-one destination for navigating the dynamic world of decentralized finance (DeFi) on Arbitrum.",
+      titleSize: "md",
+      cards: data.cards.map((card) => ({
+        ...card,
+        normal: true,
+      })),
+    }}
+    className="!gap-10"
+  />
+
+  <Seperator />
+  <section class={" flex flex-col gap-10 py-5 md:py-10"}>
+    <div class="flex flex-col">
+      <h1
+        class={titleCva({
+          size: "md",
+        })}
+      >
+        Sitemap
+      </h1>
+      <p
+        class="mb-6 mt-3 max-w-2xl text-sm font-light text-zinc-700 lg:text-base"
+      >
+        Explore a comprehensive sitemap of the Arbitrum DAO Hub website,
+        providing an overview of all available pages, sections, and resources.
+        Navigate seamlessly through the platform and discover everything it has
+        to offer at a glance.
+      </p>
+    </div>
+    <Image
+      src="/images/sitemap-desktop.svg"
+      alt="sitemap"
+      class="hidden h-auto w-full lg:block"
+      width={1000}
+      height={1000}
+    />
+    <Image
+      src="/images/sitemap-mobile.svg"
+      alt="sitemap"
+      class="h-auto w-full lg:hidden"
+      width={1000}
+      height={1000}
+    />
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-8 py-5 md:gap-10 lg:py-10">
+    <h1 class={titleCva()}>
+      Explore and learn about <br /> Incentive Programs
+    </h1>
+    <ul class="grid gap-10 lg:grid-cols-3 lg:gap-6 xl:gap-10">
+      {
+        data.programs.map((program) => (
+          <a href={program.link}>
+            <li class="group flex h-full flex-col justify-between rounded-large bg-zinc-50 p-4 ">
+              <div>
+                <div class="mb-5 mt-12 h-1 w-1/3 bg-zinc-900" />
+                <small class={"mb-2 font-os text-sm text-zinc-400"}>
+                  {program.subtitle}
+                </small>
+                <h1
+                  class={titleCva({
+                    size: "md",
+                  })}
+                >
+                  {program.title}
+                </h1>
+                <p class="mb-5 mt-5 font-light text-zinc-600">
+                  {program.description}
+                </p>
+              </div>
+              <div class="mt-auto flex justify-end">
+                <Icon
+                  name="arrow-circle"
+                  class=" size-14 -rotate-45 stroke-[0.5] text-zinc-600 transition-all group-hover:rotate-0"
+                />
+              </div>
+            </li>
+          </a>
+        ))
+      }
+    </ul>
+  </section>
+  <Seperator id="how-to-contribute" />
+  <ContributionDropdown client:load />
+  <Seperator />
+  <Faq client:load questions={data.questions} />
+</MainLayout>

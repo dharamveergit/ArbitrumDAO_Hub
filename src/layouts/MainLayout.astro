@@ -27,6 +27,20 @@ const metaImage = pathname.includes("/community-hub/")
 
 <html lang="en" class={classNames(smooth ? "scroll-smooth" : "", "")}>
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZDN2SBKD6P"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-ZDN2SBKD6P");
+    </script>
     <BaseHead
       title={title}
       description={description}
