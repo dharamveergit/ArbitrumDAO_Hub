@@ -6,6 +6,9 @@ homepage:
     buttons:
       - label: "Arbitrum Docs"
         url: "/button1"
+      - label: "Get Started"
+        url: "/getting-started"
+        
 
   intro:
     title: "The Vision of Arbitrum DAO"

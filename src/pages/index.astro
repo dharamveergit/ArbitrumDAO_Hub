@@ -53,15 +53,14 @@ const {
           {heroBanner.description}
         </p>
       </div>
-      <Button href="#explore-arbitrum-dao"
-        >Explore Arbitrum DAO
-        <Icon
-          name="arrow-circle"
-          height={16}
-          width={16}
-          class={"ml-2 -rotate-45"}
-        />
-      </Button>
+      <div class="flex flex-wrap gap-4">
+        <Button href="#explore-arbitrum-dao" arrow
+          >Explore Arbitrum DAO
+        </Button>
+        <Button href="/getting-started" arrow variant="secondary"
+          >Get Started
+        </Button>
+      </div>
     </div>
   </section>
 
