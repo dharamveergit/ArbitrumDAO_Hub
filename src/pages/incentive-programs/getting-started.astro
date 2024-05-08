@@ -15,7 +15,7 @@ const data = {
   buttons: [
     {
       text: "Explore the programs",
-      link: "/docs",
+      link: "#explore",
       type: "default",
     },
     {
@@ -121,7 +121,7 @@ const data = {
   >
     {data.cards.map((item) => <InfoCard {...item} normal />)}
   </ul>
-  <Seperator />
+  <Seperator id="explore" />
   <section class="flex flex-col gap-8 py-5 md:gap-10 lg:py-10">
     <h1 class={titleCva()}>
       Explore and learn about <br /> Incentive Programs
