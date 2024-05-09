@@ -31,7 +31,11 @@ const image: any = data?.image ?? "/temp3.png";
 const { Content } = await render();
 ---
 
-<MainLayout title={data.title} description={data.description}>
+<MainLayout
+  image="/meta/hub/comm-3.png"
+  title={data.title}
+  description={data.description}
+>
   <CommunityContentHead>
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">

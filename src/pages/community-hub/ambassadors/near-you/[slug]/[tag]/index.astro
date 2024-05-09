@@ -73,7 +73,11 @@ const data = entry?.data;
 const pathname = Astro.url.pathname;
 ---
 
-<MainLayout title={data?.title} description={data?.description}>
+<MainLayout
+  image={data?.image?.src ?? "/meta/hub/comm.png"}
+  title={data?.title}
+  description={data?.description}
+>
   <MainWrapperProfile
     title={data?.title}
     description={data?.description}
