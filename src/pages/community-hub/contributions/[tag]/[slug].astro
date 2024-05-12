@@ -32,7 +32,11 @@ const image: any = data?.image ?? "/temp3.png";
 const { Content } = await render();
 ---
 
-<MainLayout title={data.title} description={data.description}>
+<MainLayout
+  title={data.title}
+  description={data.description}
+  image={image?.src ?? "/temp3.png"}
+>
   <CommunityContentHead>
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">
