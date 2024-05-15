@@ -84,6 +84,94 @@ import CardLink from "@/components/ui/links/card-link.astro";
 ---
 
 <InfoCardsWrapper
+  id="incentive-programs"
+  data={{
+    tag: {
+      text: "ONGOING",
+      className: "bg-green-400 text-white",
+    },
+    subTitle: "Program",
+    title: "STIP Bridge Program",
+    description:
+      "Aligning with Arbitrum’s mission to support and nurture its development community, the STIP Bridge underscores our commitment to builders and their contributions. By offering seamless transition incentives, it strategically mitigates the risk of losing key ecosystem participants to competitors. This approach not only retains crucial projects and liquidity within Arbitrum but also lays a solid foundation for the upcoming Perpetual Incentives Program, reinforcing our long-term vision of innovation and community empowerment.",
+    url: "/incentive-programs/stip-bridge-program/",
+    buttonTitle: "Learn More",
+    cards: [
+      {
+        title: "Application Template",
+        description:
+          "The STIP Bridge has an application template that protocols interested in applying for ARB incentives can utilize to submit their proposals.",
+        image: "/images/developer-hub/stylus/rust.svg",
+      },
+      {
+        title: "Incentive Opportunities",
+        description:
+          "The STIP Bridge provides protocols funded under STIP with opportunities to receive incentives in ARB tokens, fostering growth and development within the Arbitrum ecosystem.",
+        image: "/images/developer-hub/stylus/intero.svg",
+      },
+      {
+        title: "Community Engagement",
+        description:
+          "The STIP Bridge encourages community engagement by offering a structured program for STIP funded protocols to participate in and benefit from the incentives provided by Arbitrum.",
+        image: "/images/developer-hub/stylus/secure.svg",
+      },
+      {
+        title: "Operational Cost: 37.6M ARB",
+        description:
+          "The STIP Bridge budget is 37.6 million ARB, with 37.5 million ARB for protocol incentives and 100,000 ARB for operational costs, including advisors, management, and audits.",
+        image: "/images/dollar.svg",
+      },
+    ],
+  }}
+/>
+
+---
+
+<InfoCardsWrapper
+  id="incentive-programs"
+  data={{
+    tag: {
+      text: "ONGOING",
+      className: "bg-green-400 text-white",
+    },
+    subTitle: "Program",
+    title: "Delegate Incentive Program",
+    description:
+      "The Experimental Incentive System for Active Arbitrum DAO Delegates is a six-month initiative designed to encourage and reward active participation in the DAO’s governance. With a total budget of 1,525,000 ARB, the program aims to enhance delegate involvement by providing monthly incentives to the top 50 delegates based on their governance activities. These activities include voting participation, providing rationale for votes, engaging in discussions, and contributing to proposals. Each delegate can earn up to 5,000 ARB per month, depending on their performance score. The system includes a detailed point framework and an administrator to manage and verify delegate activities, ensuring transparency and accountability.",
+    url: "https://forum.arbitrum.foundation/t/proposal-experimental-incentive-system-for-active-arbitrumdao-delegates/19467",
+    buttonTitle: "Learn More",
+    cards: [
+      {
+        title: "Apply Anytime",
+        description:
+          "Delegates can apply for the incentive program within a 7-day window following the announcement on the forum to confirm their participation and provide necessary details.",
+        image: "/images/developer-hub/stylus/rust.svg",
+      },
+      {
+        title: "Incentive Opportunities",
+        description:
+          "Delegates in the ArbitrumDAO can earn up to 5,000 ARB per month based on their Total Participation (TP) score, which reflects their engagement in voting, rationale communication, and proposal discussions. The top 50 delegates with TP scores above 60% receive incentives, encouraging active governance involvement.",
+        image: "/images/developer-hub/stylus/intero.svg",
+      },
+      {
+        title: "Community Engagement",
+        description:
+          "The incentive program offers an opportunity for active community members to engage further in Arbitrum DAO governance, potentially fostering increased participation and collaboration within the community. It shows everyone the engagement levels of each delegate.",
+        image: "/images/developer-hub/stylus/secure.svg",
+      },
+      {
+        title: "Operational Cost: 100k ARB",
+        description:
+          "The operational cost for the incentive program is capped at 100,000 ARB, covering expenses such as advisor fees, program management, and audits, ensuring efficient program execution.",
+        image: "/images/dollar.svg",
+      },
+    ],
+  }}
+/>
+
+---
+
+<InfoCardsWrapper
   data={{
     tag: {
       text: "COMPLETED",

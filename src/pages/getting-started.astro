@@ -6,7 +6,7 @@ import CardLink from "@/components/ui/links/card-link.astro";
 import Seperator from "@/components/ui/seperator.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
 import classNames from "classnames";
-import { titleCva, smallCva } from "@/lib/cvas";
+import { titleCva, smallCva, paragraphCva } from "@/lib/cvas";
 import { Icon } from "astro-icon/components";
 import { GITHUB_URL } from "@/consts";
 import InfoCardsWrapper from "@/components/developer-hub/info-cards-wrapper.astro";
@@ -14,7 +14,7 @@ import { Image } from "astro:assets";
 import ContributionDropdown from "@/components/community-hub/contributeDropdown";
 import Faq from "@/components/developer-hub/faq";
 import { gettingStarted } from "@/data/homepage/getting-started";
-
+import CmsContributions from "@/components/CmsContributions";
 const data = gettingStarted;
 ---
 
@@ -120,7 +120,16 @@ const data = gettingStarted;
     </ul>
   </section>
   <Seperator id="how-to-contribute" />
-  <ContributionDropdown client:load />
+  <div class="flex flex-col gap-10 py-5 md:py-10">
+    <div class="flex flex-col gap-4">
+      <h1 class={titleCva()}>How to Contribute</h1>
+      <p class={paragraphCva()}>
+        One can contribute to Arbitrum Hub from one of two ways:
+      </p>
+    </div>
+    <CmsContributions client:load />
+    <ContributionDropdown client:load className="!py-0" titleSize="sm" />
+  </div>
   <Seperator />
   <Faq client:load questions={data.questions} />
 </MainLayout>
