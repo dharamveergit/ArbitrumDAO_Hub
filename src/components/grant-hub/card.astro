@@ -158,6 +158,20 @@ const linkClass =
           )
         }
         {
+          blog?.fundingAsk && (
+            <p class="text-light font-os text-xs text-zinc-500 md:text-sm">
+              Funding Ask: {blog?.fundingAsk}
+            </p>
+          )
+        }
+        {
+          blog?.askBy && (
+            <p class="text-light font-os text-xs text-zinc-500 md:text-sm">
+              Ask By: {blog?.askBy}
+            </p>
+          )
+        }
+        {
           blog?.amount && !blog?.available && (
             <p class="text-light font-os text-xs text-zinc-500 md:text-sm">
               Funding Amount- {blog?.amount}

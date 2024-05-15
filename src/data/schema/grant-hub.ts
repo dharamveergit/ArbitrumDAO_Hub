@@ -21,6 +21,7 @@ export const Grants = defineCollection({
           }),
         )
         .optional(),
+      askBy: z.string().optional(),
       ApprovedOn: z.string().optional(),
       externalUrl: z.string().optional(),
       category: z.array(z.string()).optional(),
