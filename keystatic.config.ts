@@ -25,7 +25,7 @@ export default config({
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
-        description: fields.text({ label: "Description" }),
+        description: fields.text({ label: "Description", multiline: true }),
         image: fields.image({
           label: "Image",
           //add ./ to the image path
@@ -42,6 +42,44 @@ export default config({
         content: fields.markdoc({
           label: "Content",
           extension: "md",
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
+
+              // Use the @assets path alias
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+
+    ambassadors: collection({
+      label: "Ambassadors",
+      slugField: "title",
+      path: "src/content/Community_Ambassadors/*/profile",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        image: fields.image({
+          label: "Image",
+          //add ./ to the image path
+          directory: "src/assets/images/blogs",
+
+          // Use the @assets path alias
+          publicPath: "@assets/images/blogs/",
+        }),
+
+        label: fields.text({ label: "Label" }),
+        location: fields.text({ label: "Location" }),
+        links: fields.object({
+          twitter: fields.text({ label: "Twitter" }),
+        }),
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
           options: {
             image: {
               directory: "src/assets/images/blogs",
