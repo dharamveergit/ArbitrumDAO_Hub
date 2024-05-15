@@ -44,10 +44,10 @@ export default config({
           extension: "md",
           options: {
             image: {
-              directory: "src/assets/images/blogs",
+              directory: "public/images/blogs",
 
               // Use the @assets path alias
-              publicPath: "/src/assets/images/blogs/",
+              publicPath: "/images/blogs/",
             },
           },
         }),
