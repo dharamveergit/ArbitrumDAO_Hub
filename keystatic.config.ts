@@ -8,9 +8,13 @@ import { config, fields, collection } from "@keystatic/core";
 // pubDate: 2024-02-23
 // author: "arbitrum"
 
+const REPO_OWNER = "dharamveergit";
+const REPO_NAME = "ArbitrumDAO_Hub";
+
 export default config({
   storage: {
-    kind: "local",
+    kind: "github",
+    repo: `${REPO_OWNER}/${REPO_NAME}`,
   },
 
   collections: {
