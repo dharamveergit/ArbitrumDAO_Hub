@@ -26,6 +26,61 @@ const grants = await getCollection("Grant_Hub", ({ data }) => {
   <section class="flex flex-col gap-20 py-5 lg:py-10">
     <div class="flex flex-col gap-1">
       <small class={smallCva()}>
+        {programs.label}
+      </small>
+      <h1 class={titleCva()}>
+        {programs.title}
+      </h1>
+      <p class={classNames(paragraphCva(), "mt-2")}>
+        {programs.description}
+      </p>
+    </div>
+    <a
+      href={"/ecosystem-hub/grant-projects/all"}
+      class="flex flex-col justify-between gap-6 rounded-small bg-blue-light p-6 md:flex-row"
+    >
+      <div class="grid grid-cols-2 gap-2 md:w-3/12">
+        {
+          grants.map(({ data }, index) => (
+            <Image
+              width={300}
+              height={300}
+              src={data.image as any}
+              alt={"grants-" + index}
+              class=" aspect-video w-full rounded-xl border-2 border-white "
+            />
+          ))
+        }
+      </div>
+
+      <div class="group flex flex-1 justify-between gap-3">
+        <div class="flex flex-col gap-3 md:w-10/12 lg:w-7/12 lg:gap-6">
+          <h1 class={titleCva()}>See All Arbitrum DAO Grant Recipients</h1>
+          <p class={paragraphCva()}>
+            Explore Funded Projects Shaping the dApp Landscape
+          </p>
+        </div>
+        <div class="flex flex-col justify-between rounded-xl bg-white p-2.5">
+          <Image
+            width={50}
+            height={50}
+            src="/arbitrum.svg"
+            alt="Quickstart Guide"
+            class="size-6 lg:size-8"
+          />
+          <Icon
+            name="arrow-circle"
+            class="mt-6 size-6 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0 lg:size-8"
+          />
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <Seperator />
+  <section class="flex flex-col gap-20 py-5 lg:py-10">
+    <div class="flex flex-col gap-1">
+      <small class={smallCva()}>
         {dapps.label}
       </small>
       <h1 class={titleCva()}>
@@ -74,61 +129,6 @@ const grants = await getCollection("Grant_Hub", ({ data }) => {
           <Icon
             name="arrow-circle"
             class="size-6 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0 lg:size-8"
-          />
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <Seperator />
-  <section class="flex flex-col gap-20 py-5 lg:py-10">
-    <div class="flex flex-col gap-1">
-      <small class={smallCva()}>
-        {programs.label}
-      </small>
-      <h1 class={titleCva()}>
-        {programs.title}
-      </h1>
-      <p class={classNames(paragraphCva(), "mt-2")}>
-        {programs.description}
-      </p>
-    </div>
-    <a
-      href={"/ecosystem-hub/grant-projects/all"}
-      class="flex flex-col justify-between gap-6 rounded-small bg-blue-light p-6 md:flex-row"
-    >
-      <div class="grid grid-cols-2 gap-2 md:w-3/12">
-        {
-          grants.map(({ data }, index) => (
-            <Image
-              width={300}
-              height={300}
-              src={data.image as any}
-              alt={"grants-" + index}
-              class=" aspect-video w-full rounded-xl border-2 border-white "
-            />
-          ))
-        }
-      </div>
-
-      <div class="group flex flex-1 justify-between gap-3">
-        <div class="flex flex-col gap-3 md:w-10/12 lg:w-7/12 lg:gap-6">
-          <h1 class={titleCva()}>See All Arbitrum DAO Grant Recipients</h1>
-          <p class={paragraphCva()}>
-            Explore Funded Projects Shaping the dApp Landscape
-          </p>
-        </div>
-        <div class="flex flex-col justify-between rounded-xl bg-white p-2.5">
-          <Image
-            width={50}
-            height={50}
-            src="/arbitrum.svg"
-            alt="Quickstart Guide"
-            class="size-6 lg:size-8"
-          />
-          <Icon
-            name="arrow-circle"
-            class="mt-6 size-6 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0 lg:size-8"
           />
         </div>
       </div>
