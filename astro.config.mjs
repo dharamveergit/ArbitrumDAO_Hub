@@ -5,6 +5,9 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
 
+import keystatic from "@keystatic/astro";
+import markdoc from "@astrojs/markdoc";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.arbitrumhub.io",
@@ -16,5 +19,8 @@ export default defineConfig({
     }),
     icon(),
     react(),
+    markdoc(),
+    keystatic(),
   ],
+  output: "hybrid",
 });
