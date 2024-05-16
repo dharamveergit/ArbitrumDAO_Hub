@@ -1,6 +1,7 @@
 ---
 import MainWrapper from "@/components/community-hub/head/community-head.astro";
 import BlogCard from "@/components/ui/cards/blog-card.astro";
+import CardLink from "@/components/ui/links/card-link.astro";
 import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
 import Seperator from "@/components/ui/seperator.astro";
 import { Community_Contributions } from "@/consts";
@@ -49,6 +50,13 @@ const pathname = Astro.url.pathname;
     title={Community_Contributions?.title}
     description={Community_Contributions?.description}
   />
+  <Seperator id="sub" />
+  <CardLink
+    title="Arbitrum Education"
+    description="Learn from a selection of guides and tutorials about Arbitrum. Fun fact, at arbitrum education you will also be quizzed after completing a module."
+    link="https://arbitrum.education/"
+  />
+
   <Seperator id="sub" />
   <section class="flex flex-col gap-2 py-5 lg:py-10">
     <RoundedNav
