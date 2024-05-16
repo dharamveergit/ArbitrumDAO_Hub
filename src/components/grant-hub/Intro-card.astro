@@ -6,12 +6,19 @@ interface Props {
   subtitle?: string;
   title: string;
   para?: string[];
-  linkCard: {
-    title: string;
-    description: string;
-    image: string;
-    url: string;
-  };
+  linkCard:
+    | {
+        title: string;
+        description: string;
+        image: string;
+        url: string;
+      }
+    | {
+        title: string;
+        description: string;
+        image: string;
+        url: string;
+      }[];
 }
 
 const { subtitle, title, para, linkCard } = Astro.props;
@@ -45,7 +52,13 @@ const { subtitle, title, para, linkCard } = Astro.props;
     }
     <slot />
   </div>
-  <div class="not-prose md:w-1/2 xl:w-[40%]">
-    <LinkInfoCards item={linkCard} />
+  <div class="not-prose flex flex-col gap-5 md:w-1/2 md:gap-10 xl:w-[40%]">
+    {
+      Array.isArray(linkCard) ? (
+        linkCard.map((item) => <LinkInfoCards item={item} />)
+      ) : (
+        <LinkInfoCards item={linkCard} />
+      )
+    }
   </div>
 </section>

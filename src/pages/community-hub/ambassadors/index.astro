@@ -13,7 +13,11 @@ const { data, render } = await getEntry(
 const { Content } = await render();
 ---
 
-<MainLayout title={data?.title} description={data?.description}>
+<MainLayout
+  image="/meta/hub/comm.png"
+  title={data?.title}
+  description={data?.description}
+>
   <MainWrapper
     title={data?.title}
     description={data?.description}

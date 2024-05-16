@@ -75,10 +75,10 @@ export const developerHomepage = {
   },
   stylus: {
     subTitle: "Build dapps",
-    title: "Build DApps in Rust using Stylus: Unlocking New Frontiers",
+    title: "Build DApps using Stylus: Unlocking New Frontiers",
     description:
-      "Stylus helps you write smart contracts for the Arbitrum blockchain using Stylus, a platform that leverages the power and efficiency of Rust. Stylus compiles your Rust code into WebAssembly (WASM), resulting in faster execution and lower gas fees compared to traditional Ethereum Virtual Machine (EVM) contracts. Additionally, it maintains interoperability with existing Solidity contracts, offering a flexible development approach.",
-    url: "https://docs.arbitrum.io/stylus/stylus-quickstart",
+      "Stylus is an upgrade to the Arbitrum Nitro tech stack, introducing a second, coequal virtual machine that executes WebAssembly (WASM) alongside the existing EVM. This allows smart contracts to be written in various programming languages that compile to WASM, such as Rust, C, and C++, enhancing developer flexibility and efficiency. Stylus smart contracts are significantly faster and cheaper than traditional EVM contracts, benefiting from lower gas fees and cheaper memory. Additionally, Stylus maintains full interoperability with Solidity contracts, enabling seamless interaction between EVM and WASM programs.",
+    url: "https://docs.arbitrum.io/stylus/stylus-gentle-introduction",
     cards: [
       {
         title: "Rust Integration",

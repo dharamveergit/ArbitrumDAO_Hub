@@ -1,0 +1,146 @@
+---
+title: Delegate Incentive Program
+description: The Delegate Incentive Program stimulates engagement within Arbitrum DAO by rewarding delegates for their active participation in governance. It encompasses various activities such as voting, communication, and contribution, fostering a vibrant and collaborative ecosystem essential for the DAO's growth and sustainability.
+type: "Home"
+buttons:
+  - link: "https://forum.arbitrum.foundation/t/delegates-incentive-program-started/21709"
+    text: "View Proposal"
+    type: "secondary"
+---
+
+import IntroCard from "@/components/grant-hub/Intro-card.astro";
+import Button from "@/components/ui/button.astro";
+
+<IntroCard
+title="Timeline"
+
+linkCard={[{
+title: "Karma Dashboard",
+description:
+"To View the current status of the program and current scores of delegates visit the the Karma Dashboard",
+image: "/arbitrum.svg",
+url: "https://arbitrum.karmahq.xyz/delegate-compensation",
+},{
+title: "FAQ",
+description:
+"Still have doubts, visit this link to for more frequently asked questions",
+image: "/arbitrum.svg",
+url: "https://forum.arbitrum.foundation/t/faq-and-best-practices-guide-for-the-delegate-incentive-program/21173",
+}]}
+
+>
+
+The Delegate Incentive Program operates on a monthly cycle. At the start of each month, delegate participation in governance activities is tracked. By the last day of the month, delegates must submit their activity data on the forum. They have until the 3rd of the following month to provide a summary of their contributions. The Incentive System Administrator then has 10 days to review, verify, and compile this information, presenting the final results on the forum. Delegates have a 2-day window to dispute any discrepancies. Finally, between the 16th and 17th of the month, a proposal detailing the payment distribution is submitted to Tally for approval. This process is repeated for six months, with payments made in ARB tokens, to assess the system's impact on governance participation.
+
+</IntroCard>
+
+---
+
+### What is Delegate Incentive Program?
+
+The Delegate Incentive Program for ArbitrumDAO is designed to boost delegate engagement and participation in the DAO's governance. Running for six months, it offers financial incentives to delegates based on their voting activity, proposal contributions, and communication within the community. The program aims to foster a more active and involved delegate base, ensuring robust governance and decision-making within the ArbitrumDAO ecosystem. Delegates are evaluated monthly, with top performers receiving ARB token rewards, thus promoting consistent and meaningful participation.
+
+---
+
+### Eligibilty
+
+- To be eligible for participation in the Delegate Incentive Program, delegates must meet specific criteria:
+  a. Voting Power: Delegates must hold more than 50,000 ARB tokens, which corresponds to approximately 194 delegates based on current data.
+  b. Historical Participation Rate: Delegates must have a historical participation rate of over 25% in voting activities, as tracked by Tally.
+  c. Confirmation Process: Eligible delegates must confirm their participation by posting in a dedicated forum channel within a 7-day application window using a specified template. This confirmation includes links to their forum username, Twitter profile, Snapshot profile, and Tally profile with their all-time participation rate.
+- These requirements ensure that only active and engaged delegates can participate, promoting consistent involvement in the DAO's governance processes.
+
+---
+
+### What Happens During the Challenge and Review Period
+
+- The Challenge and Review Period will run until May 20th, 5:00 PM UTC.
+- Delegates will review the addendums to identify applicants they believe need further review before being funded. A full list of addendums can be seen here
+  - Delegates should comment as a reply to the addendums stating their intent to post a challenge snapshot and provide reasons why.
+- The suggestion is to provide objective reasons, backed by data, on why a protocol participating to the STIP should not receive a STIP bridge funding.
+- All late applications will automatically have challenge snapshots posted for them.
+- Any challenge snapshot posted must receive at least 66% of the votes in favor of funding (Excluding abstain votes) in order to receive their bridge funding.
+
+---
+
+### How to Apply?
+
+1. To apply for the Delegate Incentive Program, eligible delegates must follow these steps:
+
+   <ol type="a">
+     <li>
+       Eligibility Check: Ensure you meet the eligibility criteria, which
+       include holding more than 50,000 ARB tokens and having a historical
+       participation rate of over 25% in voting activities.{" "}
+     </li>
+     <li>
+       Confirmation Template: Prepare the required information using the
+       provided template. The template includes:
+       <ul>
+         <li>Forum Username (with link)</li>
+         <li>Twitter Profile (with link)</li>
+         <li>Snapshot Profile (with link)</li>
+         <li>
+           Tally Profile with Exact All-time Participation Rate (with link)
+         </li>
+       </ul>
+     </li>
+     <li>
+       Post in Forum: Within the 7-day application window, post your
+       confirmation in the dedicated forum channel set up for the Incentive
+       System. Ensure that all links and information are accurate to facilitate
+       quick verification.
+     </li>
+     <li>
+       Deadline Adherence: Submit your confirmation post within the specified
+       7-day window. Failure to do so will result in exclusion from the
+       incentive program, even if eligibility criteria are met.
+     </li>
+   </ol>
+
+2. By following these steps, delegates can ensure their participation in the program and potential receipt of incentives based on their active involvement and contributions.
+
+<Button
+  href="https://forum.arbitrum.foundation/t/incentive-program-delegate-application/20945"
+  variant="secondary"
+  arrow
+>
+  Learn more
+</Button>
+
+---
+
+### Overall Cost:
+
+import InfoCard from "@/components/developer-hub/info-card.astro";
+
+<ul
+  class={
+    "not-prose grid  gap-4 md:grid-cols-2 md:gap-8  lg:grid-cols-3 lg:gap-6"
+  }
+>
+  {[
+    {
+      title: "Operational Cost:  1,525,000 ARB tokens",
+      description:
+        "The Delegate Incentive Program's six-month trial costs 1,525,000 ARB, including 1,500,000 ARB for delegate incentives and 25,000 ARB for program administration.",
+      image: "/images/dollar.svg",
+    },
+    {
+      title: "Incentives for Delegates: 1,500,000 ARB tokens",
+      description:
+        "This is allocated at 5,000 ARB per delegate per month for 50 delegates.",
+      image: "/images/dollar.svg",
+    },
+    {
+      title: "Incentive Program Administrator: 25,000 ARB tokens",
+      description:
+        "This is allocated for administering the program over the six months.",
+      image: "/images/dollar.svg",
+    },
+  ].map((item) => (
+    <InfoCard {...item} normal={true} />
+  ))}
+</ul>
+
+---
