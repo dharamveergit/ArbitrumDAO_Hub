@@ -83,6 +83,103 @@ export default config({
           options: {
             image: {
               directory: "src/assets/images/blogs",
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+
+    bounties: collection({
+      label: "Bounties",
+      slugField: "title",
+      path: "src/content/Community_Bounties/*/",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        date: fields.date({ label: "Date" }),
+        reward: fields.number({ label: "Reward" }),
+        link: fields.text({ label: "Link" }),
+        level: fields.select({
+          label: "Level",
+          description: "Select the level of the bounty",
+          options: [
+            { value: "beginner", label: "Beginner" },
+            { value: "intermediate", label: "Intermediate" },
+            { value: "advanced", label: "Advanced" },
+          ],
+          defaultValue: "beginner",
+        }),
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
+
+              // Use the @assets path alias
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+
+    jobs: collection({
+      label: "Jobs",
+      slugField: "title",
+      path: "src/content/Community_Jobs/*/",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        subTitle: fields.text({ label: "Sub Title" }),
+        link: fields.text({ label: "Link" }),
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
+
+              // Use the @assets path alias
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+
+    events: collection({
+      label: "Events",
+      slugField: "title",
+      path: "src/content/Community_Events/*/",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        image: fields.image({
+          label: "Image",
+          //add ./ to the image path
+          directory: "src/assets/images/blogs",
+
+          // Use the @assets path alias
+          publicPath: "@assets/images/blogs/",
+        }),
+        date: fields.date({ label: "Date" }),
+        endDate: fields.date({ label: "End Date" }),
+        externalUrl: fields.text({ label: "External Url" }),
+
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
 
               // Use the @assets path alias
               publicPath: "/src/assets/images/blogs/",
