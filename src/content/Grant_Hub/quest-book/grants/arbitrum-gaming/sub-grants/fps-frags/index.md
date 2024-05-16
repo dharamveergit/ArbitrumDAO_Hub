@@ -6,4 +6,6 @@ description: "2nd UPDATE,,The first map will be entirely mine (Arbitrum-centric 
 askBy: V K D
 fundingAsk: "5000"
 type: "Grant"
+subCollection: "gaming"
+grantType: "Project"
 ---
