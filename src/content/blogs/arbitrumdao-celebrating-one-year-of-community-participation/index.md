@@ -44,7 +44,7 @@ During this three-day hackathon, 23 new budding proposals emerged across tracks 
 
 If this inspires you, you can be part of it too!
 
-Learn how to join the Arbitrum DAO [here](https://arbitrumfoundation.notion.site/Guide-Navigating-the-Arbitrum DAO-adc99590a6f14500bdd73ee38bdbdf46). And/or [apply](https://jobs.arbitrum.io/jobs) to be part of the projects building Arbitrum.
+Learn how to join the Arbitrum DAO [here](https://arbitrumfoundation.notion.site/Guide-Navigating-the-ArbitrumDAO-adc99590a6f14500bdd73ee38bdbdf46). And/or [apply](https://jobs.arbitrum.io/jobs) to be part of the projects building Arbitrum.
 
 > **_NOTE:_** **Thank you to all Arbitrum DAO Contributors and projects that make Arbitrum special and help the Ethereum and Arbitrum ecosystem grow.**
 
