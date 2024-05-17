@@ -6,4 +6,6 @@ description: "LLC - https://llcgame.io/,,Onchain tycoon game where players are i
 askBy: Denis V
 fundingAsk: "18000"
 type: "Grant"
+subCollection: "gaming"
+grantType: "Project"
 ---
