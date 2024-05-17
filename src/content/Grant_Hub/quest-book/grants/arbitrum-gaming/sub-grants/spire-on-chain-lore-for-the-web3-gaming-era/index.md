@@ -6,4 +6,6 @@ description: "Spire: On-chain Lore for the Web3 Gaming Era, ,,,Spire creates on-
 askBy: Zach
 fundingAsk: "17500"
 type: "Grant"
+subCollection: "gaming"
+grantType: "Project"
 ---

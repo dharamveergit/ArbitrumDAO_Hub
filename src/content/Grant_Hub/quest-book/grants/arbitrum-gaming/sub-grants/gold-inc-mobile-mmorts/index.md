@@ -6,4 +6,6 @@ description: "About Us:,Sapphire Studios is a forward-thinking Indie game develo
 askBy: Kyle Hornback
 fundingAsk: "25000"
 type: "Grant"
+subCollection: "gaming"
+grantType: "Project"
 ---
