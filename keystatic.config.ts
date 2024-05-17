@@ -1,3 +1,4 @@
+import { ambassadors } from "@/data/schema/community";
 import { config, fields, collection } from "@keystatic/core";
 
 // title: "We’re headed (back) to ETH Denver! ⛰️"
@@ -13,11 +14,26 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage: {
-    kind: "github",
-    repo: `${REPO_OWNER}/${REPO_NAME}`,
+    kind: "local",
+    // repo: `${REPO_OWNER}/${REPO_NAME}`,
   },
+  // {
+  //   "name":"Arbitrum",
+  // "description":"Your Gateway to Decentralized Excellence, Where Community Shapes Tomorrow's Innovations."
+  // }
 
   collections: {
+    author: collection({
+      label: "Authors",
+      slugField: "name",
+      format: { data: "json" },
+      path: "src/content/authors/*",
+
+      schema: {
+        name: fields.slug({ name: { label: "Name" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+      },
+    }),
     posts: collection({
       label: "Blogs",
       slugField: "title",
@@ -37,7 +53,12 @@ export default config({
         tag: fields.text({ label: "Tag" }),
         label: fields.text({ label: "Label" }),
         pubDate: fields.date({ label: "Publication Date" }),
-        author: fields.text({ label: "Author" }),
+
+        author: fields.relationship({
+          label: "Author",
+          description: "Select the author of the blog",
+          collection: "author",
+        }),
 
         content: fields.markdoc({
           label: "Content",
@@ -90,6 +111,54 @@ export default config({
       },
     }),
 
+    contributions: collection({
+      label: "Contributions",
+      slugField: "title",
+      path: "src/content/Community_Contributions/*/",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        image: fields.image({
+          label: "Image",
+          //add ./ to the image path
+          directory: "src/assets/images/blogs",
+
+          // Use the @assets path alias
+          publicPath: "@assets/images/blogs/",
+        }),
+
+        label: fields.text({ label: "Label" }),
+        externalUrl: fields.text({ label: "External Url" }),
+        tag: fields.text({ label: "Tag" }),
+        isAmbassador: fields.conditional(
+          fields.checkbox({ label: "Is Ambassador", defaultValue: false }),
+
+          {
+            true: fields.relationship({
+              label: "Ambassadors",
+              description: "Select the ambassadors for the contribution",
+              collection: "ambassadors",
+            }),
+
+            false: fields.empty(),
+          },
+        ),
+
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+
     bounties: collection({
       label: "Bounties",
       slugField: "title",
@@ -111,6 +180,7 @@ export default config({
           ],
           defaultValue: "beginner",
         }),
+
         content: fields.markdoc({
           label: "Content",
           extension: "md",
@@ -172,6 +242,120 @@ export default config({
         date: fields.date({ label: "Date" }),
         endDate: fields.date({ label: "End Date" }),
         externalUrl: fields.text({ label: "External Url" }),
+
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
+
+              // Use the @assets path alias
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+    collaboration: collection({
+      label: "Collaboration",
+      slugField: "title",
+      path: "src/content/Community_Contributions/*/",
+      format: { contentField: "content" },
+      //
+
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        subTitle: fields.text({ label: "Sub Title" }),
+        date: fields.date({ label: "Date" }),
+
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
+
+              // Use the @assets path alias
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+    //     title: Arbitrum Treasury and Sustainability - Working Group
+
+    // description: The Treasury and Sustainability Working Group was formed to address critical challenges facing the Arbitrum ecosystem, particularly in treasury management and sustainability. Its primary roles include researching best practices for managing price impact from large liquidations, optimizing treasury diversification, utilizing sequencer fees effectively, and converting grants into strategic investments. Additionally, the group evaluates various practices, tools, and service providers to determine integration suitability.
+
+    // overview: The Treasury and Sustainability Working Group tackles vital issues like managing liquidations, optimizing treasury diversification, and evaluating integration options.
+
+    // type: "wg"
+    // tag: "Established"
+    // meetingOn: "Thursday at 3 pm UTC"
+    // meetingLink: "#"
+    // meetingTiming: "3 pm UTC"
+    // calendarId: "1ed9e6c0a914d3bf87aed85cbc041cfa3ef33a383e425d88cd3fec67e1057ef6@group.calendar.google.com"
+    // buttons:
+    //   - text: "Learn More"
+    //     type: "secondary"
+    //     link: "https://forum.arbitrum.foundation/t/arbitrum-treasury-and-sustainability-working-group/18978/9"
+    //   - text: "Twitter"
+    //     type: "secondary"
+    //     link: "https://twitter.com/arbtreasury"
+    //     icon: "socials/twitter"
+    //   - text: "Telegram"
+    //     link: "https://t.me/+DQn51hWOIUg0NTQx"
+    //     type: "secondary"
+    //     icon: "socials/telegram"
+    workingGroups: collection({
+      label: "Working Groups",
+      slugField: "title",
+      path: "src/content/Community_Contributions/*/",
+      format: { contentField: "content" },
+      //
+
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        overview: fields.text({ label: "Overview", multiline: true }),
+        type: fields.text({ label: "Type", defaultValue: "wg" }),
+        tag: fields.text({ label: "Tag" }),
+        meetingOn: fields.text({ label: "Meeting On" }),
+        meetingLink: fields.text({ label: "Meeting Link" }),
+        meetingTiming: fields.text({ label: "Meeting Timing" }),
+        calendarId: fields.text({ label: "Calendar Id" }),
+        buttons: fields.array(
+          fields.object({
+            text: fields.text({ label: "Text" }),
+            type: fields.select({
+              label: "Type",
+              options: [
+                { value: "primary", label: "Primary" },
+                { value: "secondary", label: "Secondary" },
+              ],
+              defaultValue: "primary",
+              description: "Select the type of the button",
+            }),
+            link: fields.text({ label: "Link" }),
+            icon: fields.select({
+              label: "Icon",
+              options: [
+                { value: "socials/twitter", label: "Twitter" },
+                { value: "socials/telegram", label: "Telegram" },
+              ],
+              description: "Select the icon for the button",
+              defaultValue: "socials/twitter",
+            }),
+          }),
+          {
+            label: "Buttons",
+            slugField: "text",
+            itemLabel: (props) => props.fields.text.value,
+          },
+        ),
 
         content: fields.markdoc({
           label: "Content",
