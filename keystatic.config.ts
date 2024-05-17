@@ -14,13 +14,26 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage: {
-    kind: "local",
-    // repo: `${REPO_OWNER}/${REPO_NAME}`,
+    kind: "github",
+    repo: `${REPO_OWNER}/${REPO_NAME}`,
   },
-  // {
-  //   "name":"Arbitrum",
-  // "description":"Your Gateway to Decentralized Excellence, Where Community Shapes Tomorrow's Innovations."
-  // }
+  ui: {
+    brand: {
+      name: "Arbitrum DAO Hub",
+    },
+    navigation: {
+      Blogs: ["author", "posts"],
+      Community: [
+        "ambassadors",
+        "contributions",
+        "bounties",
+        "jobs",
+        "events",
+        "workingGroups",
+        "collaboration",
+      ],
+    },
+  },
 
   collections: {
     author: collection({
