@@ -17,7 +17,7 @@ export const communityNav = [
   },
   {
     label: "Initiatives",
-    slug: "/community-hub/initiatives/events/",
+    slug: "/community-hub/initiatives/event/",
   },
   {
     label: "Jobs",
@@ -51,11 +51,11 @@ export const contributions = [
 export const eventsNav = [
   {
     label: "Events",
-    link: "/community-hub/initiatives/events/",
+    link: "/community-hub/initiatives/event/",
   },
   {
     label: "Hackathons",
-    link: "/community-hub/initiatives/hackathons/",
+    link: "/community-hub/initiatives/hackathon/",
   },
   {
     label: "Meetings",

@@ -150,9 +150,8 @@ export default config({
           ],
           defaultValue: "general",
         }),
-        // Featured media
+
         type: fields.conditional(
-          // First, define a `select` field with all the available "conditions"
           fields.select({
             label: "Type",
             description:
@@ -166,7 +165,12 @@ export default config({
           }),
 
           {
-            community: fields.empty(),
+            community: fields.select({
+              label: "By",
+              description: "",
+              options: [{ label: "Community", value: "contributions" }],
+              defaultValue: "contributions",
+            }),
 
             ambassadors: fields.relationship({
               label: "Ambassador",
@@ -279,7 +283,41 @@ export default config({
         date: fields.date({ label: "Date" }),
         endDate: fields.date({ label: "End Date" }),
         externalUrl: fields.text({ label: "External Url" }),
+        type: fields.select({
+          label: "Type",
+          options: [
+            { value: "event", label: "Event" },
+            { value: "hackathon", label: "Hackathon" },
+          ],
+          defaultValue: "event",
+        }),
+        eventBy: fields.conditional(
+          fields.select({
+            label: "Event By",
+            description:
+              "Select the type of the featured media for the contribution.",
+            options: [
+              { label: "Community", value: "community" },
+              { label: "Ambassadors", value: "ambassadors" },
+            ],
+            defaultValue: "community",
+          }),
 
+          {
+            community: fields.select({
+              label: "By",
+              description: "",
+              options: [{ label: "Community", value: "community" }],
+              defaultValue: "community",
+            }),
+
+            ambassadors: fields.relationship({
+              label: "Ambassador",
+              description: "Select the ambassador for the contribution.",
+              collection: "ambassadors",
+            }),
+          },
+        ),
         content: fields.markdoc({
           label: "Content",
           extension: "md",

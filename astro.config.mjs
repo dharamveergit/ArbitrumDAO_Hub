@@ -24,4 +24,7 @@ export default defineConfig({
   ],
   output: "hybrid",
   adapter: vercel(),
+  redirects: {
+    "/community-hub/initiatives/events/": "/community-hub/initiatives/event/",
+  },
 });

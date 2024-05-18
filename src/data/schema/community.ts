@@ -36,6 +36,19 @@ export const events = defineCollection({
     return cardSchema(image).extend({
       date: z.date().optional(),
       endDate: z.date().optional(),
+      type: z.union([z.literal("event"), z.literal("hackathon")]),
+      eventBy: z
+        .object({
+          discriminant: z.union([
+            z.literal("ambassadors"),
+            z.literal("community"),
+          ]),
+          value: z.union([
+            reference("Community_Ambassadors"),
+            z.literal("community"),
+          ]),
+        })
+        .optional(),
       links: z
         .object({
           twitter: z.string().optional(),

@@ -32,7 +32,7 @@ const {
 
 const contributions = await getCollection(
   "Community_Contributions",
-  ({ data }) =>
+  ({ data }: any) =>
     data?.type?.discriminant === "wg" && data?.type?.value?.slug === slug,
 );
 ---

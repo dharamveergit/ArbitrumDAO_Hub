@@ -13,23 +13,11 @@ import { ArrowUpCircle } from "lucide-react";
 export async function getStaticPaths() {
   const entries = await getCollection("Community_Ambassadors");
 
-  return entries.map((entry) => {
-    const contributions = entries.filter(
-      (contribution) =>
-        contribution.slug.split("/")[0] === entry.slug.split("/")[0] &&
-        contribution.id.split("/")[1] === "contributions",
-    );
-
+  return entries.flatMap((entry) => {
     const achievements = entries.filter(
       (activement) =>
         activement.slug.split("/")[0] === entry.slug.split("/")[0] &&
         activement.id.split("/")[1] === "achievements",
-    );
-
-    const events = entries.filter(
-      (event) =>
-        event.slug.split("/")[0] === entry.slug.split("/")[0] &&
-        event.id.split("/")[1] === "events",
     );
 
     const gallery = entries.filter(
@@ -41,24 +29,25 @@ export async function getStaticPaths() {
     const profile = entries.find(
       (profile) => profile.slug.split("/")[0] === entry.slug.split("/")[0],
     );
+    const tags = ["contributions", "achievements", "events", "gallery"];
 
-    return {
+    return tags.map((tag) => ({
       params: {
-        slug: entry.slug.split("/")[0],
-        tag: entry.slug.split("/")[1] ?? "contributions",
+        slug: entry.slug,
+        tag: tag,
       },
       props: {
         entry: profile,
-        contributions,
+
         achievements,
-        events,
+
         gallery,
       },
-    };
+    }));
   });
 }
 
-const { entry, achievements, events, gallery } = Astro.props;
+const { entry, achievements, gallery } = Astro.props;
 const { slug, tag } = Astro.params;
 const mainGallery = gallery
   .map((g) => g.data)
@@ -66,17 +55,22 @@ const mainGallery = gallery
   .flat();
 
 console.log(slug);
-// type:
-//   discriminant: ambassadors
-//   value: "wateloo-blockchain"
+
 const data = entry?.data;
 const pathname = Astro.url.pathname;
 
 const contributions = await getCollection(
   "Community_Contributions",
-  ({ data }) =>
+  ({ data }: any) =>
     data?.type?.discriminant === "ambassadors" &&
     data?.type?.value?.slug === slug,
+);
+
+const events = await getCollection(
+  "Community_Events",
+  ({ data }: any) =>
+    data?.eventBy?.discriminant === "ambassadors" &&
+    data?.eventBy?.value?.slug === slug,
 );
 ---
 
@@ -127,14 +121,15 @@ const contributions = await getCollection(
     {
       tag === "contributions" && (
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {contributions?.map(({ slug: slug2, data }) => {
-            return (
-              <BlogCard
-                blog={data}
-                link={`/community-hub/contributions/${data?.tag}/${slug2}`}
-              />
-            );
-          })}
+          {contributions?.length > 0 &&
+            contributions?.map(({ slug: slug2, data }) => {
+              return (
+                <BlogCard
+                  blog={data}
+                  link={`/community-hub/contributions/${data?.tag}/${slug2}`}
+                />
+              );
+            })}
         </div>
       )
     }
