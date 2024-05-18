@@ -6,4 +6,6 @@ description: "Kaiju Cards is the flagship IP of Permadeath Studios, Inc. (PSI). 
 askBy: Michael Moss
 fundingAsk: "22500"
 type: "Grant"
+subCollection: "gaming"
+grantType: "Project"
 ---

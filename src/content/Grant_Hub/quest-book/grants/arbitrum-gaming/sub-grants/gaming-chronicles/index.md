@@ -6,4 +6,6 @@ description: "GC Sponsorship,,About us:,Community Name: Gaming Chronicles,Websit
 askBy: Raiden
 fundingAsk: "3300"
 type: "Grant"
+subCollection: "gaming"
+grantType: "Project"
 ---
