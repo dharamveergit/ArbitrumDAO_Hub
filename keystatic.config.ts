@@ -14,8 +14,8 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage: {
-    kind: "github",
-    repo: `${REPO_OWNER}/${REPO_NAME}`,
+    kind: "local",
+    // repo: `${REPO_OWNER}/${REPO_NAME}`,
   },
   ui: {
     brand: {
@@ -91,7 +91,7 @@ export default config({
     ambassadors: collection({
       label: "Ambassadors",
       slugField: "title",
-      path: "src/content/Community_Ambassadors/*/profile",
+      path: "src/content/Community_Ambassadors/*/",
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
@@ -134,27 +134,51 @@ export default config({
         description: fields.text({ label: "Description", multiline: true }),
         image: fields.image({
           label: "Image",
-          //add ./ to the image path
           directory: "src/assets/images/blogs",
-
-          // Use the @assets path alias
           publicPath: "@assets/images/blogs/",
         }),
 
         label: fields.text({ label: "Label" }),
         externalUrl: fields.text({ label: "External Url" }),
-        tag: fields.text({ label: "Tag" }),
-        isAmbassador: fields.conditional(
-          fields.checkbox({ label: "Is Ambassador", defaultValue: false }),
+        tag: fields.select({
+          label: "Tag",
+          options: [
+            { value: "articles", label: "Articles" },
+            { value: "general", label: "General" },
+            { value: "guides", label: "Guides" },
+            { value: "videos", label: "Videos" },
+          ],
+          defaultValue: "general",
+        }),
+        // Featured media
+        type: fields.conditional(
+          // First, define a `select` field with all the available "conditions"
+          fields.select({
+            label: "Type",
+            description:
+              "Select the type of the featured media for the contribution.",
+            options: [
+              { label: "Community", value: "community" },
+              { label: "Ambassadors", value: "ambassadors" },
+              { label: "Working Group", value: "wg" },
+            ],
+            defaultValue: "community",
+          }),
 
           {
-            true: fields.relationship({
-              label: "Ambassadors",
-              description: "Select the ambassadors for the contribution",
+            community: fields.empty(),
+
+            ambassadors: fields.relationship({
+              label: "Ambassador",
+              description: "Select the ambassador for the contribution.",
               collection: "ambassadors",
             }),
 
-            false: fields.empty(),
+            wg: fields.relationship({
+              label: "Working Group",
+              description: "Select the working group for the contribution.",
+              collection: "workingGroups",
+            }),
           },
         ),
 
@@ -299,34 +323,11 @@ export default config({
         }),
       },
     }),
-    //     title: Arbitrum Treasury and Sustainability - Working Group
 
-    // description: The Treasury and Sustainability Working Group was formed to address critical challenges facing the Arbitrum ecosystem, particularly in treasury management and sustainability. Its primary roles include researching best practices for managing price impact from large liquidations, optimizing treasury diversification, utilizing sequencer fees effectively, and converting grants into strategic investments. Additionally, the group evaluates various practices, tools, and service providers to determine integration suitability.
-
-    // overview: The Treasury and Sustainability Working Group tackles vital issues like managing liquidations, optimizing treasury diversification, and evaluating integration options.
-
-    // type: "wg"
-    // tag: "Established"
-    // meetingOn: "Thursday at 3 pm UTC"
-    // meetingLink: "#"
-    // meetingTiming: "3 pm UTC"
-    // calendarId: "1ed9e6c0a914d3bf87aed85cbc041cfa3ef33a383e425d88cd3fec67e1057ef6@group.calendar.google.com"
-    // buttons:
-    //   - text: "Learn More"
-    //     type: "secondary"
-    //     link: "https://forum.arbitrum.foundation/t/arbitrum-treasury-and-sustainability-working-group/18978/9"
-    //   - text: "Twitter"
-    //     type: "secondary"
-    //     link: "https://twitter.com/arbtreasury"
-    //     icon: "socials/twitter"
-    //   - text: "Telegram"
-    //     link: "https://t.me/+DQn51hWOIUg0NTQx"
-    //     type: "secondary"
-    //     icon: "socials/telegram"
     workingGroups: collection({
       label: "Working Groups",
       slugField: "title",
-      path: "src/content/Community_Contributions/*/",
+      path: "src/content/Working_Groups/*/",
       format: { contentField: "content" },
       //
 

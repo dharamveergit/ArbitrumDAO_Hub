@@ -39,9 +39,7 @@ export async function getStaticPaths() {
     );
 
     const profile = entries.find(
-      (profile) =>
-        profile.slug.split("/")[0] === entry.slug.split("/")[0] &&
-        profile.id.split("/")[1] === "profile.md",
+      (profile) => profile.slug.split("/")[0] === entry.slug.split("/")[0],
     );
 
     return {
@@ -60,17 +58,26 @@ export async function getStaticPaths() {
   });
 }
 
-const { entry, contributions, achievements, events, gallery } = Astro.props;
+const { entry, achievements, events, gallery } = Astro.props;
 const { slug, tag } = Astro.params;
 const mainGallery = gallery
   .map((g) => g.data)
   .map((g) => g.gallery)
   .flat();
 
-console.log(achievements);
-
+console.log(slug);
+// type:
+//   discriminant: ambassadors
+//   value: "wateloo-blockchain"
 const data = entry?.data;
 const pathname = Astro.url.pathname;
+
+const contributions = await getCollection(
+  "Community_Contributions",
+  ({ data }) =>
+    data?.type?.discriminant === "ambassadors" &&
+    data?.type?.value?.slug === slug,
+);
 ---
 
 <MainLayout
@@ -124,7 +131,7 @@ const pathname = Astro.url.pathname;
             return (
               <BlogCard
                 blog={data}
-                link={`/community-hub/ambassadors/near-you/${slug2}`}
+                link={`/community-hub/contributions/${data?.tag}/${slug2}`}
               />
             );
           })}
