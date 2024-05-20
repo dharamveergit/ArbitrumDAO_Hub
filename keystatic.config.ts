@@ -1,14 +1,6 @@
 import { ambassadors } from "@/data/schema/community";
 import { config, fields, collection } from "@keystatic/core";
 
-// title: "We’re headed (back) to ETH Denver! ⛰️"
-// description: "Arbitrum is heading back to ETH Denver from Friday, February 23rd, to Sunday, March 3rd, and we’re excited to get together to explore, connect, collaborate, and have some fun along the way!"
-// image: "./banner.webp"
-// tag: "Genesis"
-// label: "arbitrum technology"
-// pubDate: 2024-02-23
-// author: "arbitrum"
-
 const REPO_OWNER = "dharamveergit";
 const REPO_NAME = "ArbitrumDAO_Hub";
 
@@ -31,6 +23,7 @@ export default config({
         "events",
         "workingGroups",
         "collaboration",
+        "Projects",
       ],
     },
   },
@@ -418,6 +411,61 @@ export default config({
               directory: "src/assets/images/blogs",
 
               // Use the @assets path alias
+              publicPath: "/src/assets/images/blogs/",
+            },
+          },
+        }),
+      },
+    }),
+    // title: Card Creation
+    // description: The Card Creation project aims to create a standard for the creation of cards in the context of the Open Cybersecurity Alliance.
+    // tag: project
+    // status: ongoing
+    // type: project
+    // externalUrl: https://arbitrum.io/
+
+    Projects: collection({
+      label: "Projects",
+      slugField: "title",
+      path: "src/content/Projects/*/",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description", multiline: true }),
+        tag: fields.text({ label: "Tag" }),
+        status: fields.select({
+          label: "Status",
+          options: [
+            { value: "ongoing", label: "Ongoing" },
+            { value: "completed", label: "Completed" },
+          ],
+          defaultValue: "ongoing",
+        }),
+
+        type: fields.conditional(
+          fields.select({
+            label: "Type",
+            description:
+              "Select the type of the featured media for the contribution.",
+            options: [{ label: "Working Group", value: "wg" }],
+            defaultValue: "wg",
+          }),
+
+          {
+            wg: fields.relationship({
+              label: "Working Group",
+              description: "Select the working group for the contribution.",
+              collection: "workingGroups",
+            }),
+          },
+        ),
+        externalUrl: fields.text({ label: "External Url" }),
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+          options: {
+            image: {
+              directory: "src/assets/images/blogs",
               publicPath: "/src/assets/images/blogs/",
             },
           },
