@@ -14,6 +14,11 @@ export const grandHub = {
       text: "How to Apply",
       type: "secondary",
     },
+    {
+      link: "/ecosystem-hub/grant-projects/all",
+      text: "Accepted Projects",
+      type: "secondary",
+    },
   ],
 
   intro: {

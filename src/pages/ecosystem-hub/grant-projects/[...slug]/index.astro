@@ -1,18 +1,13 @@
 ---
-import ProjectCard from "@/components/grant-hub/project-card.astro";
+import Filter from "@/components/ecosystem/filter";
 import GradientHead from "@/components/ui/gradient-head.astro";
 import Paginate from "@/components/ui/paginate.astro";
-import EcosystemSearch from "@/components/ui/search/ecosystem-search";
 import Seperator from "@/components/ui/seperator.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { titleCva } from "@/lib/cvas";
 import type { PaginateFunction } from "astro";
 import { getCollection } from "astro:content";
-import Filter from "@/components/ecosystem/filter";
-import classNames from "classnames";
-import { getUrl, getRemoveUrl } from "@/lib/utils";
-import { ArrowRight, X } from "lucide-react";
-
+import Table from "@/components/ecosystem/table";
 export async function getStaticPaths({
   paginate,
 }: {
@@ -71,13 +66,13 @@ export async function getStaticPaths({
         }
         return 0;
       });
-    return paginate(allPosts, {
+    return {
       params: { slug: s },
       props: {
         newData: res,
+        all: allPosts,
       },
-      pageSize: 20,
-    });
+    };
   });
 }
 
@@ -102,12 +97,10 @@ const projects = homes.map(({ data, slug }) => {
   };
 });
 
-const { page, newData } = Astro.props;
+const { all, newData } = Astro.props;
 const pathname = Astro.url.pathname;
 const slugs = homes.map(({ slug }) => slug);
 const appliedFilters = slugs.filter((d) => pathname.split("/").includes(d));
-
-console.log(page?.data);
 
 const colors = [
   "bg-green-100",
@@ -170,9 +163,10 @@ const borderColor = [
         ))
       }
     </div>
-    <div class="flex flex-col justify-between gap-3 md:flex-row">
+    <div class="flex items-center justify-between gap-3">
       <h1 class={titleCva()}>Grant Projects</h1>
-      <div class="flex flex-wrap items-center gap-3">
+      <Filter data={slugs} pathname={pathname} client:load />
+      <!-- <div class="flex flex-wrap items-center gap-3">
         {
           appliedFilters.length > 0
             ? appliedFilters.map((filter, index) => (
@@ -206,88 +200,19 @@ const borderColor = [
                 </a>
               ))
         }
-      </div>
+      </div> -->
     </div>
-    <div class="flex items-center justify-between gap-5">
-      <EcosystemSearch collection={projects} client:load />
-      <Filter data={slugs} pathname={pathname} client:load />
-    </div>
+    <!-- <div class="flex items-center justify-between gap-5">
+     
+      
+    </div> -->
     <!-- <ul class="grid gap-4 md:grid-cols-2 lg:gap-5">
       {page.data?.map(({ data }, i) => <ProjectCard project={data} />)}
     </ul> -->
 
     <!-- create table -->
+    <Table data={all} client:load />
 
-    <div class="overflow-x-auto">
-      <table class="w-full table-auto">
-        <thead>
-          <tr
-            class="whitespace-nowrap border-b text-lg font-medium text-zinc-500"
-          >
-            <th
-              class="left-0 min-w-[20rem] bg-white px-2 py-5 text-left font-medium md:sticky"
-              >Name</th
-            >
-            <th class="px-2 py-5 text-left font-medium">Description</th>
-            <th class="px-2 py-5 text-left font-medium">Category</th>
-            <th class="px-2 py-5 text-left font-medium">Date</th>
-            <th class="px-2 py-5 text-left font-medium">Funding Ask</th>
-            <th class="px-2 py-5 text-left font-medium">Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            page.data?.map(({ data, slug: curSlug }, i) => (
-              <tr
-                class={classNames(
-                  "border-b  text-base font-medium text-zinc-900",
-                )}
-              >
-                <td class="left-0 min-w-[20rem] bg-white  px-2 py-3 md:sticky">
-                  {data?.title}
-                </td>
-                <td class="  min-w-[20rem] px-2 py-3  font-light text-gray-500">
-                  {data?.description && data?.description?.length > 100
-                    ? data?.description?.slice(0, 100) + "..."
-                    : data?.description ?? "N/A"}
-                </td>
-                <td class="min-w-[15rem] whitespace-nowrap px-2 py-3 capitalize">
-                  {curSlug.split("/")[0] ?? "N/A"}
-                </td>
-                <td class="min-w-[10rem] whitespace-nowrap px-2 py-3">
-                  {data?.date
-                    ? new Date(data?.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })
-                    : "N/A"}
-                </td>
-                <td class="min-w-[10rem] whitespace-nowrap px-2 py-3">
-                  {data?.fundingAsk ?? "N/A"}
-                </td>
-                <td class="px-2 py-3 ">
-                  <a
-                    href={data.externalUrl}
-                    class={classNames(
-                      "flex items-center gap-1 whitespace-nowrap ",
-
-                      !data.externalUrl
-                        ? "cursor-not-allowed text-zinc-300"
-                        : "hover:text-primary",
-                    )}
-                    tabindex="_blank"
-                  >
-                    Project Link <ArrowRight size={16} className="-rotate-45" />
-                  </a>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-    <Paginate data={page} />
     <Seperator />
   </section>
 </MainLayout>
