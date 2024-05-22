@@ -1,5 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
+import { set } from "date-fns";
 import { ArrowRight, SearchIcon } from "lucide-react";
 import React from "react";
 import Highlighter from "react-highlight-words";
@@ -7,6 +8,7 @@ const Table = ({ data }: { data: CollectionEntry<"Grant_Hub">[] }) => {
   console.log(data);
   const [search, setSearch] = React.useState("");
   const [currentPageSize, setCurrentPageSize] = React.useState(100);
+  const [filteredData, setFilteredData] = React.useState(data);
 
   return (
     <>
@@ -24,7 +26,17 @@ const Table = ({ data }: { data: CollectionEntry<"Grant_Hub">[] }) => {
             placeholder="Search for projects or keywords"
             className="ml-2 w-full flex-1 text-xs font-light  focus:outline-none md:text-sm lg:text-base"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setFilteredData(
+                data.filter(({ data }) =>
+                  data.title
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase()),
+                ),
+              );
+              setCurrentPageSize(100);
+            }}
           />
         </div>
 
@@ -47,76 +59,83 @@ const Table = ({ data }: { data: CollectionEntry<"Grant_Hub">[] }) => {
             </tr>
           </thead>
           <tbody>
+            {filteredData?.length === 0 && (
+              <tr className="border-b text-base font-medium text-zinc-900">
+                <td className="left-0 min-w-[20rem] bg-white  px-2 py-3 md:sticky">
+                  No projects found
+                </td>
+                <td className="  min-w-[20rem] px-2 py-3 font-os  font-light text-gray-500">
+                  N/A
+                </td>
+                <td className="min-w-[15rem] whitespace-nowrap px-2 py-3 font-os capitalize">
+                  N/A
+                </td>
+                <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
+                  N/A
+                </td>
+                <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
+                  N/A
+                </td>
+                <td className="px-2 py-3 font-os">N/A</td>
+              </tr>
+            )}
+
             {data &&
-              data.length > 0 &&
-              data
-                ?.slice(0, currentPageSize)
-                ?.filter(({ data }) => {
-                  if (!search) return true;
-                  return (
-                    data.title?.toLowerCase().includes(search.toLowerCase()) ||
-                    data.description
-                      ?.toLowerCase()
-                      .includes(search.toLowerCase())
-                  );
-                })
-                ?.map(({ data, slug: curSlug }, i) => (
-                  <tr
-                    key={i}
-                    className={classNames(
-                      "border-b  text-base font-medium text-zinc-900",
-                    )}
-                  >
-                    <td className="left-0 min-w-[20rem] bg-white  px-2 py-3 md:sticky">
-                      <Highlighter
-                        highlightClassName="bg-primary text-white"
-                        searchWords={[search]}
-                        autoEscape={true}
-                        textToHighlight={data?.title}
-                      />
-                    </td>
+              filteredData?.length > 0 &&
+              filteredData?.map(({ data, slug: curSlug }, i) => (
+                <tr
+                  key={i}
+                  className={classNames(
+                    "border-b  text-base font-medium text-zinc-900",
+                  )}
+                >
+                  <td className="left-0 min-w-[20rem] bg-white  px-2 py-3 md:sticky">
+                    <Highlighter
+                      highlightClassName="bg-primary text-white"
+                      searchWords={[search]}
+                      autoEscape={true}
+                      textToHighlight={data?.title}
+                    />
+                  </td>
 
-                    <td className="  min-w-[20rem] px-2 py-3 font-os  font-light text-gray-500">
-                      <Highlighter
-                        highlightClassName="bg-primary text-white"
-                        searchWords={[search]}
-                        autoEscape={true}
-                        textToHighlight={data?.description ?? ""}
-                      />
-                    </td>
-                    <td className="min-w-[15rem] whitespace-nowrap px-2 py-3 font-os capitalize">
-                      {curSlug.split("/")[0] ?? "N/A"}
-                    </td>
-                    <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
-                      {data?.date
-                        ? new Date(data?.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })
-                        : "N/A"}
-                    </td>
-                    <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
-                      {data?.fundingAsk ?? "N/A"}
-                    </td>
-                    <td className="px-2 py-3 font-os">
-                      <a
-                        href={data.externalUrl}
-                        className={classNames(
-                          "flex items-center gap-1 whitespace-nowrap ",
+                  <td className="  min-w-[20rem] px-2 py-3 font-os  font-light text-gray-500">
+                    {data?.description && data?.description?.length > 100
+                      ? data?.description?.slice(0, 100) + "..."
+                      : data?.description}
+                  </td>
+                  <td className="min-w-[15rem] whitespace-nowrap px-2 py-3 font-os capitalize">
+                    {curSlug.split("/")[0] ?? "N/A"}
+                  </td>
+                  <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
+                    {data?.date
+                      ? new Date(data?.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      : "N/A"}
+                  </td>
+                  <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
+                    {data?.fundingAsk ?? "N/A"}
+                  </td>
+                  <td className="px-2 py-3 font-os">
+                    <a
+                      href={data.externalUrl}
+                      className={classNames(
+                        "flex items-center gap-1 whitespace-nowrap ",
 
-                          !data.externalUrl
-                            ? "cursor-not-allowed text-zinc-300"
-                            : "hover:text-primary",
-                        )}
-                        target="_blank"
-                      >
-                        Project Link{" "}
-                        <ArrowRight size={16} className="-rotate-45" />
-                      </a>
-                    </td>
-                  </tr>
-                ))}
+                        !data.externalUrl
+                          ? "cursor-not-allowed text-zinc-300"
+                          : "hover:text-primary",
+                      )}
+                      target="_blank"
+                    >
+                      Project Link{" "}
+                      <ArrowRight size={16} className="-rotate-45" />
+                    </a>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>{" "}
