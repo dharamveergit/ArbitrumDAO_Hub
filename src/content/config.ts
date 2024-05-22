@@ -222,6 +222,19 @@ export const wgProjects = defineCollection({
     }),
 });
 
+const grantUpdates = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      label: z.string().optional(),
+      description: z.string(),
+      image: image().optional(),
+      type: z.string().optional(),
+      externalUrl: z.string().optional(),
+    }),
+});
+
 export const collections = {
   blogs,
   homepage,
@@ -240,4 +253,5 @@ export const collections = {
   Incentive_Programs: incentive,
   Proposal_Hub_Forum: proposalHubForum,
   Projects: wgProjects,
+  Updates: grantUpdates,
 };

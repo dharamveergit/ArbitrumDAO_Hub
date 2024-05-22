@@ -17,11 +17,15 @@ export async function getStaticPaths({
   paginate: PaginateFunction;
 }) {
   const data = await getCollection("Grant_Hub");
+  const updates = await getCollection("Updates");
   const homes = data.filter((d) => d.data.type === "Home");
   return homes.flatMap((home) => {
-    const allPosts = data.filter(
-      (d) => d.data.type === "Update" && d.slug.split("/")[0] === home.slug,
-    );
+    const allPosts =
+      updates.filter((d) => d.data.type === home.slug)?.length > 0
+        ? updates.filter((d) => d.data.type === home.slug)
+        : updates.filter(
+            (d) => d.id === "how-to-add-updates-tutorial/index.md",
+          );
     return paginate(allPosts, {
       params: { slug: home.slug },
       props: {
@@ -40,7 +44,7 @@ const {
   },
 } = Astro.props;
 const pathname = Astro.url.pathname;
-console.log(slug);
+console.log(page.data);
 ---
 
 <MainLayout
@@ -72,7 +76,10 @@ console.log(slug);
     <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
         page?.data?.map(({ data, slug: slug2 }) => (
-          <Card blog={data} link={`/grant-hub/${slug2}/`} />
+          <Card
+            blog={data}
+            link={`/grant-hub/${data?.type}/updates/${slug2}/`}
+          />
         ))
       }
     </ul>

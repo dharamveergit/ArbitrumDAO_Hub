@@ -6,8 +6,8 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage: {
-    kind: "github",
-    repo: `${REPO_OWNER}/${REPO_NAME}`,
+    kind: "local",
+    // repo: `${REPO_OWNER}/${REPO_NAME}`,
   },
   ui: {
     brand: {
@@ -24,6 +24,7 @@ export default config({
         "workingGroups",
         "collaboration",
         "Projects",
+        "updates",
       ],
     },
   },
@@ -92,10 +93,10 @@ export default config({
         image: fields.image({
           label: "Image",
           //add ./ to the image path
-          directory: "src/assets/images/blogs",
+          directory: "src/assets/images/ambassadors",
 
           // Use the @assets path alias
-          publicPath: "@assets/images/blogs/",
+          publicPath: "@assets/images/ambassadors/",
         }),
 
         label: fields.text({ label: "Label" }),
@@ -109,8 +110,8 @@ export default config({
 
           options: {
             image: {
-              directory: "src/assets/images/blogs",
-              publicPath: "/src/assets/images/blogs/",
+              directory: "src/assets/images/ambassadors",
+              publicPath: "/src/assets/images/ambassadors/",
             },
           },
         }),
@@ -127,8 +128,8 @@ export default config({
         description: fields.text({ label: "Description", multiline: true }),
         image: fields.image({
           label: "Image",
-          directory: "src/assets/images/blogs",
-          publicPath: "@assets/images/blogs/",
+          directory: "src/assets/images/contributions",
+          publicPath: "@assets/images/contributions/",
         }),
 
         label: fields.text({ label: "Label" }),
@@ -185,8 +186,8 @@ export default config({
 
           options: {
             image: {
-              directory: "src/assets/images/blogs",
-              publicPath: "/src/assets/images/blogs/",
+              directory: "src/assets/images/contributions",
+              publicPath: "/src/assets/images/contributions/",
             },
           },
         }),
@@ -221,10 +222,10 @@ export default config({
 
           options: {
             image: {
-              directory: "src/assets/images/blogs",
+              directory: "src/assets/images/bounties",
 
               // Use the @assets path alias
-              publicPath: "/src/assets/images/blogs/",
+              publicPath: "/src/assets/images/bounties/",
             },
           },
         }),
@@ -268,10 +269,10 @@ export default config({
         image: fields.image({
           label: "Image",
           //add ./ to the image path
-          directory: "src/assets/images/blogs",
+          directory: "src/assets/images/events",
 
           // Use the @assets path alias
-          publicPath: "@assets/images/blogs/",
+          publicPath: "@assets/images/events/",
         }),
         date: fields.date({ label: "Date" }),
         endDate: fields.date({ label: "End Date" }),
@@ -317,10 +318,10 @@ export default config({
 
           options: {
             image: {
-              directory: "src/assets/images/blogs",
+              directory: "src/assets/images/events",
 
               // Use the @assets path alias
-              publicPath: "/src/assets/images/blogs/",
+              publicPath: "/src/assets/images/events/",
             },
           },
         }),
@@ -345,10 +346,10 @@ export default config({
 
           options: {
             image: {
-              directory: "src/assets/images/blogs",
+              directory: "src/assets/images/collaboration",
 
               // Use the @assets path alias
-              publicPath: "/src/assets/images/blogs/",
+              publicPath: "/src/assets/images/collaboration/",
             },
           },
         }),
@@ -408,22 +409,15 @@ export default config({
 
           options: {
             image: {
-              directory: "src/assets/images/blogs",
+              directory: "src/assets/images/workingGroups",
 
               // Use the @assets path alias
-              publicPath: "/src/assets/images/blogs/",
+              publicPath: "/src/assets/images/workingGroups/",
             },
           },
         }),
       },
     }),
-    // title: Card Creation
-    // description: The Card Creation project aims to create a standard for the creation of cards in the context of the Open Cybersecurity Alliance.
-    // tag: project
-    // status: ongoing
-    // type: project
-    // externalUrl: https://arbitrum.io/
-
     Projects: collection({
       label: "Projects",
       slugField: "title",
@@ -465,8 +459,48 @@ export default config({
           extension: "md",
           options: {
             image: {
-              directory: "src/assets/images/blogs",
-              publicPath: "/src/assets/images/blogs/",
+              directory: "src/assets/images/Projects",
+              publicPath: "/src/assets/images/Projects/",
+            },
+          },
+        }),
+      },
+    }),
+
+    updates: collection({
+      label: "Updates",
+      slugField: "title",
+      path: "src/content/Updates/*/",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        label: fields.text({ label: "Label" }),
+        description: fields.text({ label: "Description", multiline: true }),
+        image: fields.image({
+          label: "Image",
+          directory: "src/assets/images/Updates",
+          publicPath: "@assets/images/Updates/",
+        }),
+        type: fields.select({
+          label: "Type",
+          options: [
+            { value: "foundation-grants", label: "Foundation Grants" },
+            { value: "quest-book", label: "Quest Book" },
+            { value: "rfp", label: "R.F.P" },
+            { value: "thrive", label: "Thrive" },
+            { value: "uniswap", label: "Uniswap" },
+          ],
+          defaultValue: "foundation-grants",
+        }),
+
+        externalUrl: fields.url({ label: "External Url" }),
+        content: fields.markdoc({
+          label: "Content",
+          extension: "md",
+          options: {
+            image: {
+              directory: "src/assets/images/Updates",
+              publicPath: "/src/assets/images/Updates/",
             },
           },
         }),
