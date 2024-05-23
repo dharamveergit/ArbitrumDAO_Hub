@@ -113,7 +113,9 @@ const Table = ({ data }: { data: CollectionEntry<"Grant_Hub">[] }) => {
                           month: "long",
                           day: "numeric",
                         })
-                      : "N/A"}
+                      : data?.ApprovedOn
+                        ? data?.ApprovedOn
+                        : "N/A"}
                   </td>
                   <td className="min-w-[10rem] whitespace-nowrap px-2 py-3 font-os">
                     {data?.fundingAsk ?? "N/A"}
