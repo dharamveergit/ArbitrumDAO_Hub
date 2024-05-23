@@ -13,10 +13,7 @@ export const filteredAmbassadors = (
   ambassadors: Array<CollectionEntry<"Community_Ambassadors">>,
 ) => {
   return ambassadors.filter((ambassador) => {
-    return (
-      ambassador.slug.split("/").length === 2 &&
-      ambassador.id.includes("profile.md")
-    );
+    return ambassador.slug.split("/").length === 2;
   });
 };
 

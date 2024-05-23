@@ -1,10 +1,32 @@
-import { cardSchema, refinedCardSchema } from "@/data/schema/cards";
-import type { ZodRawShape } from "astro/zod";
-import { defineCollection, z, type ImageFunction } from "astro:content";
+import { cardSchema } from "@/data/schema/cards";
+import { defineCollection, reference, z } from "astro:content";
 
 export const contributions = defineCollection({
   type: "content",
-  schema: ({ image }) => refinedCardSchema(image),
+  schema: ({ image }) => {
+    return z.object({
+      title: z.string(),
+      description: z.string(),
+      image: image().optional(),
+      externalUrl: z.string().optional(),
+      label: z.string().optional(),
+      tag: z.string().optional(),
+      type: z
+        .object({
+          discriminant: z.union([
+            z.literal("ambassadors"),
+            z.literal("wg"),
+            z.literal("community"),
+          ]),
+          value: z.union([
+            reference("Community_Ambassadors"),
+            reference("Working_Groups"),
+            z.literal("contributions"),
+          ]),
+        })
+        .optional(),
+    });
+  },
 });
 
 export const events = defineCollection({
@@ -14,6 +36,19 @@ export const events = defineCollection({
     return cardSchema(image).extend({
       date: z.date().optional(),
       endDate: z.date().optional(),
+      type: z.union([z.literal("event"), z.literal("hackathon")]),
+      eventBy: z
+        .object({
+          discriminant: z.union([
+            z.literal("ambassadors"),
+            z.literal("community"),
+          ]),
+          value: z.union([
+            reference("Community_Ambassadors"),
+            z.literal("community"),
+          ]),
+        })
+        .optional(),
       links: z
         .object({
           twitter: z.string().optional(),
@@ -30,13 +65,6 @@ export const ambassadors = defineCollection({
 
   schema: ({ image }) => {
     return z.object({
-      // category: z.union([
-      //   z.literal("contribution"),
-      //   z.literal("gallery"),
-      //   z.literal("event"),
-      //   z.literal("profile"),
-      //   z.literal("achievement"),
-      // ]),
       title: z.string().optional(),
       description: z.string().optional(),
       image: image().optional(),
