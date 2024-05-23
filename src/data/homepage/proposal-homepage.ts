@@ -217,11 +217,11 @@ export const Proposal_Homepage = {
   description:
     "Explore and engage with proposals shaping Arbitrum DAO's future—vote, discuss, and contribute to community-driven initiatives and governance decisions.",
   buttons: [
-    {
-      type: "default",
-      link: "/proposal-hub/status",
-      text: "View Current Proposals",
-    },
+    // {
+    //   type: "default",
+    //   link: "/proposal-hub/status",
+    //   text: "View Current Proposals",
+    // },
   ],
 
   getStarted: {
