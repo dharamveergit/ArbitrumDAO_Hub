@@ -75,7 +75,7 @@ const pathname = Astro.url.pathname;
           return (
             <BlogCard
               blog={data}
-              link={`/community-hub/${currentPage}/${slug}`}
+              link={`/community-hub/contributions/${data?.tag}/${slug}`}
               defaultImage={
                 pathname.split("/")[3] === "articles"
                   ? "/default/com-article.png"

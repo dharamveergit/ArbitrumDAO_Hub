@@ -12,18 +12,17 @@ import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("Grant_Hub");
-  const filteredWithTag = entries.filter(
-    (entry) => entry.data.type === "Update",
-  );
-  return filteredWithTag.map((entry) => {
+  const updates = await getCollection("Updates");
+
+  return updates.map((entry) => {
     return {
       params: {
-        slug: entry.slug.split("/")[0],
-        blog: entry.slug.split("/")[2],
+        slug: entry.data.type,
+        blog: entry.slug,
       },
       props: {
         entry,
-        otherEntries: filteredWithTag
+        otherEntries: updates
           .filter((otherEntry) => otherEntry.slug !== entry.slug)
           .slice(0, 3),
       },

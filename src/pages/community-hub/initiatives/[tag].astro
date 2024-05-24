@@ -13,16 +13,14 @@ import Calendar from "@/components/community-hub/calendar.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("Community_Events");
-  const tags = entries.map((entry) => entry?.slug?.split("/")?.[0]);
+  const tags = entries.map((entry) => entry?.data?.type);
   const uniqueTags = [...new Set(tags)];
   return uniqueTags.map((entry) => {
     return {
       params: { tag: entry },
       props: {
         entry,
-        events: entries.filter(
-          (event) => event?.slug?.split("/")?.[0] === entry,
-        ),
+        events: entries.filter((event) => event?.data?.type === entry),
       },
     };
   });
@@ -89,7 +87,7 @@ const sortedEvents = events?.sort((a, b) => {
               blog={data}
               link={`/community-hub/initiatives/${slug}`}
               defaultImage={
-                tag === "hackathons" ? "/default/hackathons.png" : undefined
+                tag === "hackathon" ? "/default/hackathons.png" : undefined
               }
             />
           );

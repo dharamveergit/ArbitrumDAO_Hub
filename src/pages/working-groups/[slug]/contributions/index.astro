@@ -15,17 +15,12 @@ export async function getStaticPaths() {
   const groups = await getCollection("Working_Groups");
   const wb = groups.filter((group) => group.data.type === "wg");
   return wb.map((group) => {
-    const contributions = groups
-      .filter((group) => group.data.type === "contribution")
-      .filter((project) => project.slug.split("/")[0] === group.slug);
     return {
       params: {
         slug: group.slug,
       },
       props: {
         group,
-
-        contributions,
       },
     };
   });
@@ -33,8 +28,13 @@ export async function getStaticPaths() {
 
 const {
   group: { data, slug, render },
-  contributions,
 } = Astro.props;
+
+const contributions = await getCollection(
+  "Community_Contributions",
+  ({ data }: any) =>
+    data?.type?.discriminant === "wg" && data?.type?.value?.slug === slug,
+);
 ---
 
 <MainWrapper
@@ -61,7 +61,7 @@ const {
         <BlogCard
           blog={data}
           radius="inner"
-          link={`/working-groups/${subSlug}`}
+          link={`/community-hub/contributions/${data.tag}/${subSlug}`}
         />
       ))
     }
