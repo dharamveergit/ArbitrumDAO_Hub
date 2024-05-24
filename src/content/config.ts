@@ -200,6 +200,41 @@ export const proposalHubForum = defineCollection({
     }),
 });
 
+export const wgProjects = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      tag: z.string(),
+      status: z.string().optional(),
+      type: z
+        .object({
+          discriminant: z.union([z.literal("wg"), z.literal("community")]),
+          value: z.union([
+            reference("Working_Groups"),
+            z.literal("contributions"),
+          ]),
+        })
+        .optional(),
+      externalUrl: z.string().optional(),
+      image: image().optional(),
+    }),
+});
+
+const grantUpdates = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      label: z.string().optional(),
+      description: z.string(),
+      image: image().optional(),
+      type: z.string().optional(),
+      externalUrl: z.string().optional(),
+    }),
+});
+
 export const collections = {
   blogs,
   homepage,
@@ -217,4 +252,6 @@ export const collections = {
   Grant_Hub: Grants,
   Incentive_Programs: incentive,
   Proposal_Hub_Forum: proposalHubForum,
+  Projects: wgProjects,
+  Updates: grantUpdates,
 };

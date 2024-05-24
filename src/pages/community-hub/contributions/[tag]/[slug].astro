@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   const filteredWithTag = entries.filter((entry) => entry.data.tag);
   return filteredWithTag.map((entry) => {
     return {
-      params: { slug: entry.slug.split("/")[1], tag: entry.data.tag },
+      params: { slug: entry.slug, tag: entry.data.tag },
       props: {
         entry,
         otherEntries: filteredWithTag

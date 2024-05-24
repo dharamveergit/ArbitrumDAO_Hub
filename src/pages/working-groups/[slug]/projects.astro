@@ -30,10 +30,14 @@ export async function getStaticPaths() {
 
 const {
   group: { data, slug, render },
-  projects,
 } = Astro.props;
 
-console.log(projects);
+const projects =
+  (await getCollection(
+    "Projects",
+    ({ data }: any) =>
+      data?.type?.discriminant === "wg" && data?.type?.value?.slug === slug,
+  )) ?? [];
 ---
 
 <MainWrapper
@@ -43,63 +47,65 @@ console.log(projects);
   breadcrumbs={[{ text: "Projects", link: `/working-groups/${slug}/projects` }]}
 >
   {
-    projects.length === 0 && (
+    projects?.length === 0 && (
       <NoDataImageLink
         link={
-          data?.buttons?.filter((button) => button.text === "Learn More")[0]
-            ?.link ?? "#"
+          data?.buttons?.filter(
+            (button: any) => button.text === "Learn More",
+          )[0]?.link ?? "#"
         }
       />
     )
   }
   <ul class="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 xl:grid-cols-4">
     {
-      projects?.map(({ data: project }) => (
-        <a
-          href={project.externalUrl}
-          target="_blank"
-          class="group cursor-pointer"
-        >
-          <li class="flex min-h-[21rem] flex-col  justify-between rounded-lg border p-4 md:rounded-2xl">
-            <div>
-              <small class="font-os  text-xs capitalize text-zinc-500">
-                {project.tag}
-              </small>
-              <h1 class="mt-1 text-base font-medium">{project.title}</h1>
-              <p class="mt-4 text-sm text-zinc-500">{project.description}</p>
-            </div>
-            <div class="flex items-center  justify-between">
-              <div
-                class={classNames(
-                  "flex gap-2 rounded-lg p-2",
-                  project.status === "ongoing"
-                    ? "bg-zinc-100"
-                    : "bg-[#25FF6F6B]",
-                )}
-              >
+      projects?.length > 0 &&
+        projects?.map(({ data: project }: any) => (
+          <a
+            href={project.externalUrl}
+            target="_blank"
+            class="group cursor-pointer"
+          >
+            <li class="flex min-h-[21rem] flex-col  justify-between rounded-lg border p-4 md:rounded-2xl">
+              <div>
+                <small class="font-os  text-xs capitalize text-zinc-500">
+                  {project.tag}
+                </small>
+                <h1 class="mt-1 text-base font-medium">{project.title}</h1>
+                <p class="mt-4 text-sm text-zinc-500">{project.description}</p>
+              </div>
+              <div class="flex items-center  justify-between">
                 <div
                   class={classNames(
-                    "min-h-max w-2 rounded-full ",
+                    "flex gap-2 rounded-lg p-2",
                     project.status === "ongoing"
-                      ? "bg-zinc-400"
-                      : "bg-[#1F88857D]",
+                      ? "bg-zinc-100"
+                      : "bg-[#25FF6F6B]",
                   )}
-                />
-                <div class="text-sm">
-                  <p class="text-zinc-900">Project Status</p>
-                  <p class="capitalize text-zinc-500">{project.status}</p>
+                >
+                  <div
+                    class={classNames(
+                      "min-h-max w-2 rounded-full ",
+                      project.status === "ongoing"
+                        ? "bg-zinc-400"
+                        : "bg-[#1F88857D]",
+                    )}
+                  />
+                  <div class="text-sm">
+                    <p class="text-zinc-900">Project Status</p>
+                    <p class="capitalize text-zinc-500">{project.status}</p>
+                  </div>
+                </div>
+                <div class="-rotate-45 transition-all duration-300 group-hover:rotate-0">
+                  <Icon
+                    name="arrow-circle"
+                    class={"size-10 stroke-[0.6] text-zinc-500 md:size-11"}
+                  />
                 </div>
               </div>
-              <div class="-rotate-45 transition-all duration-300 group-hover:rotate-0">
-                <Icon
-                  name="arrow-circle"
-                  class={"size-10 stroke-[0.6] text-zinc-500 md:size-11"}
-                />
-              </div>
-            </div>
-          </li>
-        </a>
-      ))
+            </li>
+          </a>
+        ))
     }
   </ul>
 </MainWrapper>
