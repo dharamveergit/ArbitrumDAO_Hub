@@ -48,7 +48,7 @@ const {
   page,
   home: {
     slug,
-    data: { title, grants },
+    data: { title, grants, image },
   },
   isSubCollection,
 } = Astro.props;
@@ -58,7 +58,7 @@ const pathname = Astro.url.pathname;
 ---
 
 <MainLayout
-  image="/meta/grant.png"
+  image={image?.src}
   title={grants?.title}
   description={grants?.description}
 >
@@ -103,7 +103,10 @@ const pathname = Astro.url.pathname;
         <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {page?.data?.map(({ data }) => (
             <Card
-              blog={data}
+              blog={{
+                ...data,
+                image: data?.image ?? image,
+              }}
               type="uniswap"
               link={
                 data.collection
