@@ -1,9 +1,8 @@
 ---
-title: Bware Labs
-category:
-  - Developer Tooling
-ApprovedOn: Q1 2024
-externalUrl: "#"
-type: Grant 
-grantType: Project
+title: "Bware Labs"
+ApprovedOn: Phase 2
+externalUrl: "https://arbitrumfoundation.notion.site/53ad99f665d946adb58bf92e82438fd5?v=efcd2d955fa54bcfaabaa46812732206"
+description: "The Arbitrum Foundation's grants program aims to empower developers and entrepreneurs to build impactful DApps on the Arbitrum network, driving decentralization and enhancing user experiences in the ecosystem."
+type: "Grant"
+grantType: "Project"
 ---
