@@ -6,8 +6,8 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage: {
-    kind: "local",
-    // repo: `${REPO_OWNER}/${REPO_NAME}`,
+    kind: "github",
+    repo: `${REPO_OWNER}/${REPO_NAME}`,
   },
   ui: {
     brand: {
@@ -24,8 +24,8 @@ export default config({
         "workingGroups",
         "collaboration",
         "Projects",
-        "updates",
       ],
+      GrantHub: ["updates"],
     },
   },
 
