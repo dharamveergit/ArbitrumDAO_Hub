@@ -1,9 +1,16 @@
-import { ambassadors } from "@/data/schema/community";
-import { config, fields, collection } from "@keystatic/core";
+import { collection, config, fields } from "@keystatic/core";
 
-const REPO_OWNER = "dharamveergit";
+const REPO_OWNER = "ArbitrumHub";
 const REPO_NAME = "ArbitrumDAO_Hub";
-
+const storage =
+  process.env.NODE_ENV === "development"
+    ? {
+        kind: "local",
+      }
+    : {
+        kind: "github",
+        repo: `${REPO_OWNER}/${REPO_NAME}`,
+      };
 export default config({
   storage: {
     kind: "github",
@@ -12,6 +19,9 @@ export default config({
   ui: {
     brand: {
       name: "Arbitrum DAO Hub",
+      mark(props) {
+        return <img src="/favicon.svg" alt="Arbitrum DAO Hub" height={24} />;
+      },
     },
     navigation: {
       Blogs: ["author", "posts"],
