@@ -1,4 +1,4 @@
-# Welcome to ArbitrumHub
+# Welcome to ArbitrumHub.
 
 ![1beecbc7-1023-45fc-a7fb-be6983747337](https://github.com/HoomanHQ/ArbitrumDAO_Hub/assets/126047668/c6418760-11ed-45de-9582-720e8aad9e7c)
 
