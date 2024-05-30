@@ -57,7 +57,7 @@ const { slug, tag } = Astro.params;
 const mainGallery =
   (await getCollection(
     "Gallery",
-    ({ data }) =>
+    ({ data }: any) =>
       data?.type?.discriminant === "ambassadors" &&
       data?.type?.value?.slug === slug,
   )) ?? [];
@@ -207,7 +207,7 @@ const events = await getCollection(
         <Gallery
           gallery={mainGallery?.map(({ data: data2 }) => ({
             imgBy: data?.title,
-            img: { src: data2.image.src },
+            img: { src: data2?.image?.src },
           }))}
           client:load
         />
