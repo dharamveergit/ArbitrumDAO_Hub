@@ -235,6 +235,27 @@ const grantUpdates = defineCollection({
     }),
 });
 
+const Gallery = defineCollection({
+  type: "data",
+  schema: ({ image }) =>
+    z.object({
+      type: z
+        .object({
+          discriminant: z.union([
+            z.literal("community"),
+            z.literal("ambassadors"),
+          ]),
+          value: z.union([
+            reference("Community_Ambassadors"),
+            z.literal("community"),
+          ]),
+        })
+        .optional(),
+      image: image().optional(),
+      externalUrl: z.string().optional(),
+    }),
+});
+
 export const collections = {
   blogs,
   homepage,
@@ -254,4 +275,5 @@ export const collections = {
   Proposal_Hub_Forum: proposalHubForum,
   Projects: wgProjects,
   Updates: grantUpdates,
+  Gallery: Gallery,
 };
