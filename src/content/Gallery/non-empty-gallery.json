@@ -1,0 +1,9 @@
+{
+  "title": "Non-empty-gallery",
+  "image": "@assets/images/gallery/non-empty-gallery/image.jpg",
+  "externalUrl": "test",
+  "type": {
+    "discriminant": "community",
+    "value": "community"
+  }
+}
