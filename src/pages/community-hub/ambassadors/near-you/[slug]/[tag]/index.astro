@@ -49,12 +49,20 @@ export async function getStaticPaths() {
 
 const { entry, achievements, gallery } = Astro.props;
 const { slug, tag } = Astro.params;
-const mainGallery = gallery
-  .map((g) => g.data)
-  .map((g) => g.gallery)
-  .flat();
+// const mainGallery = gallery
+//   .map((g) => g.data)
+//   .map((g) => g.gallery)
+//   .flat();
 
-console.log(slug);
+const mainGallery =
+  (await getCollection(
+    "Gallery",
+    ({ data }: any) =>
+      data?.type?.discriminant === "ambassadors" &&
+      data?.type?.value?.slug === slug,
+  )) ?? [];
+
+console.log(mainGallery);
 
 const data = entry?.data;
 const pathname = Astro.url.pathname;
@@ -192,7 +200,19 @@ const events = await getCollection(
         />
       )
     }
-    {tag === "gallery" && <Gallery gallery={mainGallery} client:load />}
+    <!-- imgBy: string;
+     img: { src: string }; -->
+    {
+      tag === "gallery" && (
+        <Gallery
+          gallery={mainGallery?.map(({ data: data2 }) => ({
+            imgBy: data?.title,
+            img: { src: data2?.image?.src },
+          }))}
+          client:load
+        />
+      )
+    }
   </section>
   <Seperator />
 </MainLayout>
