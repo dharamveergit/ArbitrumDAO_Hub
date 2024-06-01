@@ -15,7 +15,7 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage:
-    process.env.NODE_ENV !== "development"
+    process.env.NODE_ENV === "development"
       ? {
           kind: "local",
         }
