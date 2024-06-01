@@ -15,7 +15,7 @@ const REPO_NAME = "ArbitrumDAO_Hub";
 
 export default config({
   storage:
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV !== "development"
       ? {
           kind: "local",
         }
@@ -40,7 +40,7 @@ export default config({
         "collaboration",
       ],
       Ambassadors: ["ambassadors", "contributionsa", "gallery"],
-      WorkingGroups: ["workingGroups", "Projects"],
+      WorkingGroups: ["workingGroups", "Projects", "contributionsw"],
       GrantHub: ["updates"],
     },
   },
