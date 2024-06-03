@@ -4,6 +4,7 @@ const values = (type: "community" | "ambassadors" | "wg" = "community") => {
   return collection({
     label: "Contributions",
     slugField: "title",
+    entryLayout: "content",
     path: "src/content/Community_Contributions/*/",
     format: { contentField: "content" },
     schema: {
