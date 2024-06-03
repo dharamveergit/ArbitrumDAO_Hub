@@ -9,6 +9,7 @@ import HeaderLink from "../ui/links/HeaderLink.astro";
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
 import Search from "astro-pagefind/components/Search";
 import { Search as SearchIcon } from "lucide-react";
+import { Image } from "astro:assets";
 ---
 
 <header class="sticky top-0 z-[5] bg-white/60 backdrop-blur-sm">
@@ -89,11 +90,18 @@ import { Search as SearchIcon } from "lucide-react";
   id="search-modal-all"
   class="fixed left-1/2 top-1/2 z-50 hidden max-h-[70dvh] w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform overflow-y-auto rounded-lg bg-white p-5 shadow-lg"
 >
-  <Search
-    id="search"
-    className="pagefind-ui w-full"
-    uiOptions={{ showImages: false }}
-  />
+  <div class="flex w-full flex-col gap-8" id="search-modal">
+    <Search
+      id="search"
+      className="pagefind-ui  w-full"
+      uiOptions={{
+        showImages: false,
+
+        showSubResults: true,
+      }}
+    />
+    <SiteSearch client:only />
+  </div>
 </div>
 
 <script is:inline>
