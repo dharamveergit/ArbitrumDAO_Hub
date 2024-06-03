@@ -4,6 +4,7 @@ export const Blogs = collection({
   label: "Blogs",
   slugField: "title",
   path: "src/content/blogs/*/",
+  entryLayout: "content",
   format: { contentField: "content" },
   schema: {
     title: fields.slug({ name: { label: "Title" } }),

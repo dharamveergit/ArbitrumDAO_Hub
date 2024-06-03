@@ -40,7 +40,7 @@ export default config({
         "collaboration",
       ],
       Ambassadors: ["ambassadors", "contributionsa", "gallery"],
-      WorkingGroups: ["workingGroups", "Projects"],
+      WorkingGroups: ["workingGroups", "Projects", "contributionsw"],
       GrantHub: ["updates"],
     },
   },
