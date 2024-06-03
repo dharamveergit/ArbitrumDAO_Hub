@@ -73,7 +73,7 @@ export const headerLinks = [
     href: "/developer-hub",
   },
   {
-    name: "Network",
+    name: "Grants",
     sublinks: [
       {
         name: "Grant Hub",
@@ -86,15 +86,15 @@ export const headerLinks = [
         href: "/incentive-programs/",
       },
       {
-        name: "Proposals",
+        name: "Proposal Hub",
         href: "/proposal-hub",
         description: "Get insights into the latest proposals and updates",
       },
-      {
-        name: "Working Group Hub",
-        href: "/working-groups",
-        description: "Daily working of the work groups",
-      },
+      // {
+      //   name: "Working Group Hub",
+      //   href: "/working-groups",
+      //   description: "Daily working of the work groups",
+      // },
       {
         name: "Ecosystem",
         href: "/ecosystem-hub",
@@ -106,6 +106,10 @@ export const headerLinks = [
         description: "Learn about Arbitrum DAO's Multisig",
       },
     ],
+  },
+  {
+    name: "Working Groups",
+    href: "/working-groups",
   },
   {
     name: "Blogs",

@@ -6,6 +6,7 @@ import HamburgerMenu from "../ui/dropdowns/HamburgerMenu";
 import HeaderDropdown from "../ui/dropdowns/HeaderDropdown";
 import HeaderLink from "../ui/links/HeaderLink.astro";
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
+import { Search } from "lucide-react";
 ---
 
 <header class="sticky top-0 z-[5] bg-white/60 backdrop-blur-sm">
@@ -44,7 +45,8 @@ import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
         <!-- <button>
           <Icon name="sun" height={20} width={20} />
         </button> -->
-        <div class="hidden items-center gap-3 xl:flex">
+        <div class="hidden items-center gap-3 md:flex">
+          <Search height={16} width={16} />
           <a href={GITHUB_URL} target="_blank">
             <Icon name="socials/github" height={16} width={16} />
           </a>
@@ -57,7 +59,7 @@ import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
         </div>
       </div>
 
-      <Button href="https://docs.arbitrum.io/"
+      <!-- <Button href="https://docs.arbitrum.io/"
         >Arbitrum Docs
         <Icon
           name="arrow-circle"
@@ -65,7 +67,7 @@ import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
           width={16}
           class={"ml-2 -rotate-45"}
         />
-      </Button>
+      </Button> -->
     </div>
     <HamburgerMenu client:only />
   </nav>
