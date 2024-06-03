@@ -4,9 +4,11 @@ import { Icon } from "astro-icon/components";
 import Button from "../ui/button.astro";
 import HamburgerMenu from "../ui/dropdowns/HamburgerMenu";
 import HeaderDropdown from "../ui/dropdowns/HeaderDropdown";
+import SiteSearch from "../ui/dropdowns/SiteSearch";
 import HeaderLink from "../ui/links/HeaderLink.astro";
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
-import { Search } from "lucide-react";
+import Search from "astro-pagefind/components/Search";
+import { Search as SearchIcon } from "lucide-react";
 ---
 
 <header class="sticky top-0 z-[5] bg-white/60 backdrop-blur-sm">
@@ -40,13 +42,17 @@ import { Search } from "lucide-react";
       <HeaderDropdown client:load />
       <HeaderLink href="/about">Blog</HeaderLink> -->
     </div>
+
     <div class="hidden items-center gap-4 lg:flex" id="header-right">
       <div class="flex items-center gap-3">
         <!-- <button>
           <Icon name="sun" height={20} width={20} />
         </button> -->
         <div class="hidden items-center gap-3 md:flex">
-          <Search height={16} width={16} />
+          <button onclick="openModal('search-modal-all')">
+            <SearchIcon size={20} />
+          </button>
+
           <a href={GITHUB_URL} target="_blank">
             <Icon name="socials/github" height={16} width={16} />
           </a>
@@ -72,3 +78,40 @@ import { Search } from "lucide-react";
     <HamburgerMenu client:only />
   </nav>
 </header>
+<div
+  id="overlay-search-modal"
+  class="fixed inset-0 z-[45] hidden bg-black/20"
+  onclick="closeModal()"
+>
+</div>
+
+<div
+  id="search-modal-all"
+  class="fixed left-1/2 top-1/2 z-50 hidden max-h-[70dvh] w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform overflow-y-auto rounded-lg bg-white p-5 shadow-lg"
+>
+  <Search
+    id="search"
+    className="pagefind-ui w-full"
+    uiOptions={{ showImages: false }}
+  />
+</div>
+
+<script is:inline>
+  function openModal(id) {
+    document.getElementById(id).classList.remove("hidden");
+    document.getElementById(id).classList.add("flex");
+    document.getElementById("overlay-search-modal").classList.remove("hidden");
+    // document.body.classList.add(
+    //   "overflow-hidden",
+    //   "fixed",
+    //   "h-screen",
+    //   "w-screen",
+    // );
+  }
+
+  function closeModal() {
+    document.getElementById("search-modal-all").classList.add("hidden");
+    document.getElementById("search-modal-all").classList.remove("flex");
+    document.getElementById("overlay-search-modal").classList.add("hidden");
+  }
+</script>
