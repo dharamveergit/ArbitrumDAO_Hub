@@ -7,7 +7,7 @@ import { defineConfig } from "astro/config";
 import vercel from "@astrojs/vercel/serverless";
 import keystatic from "@keystatic/astro";
 import markdoc from "@astrojs/markdoc";
-import pagefind from "astro-pagefind";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.arbitrumhub.io",
@@ -21,11 +21,8 @@ export default defineConfig({
     react(),
     markdoc(),
     keystatic(),
-    pagefind(),
   ],
-  build: {
-    format: "file",
-  },
+
   output: "hybrid",
   adapter: vercel(),
   redirects: {
