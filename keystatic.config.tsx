@@ -1,7 +1,13 @@
 import { collection, config, fields } from "@keystatic/core";
 import { Ambassadors } from "keystatic/Ambassadors";
 import { Authors, Blogs } from "keystatic/Blogs";
-import { Bounties, Collaboration, Events, Jobs } from "keystatic/Community";
+import {
+  Bounties,
+  Collaboration,
+  Events,
+  EventsA,
+  Jobs,
+} from "keystatic/Community";
 import {
   AmbassadorContributions,
   Contributions,
@@ -39,9 +45,9 @@ export default config({
         "events",
         "collaboration",
       ],
-      Ambassadors: ["ambassadors", "contributionsa", "gallery"],
-      WorkingGroups: ["workingGroups", "Projects", "contributionsw"],
       GrantHub: ["updates"],
+      Ambassadors: ["ambassadors", "contributionsa", "gallery", "eventsa"],
+      WorkingGroups: ["workingGroups", "Projects", "contributionsw"],
     },
   },
 
@@ -57,6 +63,7 @@ export default config({
     bounties: Bounties,
     jobs: Jobs,
     events: Events,
+    eventsa: EventsA,
     collaboration: Collaboration,
 
     workingGroups: WorkingGroups,
