@@ -7,7 +7,7 @@ import HeaderDropdown from "../ui/dropdowns/HeaderDropdown";
 import SiteSearch from "../ui/dropdowns/SiteSearch";
 import HeaderLink from "../ui/links/HeaderLink.astro";
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
-import Search from "astro-pagefind/components/Search";
+// import Search from "astro-pagefind/components/Search";
 import { Search as SearchIcon } from "lucide-react";
 import { Image } from "astro:assets";
 ---
@@ -91,18 +91,21 @@ import { Image } from "astro:assets";
   class="fixed left-1/2 top-1/2 z-50 hidden max-h-[70dvh] w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform overflow-y-auto rounded-lg bg-white p-5 shadow-lg"
 >
   <div class="flex w-full flex-col gap-8" id="search-modal">
-    <Search
-      id="search"
-      className="pagefind-ui  w-full"
-      uiOptions={{
-        showImages: false,
-
-        showSubResults: true,
-      }}
-    />
+    <div id="search"></div>
     <SiteSearch client:only />
   </div>
 </div>
+<!-- && cp -r .vercel/output/static/pagefind public/ -->
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    //@ts-ignore
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+    });
+  });
+</script>
 
 <script is:inline>
   function openModal(id) {
