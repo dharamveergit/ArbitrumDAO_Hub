@@ -44,16 +44,15 @@ import { Image } from "astro:assets";
       <HeaderLink href="/about">Blog</HeaderLink> -->
     </div>
 
-    <div class="hidden items-center gap-4 lg:flex" id="header-right">
+    <div class="flex items-center gap-3" id="header-right">
+      <button
+        onclick="openModal('search-modal-all')"
+        class="rounded-full md:w-20 md:border md:p-2"
+      >
+        <SearchIcon size={16} />
+      </button>
       <div class="flex items-center gap-3">
-        <!-- <button>
-          <Icon name="sun" height={20} width={20} />
-        </button> -->
-        <div class="hidden items-center gap-3 md:flex">
-          <button onclick="openModal('search-modal-all')">
-            <SearchIcon size={16} />
-          </button>
-
+        <div class="hidden items-center gap-3 lg:flex">
           <a href={GITHUB_URL} target="_blank">
             <Icon name="socials/github" height={16} width={16} />
           </a>
@@ -65,30 +64,20 @@ import { Image } from "astro:assets";
           </a>
         </div>
       </div>
-
-      <!-- <Button href="https://docs.arbitrum.io/"
-        >Arbitrum Docs
-        <Icon
-          name="arrow-circle"
-          height={16}
-          width={16}
-          class={"ml-2 -rotate-45"}
-        />
-      </Button> -->
+      <HamburgerMenu client:only />
     </div>
-    <HamburgerMenu client:only />
   </nav>
 </header>
 <div
   id="overlay-search-modal"
-  class="fixed inset-0 z-[45] hidden bg-black/20"
+  class="search-whole-website fixed inset-0 z-[45] hidden bg-black/20"
   onclick="closeModal()"
 >
 </div>
 
 <div
   id="search-modal-all"
-  class="fixed left-1/2 top-1/2 z-50 hidden max-h-[70dvh] w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform overflow-y-auto rounded-lg bg-white p-5 shadow-lg"
+  class="fixed left-1/2 top-1/2 z-50 hidden max-h-[80dvh] w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform overflow-y-auto rounded-lg bg-white p-5 shadow-lg"
 >
   <div class="flex w-full flex-col gap-8" id="search-modal">
     <div id="search"></div>

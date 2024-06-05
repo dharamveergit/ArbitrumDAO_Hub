@@ -65,7 +65,9 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:active {
   background-color: #d4d4d4;
 }
-
+/* .search-whole-website {
+  --pagefind-ui-border-width: 1px;
+} */
 .pagefind-ui__button {
   margin-bottom: 2rem !important;
 }
