@@ -80,7 +80,7 @@ import { Image } from "astro:assets";
   class="fixed left-1/2 top-1/2 z-50 hidden max-h-[80dvh] w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform overflow-y-auto rounded-lg bg-white p-5 shadow-lg"
 >
   <div class="flex w-full flex-col gap-8" id="search-modal">
-    <div id="search"></div>
+    <div id="search" transition:persist></div>
     <SiteSearch client:only />
   </div>
 </div>
