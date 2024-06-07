@@ -68,6 +68,75 @@ export const Events = collection({
     }),
   },
 });
+export const EventsA = collection({
+  label: "Events",
+  slugField: "title",
+  path: "src/content/Community_Events/*/",
+  format: { contentField: "content" },
+  schema: {
+    title: fields.slug({ name: { label: "Title" } }),
+    description: fields.text({ label: "Description", multiline: true }),
+    image: fields.image({
+      label: "Image",
+      //add ./ to the image path
+      directory: "src/assets/images/events",
+
+      // Use the @assets path alias
+      publicPath: "@assets/images/events/",
+    }),
+    date: fields.date({ label: "Date" }),
+    endDate: fields.date({ label: "End Date" }),
+    externalUrl: fields.text({ label: "External Url" }),
+    type: fields.select({
+      label: "Type",
+      options: [
+        { value: "event", label: "Event" },
+        { value: "hackathon", label: "Hackathon" },
+      ],
+      defaultValue: "event",
+    }),
+    eventBy: fields.conditional(
+      fields.select({
+        label: "Event By",
+        description:
+          "Select the type of the featured media for the contribution.",
+        options: [
+          { label: "Community", value: "community" },
+          { label: "Ambassadors", value: "ambassadors" },
+        ],
+        defaultValue: "ambassadors",
+      }),
+
+      {
+        community: fields.select({
+          label: "By",
+          description: "",
+          options: [{ label: "Community", value: "community" }],
+          defaultValue: "community",
+        }),
+
+        ambassadors: fields.relationship({
+          label: "Ambassador",
+          description: "Select the ambassador for the contribution.",
+          collection: "ambassadors",
+        }),
+      },
+    ),
+    content: fields.markdoc({
+      label: "Content",
+      extension: "md",
+
+      options: {
+        image: {
+          directory: "src/assets/images/events",
+
+          // Use the @assets path alias
+          publicPath: "/src/assets/images/events/",
+        },
+      },
+    }),
+  },
+});
 
 export const Collaboration = collection({
   label: "Collaboration",

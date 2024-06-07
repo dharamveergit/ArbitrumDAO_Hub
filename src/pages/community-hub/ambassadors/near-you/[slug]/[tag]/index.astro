@@ -105,12 +105,12 @@ const events = await getCollection(
           slug: `/community-hub/ambassadors/near-you/${slug}/contributions/#sub`,
           match: pathname.includes("contributions"),
         },
-        {
-          title: "Achievements",
-          slug: `/community-hub/ambassadors/near-you/${slug}/achievements/#sub`,
-          match: pathname.includes("achievements"),
-          disabled: achievements?.length === 0,
-        },
+        // {
+        //   title: "Achievements",
+        //   slug: `/community-hub/ambassadors/near-you/${slug}/achievements/#sub`,
+        //   match: pathname.includes("achievements"),
+        //   disabled: achievements?.length === 0,
+        // },
         {
           title: "Events",
           slug: `/community-hub/ambassadors/near-you/${slug}/events/#sub`,

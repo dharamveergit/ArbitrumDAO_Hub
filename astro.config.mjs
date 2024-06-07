@@ -22,6 +22,7 @@ export default defineConfig({
     markdoc(),
     keystatic(),
   ],
+
   output: "hybrid",
   adapter: vercel(),
   redirects: {

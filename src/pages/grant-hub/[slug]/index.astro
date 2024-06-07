@@ -45,13 +45,14 @@ const { Content } = await render();
 
 const pathname = Astro.url.pathname;
 
+let nav = fundedGrants(pathname, slug);
 const button = {
-  text: allPosts.length > 0 ? "View Grants" : "View Projects",
+  text:
+    nav?.[1]?.title === "Accepted Projects" ? "View Projects" : "View Grants",
   link: `/grant-hub/${slug}/grants/`,
   type: "default",
 };
 
-let nav = fundedGrants(pathname, slug);
 console.log(!data?.grants?.title && !data?.update?.title);
 
 if (!data?.grants?.title && !data?.update?.title) {

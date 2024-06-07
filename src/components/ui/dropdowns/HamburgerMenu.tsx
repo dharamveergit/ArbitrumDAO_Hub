@@ -12,7 +12,7 @@ function HamburgerMenu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="pl-4 focus:outline-none lg:hidden ">
+        <button className=" focus:outline-none lg:hidden ">
           <svg
             width="24"
             height="24"
