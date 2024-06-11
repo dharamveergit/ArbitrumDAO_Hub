@@ -65,12 +65,49 @@ export const eventsNav = [
 
 export const headerLinks = [
   {
-    name: "Community Hub",
-    href: "/community-hub/the-hub/",
-  },
-  {
-    name: "Developer Hub",
-    href: "/developer-hub",
+    name: "Community",
+    sublinks: [
+      {
+        name: "Community Hub",
+        description: "Learn about the Arbitrum Community",
+        href: "/community-hub/the-hub/",
+      },
+      {
+        name: "Meetings",
+        description: "View all Important Community Meetings",
+        href: "/meetings/",
+      },
+      {
+        name: "Ambassadors",
+        description: "Discover Ambassadors",
+        href: "/community-hub/ambassadors/",
+      },
+      {
+        name: "Collaborations",
+        description: "Get involved with the community",
+        href: "/community-hub/collaborations/",
+      },
+      {
+        name: "Contributions",
+        description: "Explore the community contributions",
+        href: "/community-hub/contributions/guides/",
+      },
+      {
+        name: "Initiatives",
+        description: "Dive into the community initiatives",
+        href: "/community-hub/initiatives/event/",
+      },
+      {
+        name: "Jobs",
+        description: "Explore opening at Arbitrum",
+        href: "/community-hub/jobs/",
+      },
+      {
+        name: "Bounties",
+        description: "See how you can help Arbitrum",
+        href: "/community-hub/bounties/",
+      },
+    ],
   },
   {
     name: "Grants",
@@ -106,6 +143,10 @@ export const headerLinks = [
         description: "Learn about Arbitrum DAO's Multisig",
       },
     ],
+  },
+  {
+    name: "Developer Hub",
+    href: "/developer-hub",
   },
   {
     name: "Working Groups",
