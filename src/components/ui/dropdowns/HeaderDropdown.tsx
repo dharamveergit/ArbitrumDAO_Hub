@@ -36,7 +36,7 @@ const HeaderDropdown = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="max-w-[280px]  gap-0 p-4 md:rounded-3xl"
+        className="custom-scrollbar2 max-h-[90dvh] max-w-[280px]  gap-0 overflow-y-auto p-4 md:rounded-3xl"
       >
         {sublinks?.map((link, i) => {
           return (

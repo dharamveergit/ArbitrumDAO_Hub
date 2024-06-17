@@ -1,4 +1,4 @@
-const projects = ["grant-program", "uniswap"];
+const projects = ["grant-program", "uniswap", "rfp"];
 
 export const fundedGrants = (pathname: string, slug: string) => {
   return [

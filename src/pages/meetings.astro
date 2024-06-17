@@ -1,0 +1,141 @@
+---
+import ArrowRotate from "@/components/ui/arrow-rotate.astro";
+import Button from "@/components/ui/button.astro";
+import Calendar from "@/components/community-hub/calendar.astro";
+import GradientHead from "@/components/ui/gradient-head.astro";
+import Tag from "@/components/ui/links/tag.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { Working_HomePage } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import classNames from "classnames";
+const groups = await getCollection("Working_Groups");
+const { title, description } = {
+  title: "Meetings",
+  description:
+    "Get informed about all the current meeting held in the Arbitrum Community. Join in to learn and explore the opportunities within the community",
+};
+const wg = groups.filter((group) => group.data.type === "wg");
+---
+
+<MainLayout smooth title={title} description={description} image="/meta/wg.png">
+  <GradientHead
+    className="my-5 lg:my-10"
+    title={title}
+    description={description}
+    buttons={[
+      {
+        text: "View Meetings",
+        link: "#meetings",
+        type: "default",
+      },
+      {
+        text: "View Calender",
+        link: "#calender",
+        type: "secondary",
+      },
+    ]}
+  />
+  <Seperator />
+  <Calendar />
+  <Seperator id="working-groups" />
+  <section class="flex flex-col gap-4 py-5 lg:py-10">
+    <h1 class="text-xl font-medium md:text-2xl lg:text-3xl">
+      Current Meetings
+    </h1>
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {
+        wg?.map(({ data, slug }, i) => (
+          <div
+            class={classNames(
+              "relative overflow-hidden  rounded-small  md:rounded-3xl lg:rounded-5xl",
+            )}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              style={
+                data?.tag === "Established"
+                  ? "background: linear-gradient(335deg, rgba(255, 0, 77, 0.20) 38.65%, rgba(250, 255, 0, 0.20) 101.6%), url(<path-to-image>) lightgray 50% / cover no-repeat;"
+                  : data?.tag === "Fellowship"
+                    ? "background: linear-gradient(333deg, rgba(250, 0, 255, 0.20) 38.83%, rgba(122, 255, 167, 0.20) 101.56%), url(<path-to-image>) lightgray 50% / cover no-repeat;"
+                    : "background: linear-gradient(333deg, rgba(0, 224, 255, 0.20) 38.83%, rgba(173, 255, 122, 0.20) 101.56%), url(<path-to-image>) lightgray 50% / cover no-repeat;"
+              }
+              class={classNames("absolute inset-0 z-0 h-full w-full ")}
+            >
+              <filter id="noiseFilter">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="6.53"
+                  numOctaves="3"
+                  stitchTiles="stitch"
+                />
+              </filter>
+
+              <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+            </svg>
+            <li class="group relative z-[1] flex h-full min-h-96 flex-col justify-between overflow-hidden rounded-small border  p-5 md:rounded-3xl lg:rounded-5xl">
+              <div class="flex flex-col gap-6 pb-32">
+                <div class="flex items-center justify-between">
+                  <h1 class="text-base font-medium">{data.title}</h1>
+                  <div class="rounded-full border bg-white/50 px-3 py-1  font-os text-xs text-zinc-700 backdrop-blur-sm">
+                    {data.tag}
+                  </div>
+                </div>
+                <p class="text-sm text-zinc-700">{data.overview}</p>
+              </div>
+              <div class=" flex flex-col gap-4">
+                {data.meetingOn && data.meetingLink && (
+                  <div class="flex gap-2 rounded-xl border bg-white/50 p-2 backdrop-blur-sm">
+                    <div class="h-full w-2 rounded-full bg-zinc-400" />
+                    <div class="flex flex-col gap-0.5 ">
+                      <h2 class="text-sm font-medium">Meetings:</h2>
+                      {data.meetingOn && (
+                        <p class="text-sm font-medium">{data.meetingOn} </p>
+                      )}
+                      {data.meetingLink && (
+                        <a
+                          target="_blank"
+                          href={data.meetingLink}
+                          class="text-sm   text-primary underline"
+                        >
+                          {data.meetingTiming}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex gap-2">
+                    {data?.buttons
+                      ?.filter((b) => b.icon)
+                      ?.slice(0, 2)
+                      ?.map(({ text, link, icon, type }) => (
+                        <Button
+                          variant={type}
+                          size="sm"
+                          className="flex gap-1 !bg-white/50 backdrop-blur-sm border"
+                          href={link}
+                          icon={icon}
+                          arrow={!icon}
+                        >
+                          {text}
+                        </Button>
+                      ))}
+                  </div>
+                  <ArrowRotate
+                    href={`/working-groups/${slug}`}
+                    className="!text-white"
+                  />
+                </div>
+              </div>
+            </li>
+          </div>
+        ))
+      }
+    </ul>
+  </section>
+  <Seperator />
+</MainLayout>
