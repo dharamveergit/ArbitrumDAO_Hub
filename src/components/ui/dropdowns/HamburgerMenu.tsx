@@ -44,7 +44,7 @@ function HamburgerMenu() {
           </svg>
         </button>
       </SheetTrigger>
-      <SheetContent className="flex h-dvh w-full flex-col justify-between border-l-0 bg-secondary p-5 md:m-3  md:h-[550px] md:w-[35%] md:overflow-y-auto md:rounded-3xl">
+      <SheetContent className="flex h-dvh w-full flex-col justify-between overflow-y-auto border-l-0 bg-secondary p-5  md:m-3 md:h-[550px] md:w-[35%] md:rounded-3xl">
         <div className="flex flex-col gap-4 text-white ">
           <SheetClose asChild className="ml-auto">
             <X size={25} />
