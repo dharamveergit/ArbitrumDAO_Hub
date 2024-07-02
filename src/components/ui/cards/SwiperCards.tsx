@@ -1,9 +1,9 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { CollectionEntry } from "astro:content";
-import Gallery from "@/components/swipers/Gallery";
 import Events from "@/components/swipers/Events";
-import classNames from "classnames";
+import Gallery from "@/components/swipers/Gallery";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { roundedNavButtonClass } from "@/lib/cvas";
+import type { CollectionEntry } from "astro:content";
+import classNames from "classnames";
 
 import TopAmbassadors, { WhatNew } from "@/components/community-hub/what-new";
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/consts";
@@ -15,15 +15,25 @@ const SwiperCards = ({
   title = "Whats happening in Arbitrum DAO",
   ambassadors,
   contributions,
+  blogs,
 }: {
-  tabs: ("Events" | "Gallery" | "Top Ambassadors" | "What's New")[];
+  tabs: ("Events" | "Gallery" | "Top Ambassadors" | "What's New" | "Weekly")[];
   gallery?: any;
   events?: CollectionEntry<"Community_Events">[];
   ambassadors?: CollectionEntry<"Community_Ambassadors">[];
   title?: string;
   contributions?: CollectionEntry<"Community_Ambassadors">[];
+  blogs?: CollectionEntry<"blogs">[];
 }) => {
   console.log({ events, gallery });
+  // blog with latest pubDate and tag === "weekly"
+  const weekly = blogs
+    ?.filter(({ data }) => data.tag === "Weekly Updates")
+    .sort(
+      (a, b) =>
+        new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+    )[0];
+  console.log(weekly);
 
   return (
     <div className="flex flex-col gap-4 py-5 md:gap-8 md:py-10">
@@ -80,6 +90,17 @@ const SwiperCards = ({
                         })) ?? []
                       }
                     />
+                  ),
+                  Weekly: (
+                    <a
+                      href={`/blog/${weekly?.slug}`}
+                      className="aspect-[16/7]  "
+                    >
+                      <img
+                        src={weekly?.data.image.src}
+                        className="h-full w-full rounded-2xl object-cover md:rounded-3xl lg:rounded-large"
+                      />
+                    </a>
                   ),
                   Gallery: <Gallery gallery={gallery} />,
                   "Top Ambassadors": (
