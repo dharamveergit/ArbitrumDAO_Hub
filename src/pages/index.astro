@@ -110,7 +110,7 @@ const {
   <Seperator />
   <SwiperCards
     client:load
-    tabs={["Events", "Gallery"]}
+    tabs={["Events", "Weekly", "Gallery"]}
     gallery={gallery.map((image: any) => {
       return {
         ...image,
@@ -120,6 +120,7 @@ const {
       };
     })}
     events={events.slice(0, 4)}
+    blogs={data}
   />
   <Seperator />
   <!-- blogs -->
