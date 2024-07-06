@@ -2,8 +2,8 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getEntry, z } from "astro:content";
-
 import classNames from "classnames";
+import { ArrowRightCircle } from "lucide-react";
 import Tag from "../links/tag.astro";
 type type = "blog" | "event" | "ambassador";
 
@@ -192,11 +192,11 @@ if (blog?.author?.id) {
         {...href}
         class="-rotate-45 transition-all duration-300 group-hover:rotate-0"
       >
-        <Icon
-          name="arrow-circle"
-          class={type === "ambassador"
-            ? "size-8 stroke-[0.6] text-zinc-500 md:size-10"
-            : "size-10 stroke-[0.6] text-zinc-500 md:size-14"}
+        <ArrowRightCircle
+          size={type === "ambassador" ? 44 : 50}
+          className={type === "ambassador"
+            ? "stroke-[0.6] text-zinc-500"
+            : "stroke-[0.6] text-zinc-500"}
         />
       </a>
     </div>
