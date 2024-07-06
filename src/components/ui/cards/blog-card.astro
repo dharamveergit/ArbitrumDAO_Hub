@@ -1,5 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getEntry, z } from "astro:content";
 import classNames from "classnames";
@@ -134,32 +133,6 @@ if (blog?.author?.id) {
               </span>
             )}
           </p>
-          <div class="flex items-center gap-4">
-            {blog?.links?.twitter && (
-              <a
-                href={blog?.links?.twitter}
-                target={"_blank"}
-                class={linkClass}
-              >
-                <Icon name="socials/twitter" class="h-4 w-4" />
-              </a>
-            )}
-            {blog?.links?.github && (
-              <a href={blog?.links?.github} target={"_blank"} class={linkClass}>
-                <Icon name="socials/github" class="h-4 w-4" />
-              </a>
-            )}
-
-            {blog?.links?.discord && (
-              <a
-                href={blog?.links?.discord}
-                target={"_blank"}
-                class={linkClass}
-              >
-                <Icon name="socials/discord" class="h-4 w-4" />
-              </a>
-            )}
-          </div>
         </div>
       )
     }
