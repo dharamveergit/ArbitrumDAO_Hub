@@ -1,6 +1,6 @@
 ---
-import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
+import { ArrowRightCircle } from "lucide-react";
 
 interface Props {
   item: {
@@ -14,9 +14,9 @@ interface Props {
 const { item } = Astro.props;
 ---
 
-<a href={item.url} target="_blank" class="h-full">
+<a href={item.url} target="_blank">
   <li
-    class="group flex h-full overflow-hidden rounded-small border border-zinc-100"
+    class="group flex h-full flex-1 overflow-hidden rounded-small border border-zinc-100"
   >
     <div class="flex flex-1 flex-col gap-1 bg-zinc-100 p-3 lg:p-5">
       <h2 class="text-base font-medium lg:text-lg">{item.title}</h2>
@@ -32,9 +32,10 @@ const { item } = Astro.props;
         alt={item.title}
         class="size-12 object-cover"
       />
-      <Icon
-        name="arrow-circle"
-        class="size-8 -rotate-45 text-zinc-500 transition-all duration-300 ease-in-out group-hover:rotate-0"
+
+      <ArrowRightCircle
+        size={32}
+        className="-rotate-45 stroke-[1] text-zinc-500 transition-all  duration-300 ease-in-out group-hover:rotate-0"
       />
     </div>
   </li>
