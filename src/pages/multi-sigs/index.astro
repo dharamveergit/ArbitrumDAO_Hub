@@ -1,15 +1,10 @@
 ---
-import MainLayout from "@/layouts/MainLayout.astro";
-import { Network_Activity, multisigs } from "@/consts";
 import GradientHead from "@/components/ui/gradient-head.astro";
-import InfoHover from "@/components/network/info-hover";
 import Seperator from "@/components/ui/seperator.astro";
-import { paragraphCva, titleCva } from "@/lib/cvas";
-import { Image } from "astro:assets";
-import classNames from "classnames";
-import { Info } from "lucide-react";
+import { Network_Activity, multisigs } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { paragraphCva } from "@/lib/cvas";
 import { Icon } from "astro-icon/components";
-import Test from "@/components/network/test";
 const { title, description } = Network_Activity;
 ---
 
@@ -152,7 +147,7 @@ const { title, description } = Network_Activity;
         discover a realm of innovative programs, protocols, and incentives.
       </p>
     </div>
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-rows-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
         multisigs?.map((data, i) => (
           <a href={`/multi-sigs/${data?.address}`} class="h-full">
