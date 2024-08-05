@@ -28,6 +28,7 @@ export default config({
       : {
           kind: "github",
           repo: `${REPO_OWNER}/${REPO_NAME}`,
+          branchPrefix: "contributions/",
         },
   ui: {
     brand: {
