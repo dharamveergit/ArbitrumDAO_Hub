@@ -5,18 +5,28 @@ export const Events = collection({
   path: "src/content/Community_Events/*/",
   format: { contentField: "content" },
   schema: {
-    title: fields.slug({ name: { label: "Title" } }),
-    description: fields.text({ label: "Description", multiline: true }),
+    title: fields.slug({
+      name: { label: "Title", validation: { isRequired: true } },
+    }),
+    description: fields.text({
+      label: "Description",
+      multiline: true,
+      validation: { isRequired: true },
+    }),
     image: fields.image({
       label: "Image",
       //add ./ to the image path
       directory: "src/assets/images/events",
+      validation: { isRequired: true },
 
       // Use the @assets path alias
       publicPath: "@assets/images/events/",
     }),
-    date: fields.date({ label: "Date" }),
-    endDate: fields.date({ label: "End Date" }),
+    date: fields.date({ label: "Date", validation: { isRequired: true } }),
+    endDate: fields.date({
+      label: "End Date",
+      validation: { isRequired: true },
+    }),
     externalUrl: fields.text({ label: "External Url" }),
     type: fields.select({
       label: "Type",

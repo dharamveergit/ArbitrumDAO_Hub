@@ -6,8 +6,14 @@ export const Ambassadors = collection({
   path: "src/content/Community_Ambassadors/*/",
   format: { contentField: "content" },
   schema: {
-    title: fields.slug({ name: { label: "Title" } }),
-    description: fields.text({ label: "Description", multiline: true }),
+    title: fields.slug({
+      name: { label: "Title", validation: { isRequired: true } },
+    }),
+    description: fields.text({
+      label: "Description",
+      multiline: true,
+      validation: { isRequired: true },
+    }),
     image: fields.image({
       label: "Image",
       //add ./ to the image path
@@ -15,12 +21,19 @@ export const Ambassadors = collection({
 
       // Use the @assets path alias
       publicPath: "@assets/images/ambassadors/",
+      validation: { isRequired: true },
     }),
 
-    label: fields.text({ label: "Label" }),
-    location: fields.text({ label: "Location" }),
+    label: fields.text({ label: "Label", validation: { isRequired: true } }),
+    location: fields.text({
+      label: "Location",
+      validation: { isRequired: true },
+    }),
     links: fields.object({
-      twitter: fields.text({ label: "Twitter" }),
+      twitter: fields.text({
+        label: "Twitter",
+        validation: { isRequired: true },
+      }),
     }),
     content: fields.markdoc({
       label: "Content",
