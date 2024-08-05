@@ -159,7 +159,7 @@ const CheckStatus = () => {
         {isEligible && (
           <DialogDescription className="text-center text-green-600">
             You are eligible to use CMS . Please follow this{" "}
-            <a href="/admin/" className="underline">
+            <a href="/keystatic/" className="underline">
               link
             </a>{" "}
             to start contributing to Arbitrum Hub.
