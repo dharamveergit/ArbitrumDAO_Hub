@@ -1,14 +1,13 @@
 ---
+import Events from "@/components/community-hub/Events";
 import MainWrapper from "@/components/community-hub/head/community-head.astro";
 
-import BlogCard from "@/components/ui/cards/blog-card.astro";
 import RoundedNav from "@/components/ui/nav/rounded-nav.astro";
 import Seperator from "@/components/ui/seperator.astro";
-import { GITHUB_URL, Events_HomePage } from "@/consts";
+import { Events_HomePage } from "@/consts";
 import { eventsNav } from "@/data/links/community-hub";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
-import Calendar from "@/components/community-hub/calendar.astro";
 //  CollectionEntry<'events'>
 
 export async function getStaticPaths() {
@@ -66,7 +65,7 @@ const sortedEvents = events?.sort((a, b) => {
   />
 
   <Seperator />
-  <section class="flex flex-col gap-4 py-5 lg:py-10" id="sub">
+  <!-- <section class="flex flex-col gap-4 py-5 lg:py-10" id="sub">
     <RoundedNav
       className="w-[70%] md:w-[50%]"
       nav={eventsNav?.map((tag) => {
@@ -94,6 +93,19 @@ const sortedEvents = events?.sort((a, b) => {
         })
       }
     </div>
-  </section>
+  </section> -->
+  <Events client:load sortedEvents={sortedEvents} tag={tag}>
+    <RoundedNav
+      className="w-[70%] md:w-[50%]"
+      nav={eventsNav?.map((tag) => {
+        return {
+          title: tag.label,
+          slug: `${tag.link}#sub`,
+          match: tag.link === pathname,
+        };
+      })}
+      variant="children"
+    />
+  </Events>
   <Seperator />
 </MainLayout>

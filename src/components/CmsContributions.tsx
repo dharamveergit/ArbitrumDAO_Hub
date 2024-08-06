@@ -1,20 +1,19 @@
-import React from "react";
-import ContributionDropdown from "./community-hub/contributeDropdown";
-import { paragraphCva, titleCva } from "@/lib/cvas";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { paragraphCva, titleCva } from "@/lib/cvas";
 import {
   QueryClient,
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
+import clsx from "clsx";
+import React from "react";
 import toast, { Toaster } from "react-hot-toast";
+import ContributionDropdown from "./community-hub/contributeDropdown";
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient();
@@ -105,8 +104,6 @@ const CheckStatus = () => {
     },
   });
 
-  console.log(data);
-
   const [userName, setUserName] = React.useState("");
   const [isEligible, setIsEligible] = React.useState(false);
   return (
@@ -147,7 +144,28 @@ const CheckStatus = () => {
                 toast.success("You are eligible to use CMS");
                 setIsEligible(true);
               } else {
-                toast.error("You are not eligible to use CMS");
+                toast.custom((t) => (
+                  <div
+                    className={clsx(
+                      "flex flex-col items-center justify-center gap-1 rounded-xl border bg-white p-5 transition-all duration-300",
+                    )}
+                  >
+                    <h1 className={titleCva()}>
+                      Notice: <span className="text-red-600">Not eligible</span>
+                    </h1>
+                    <p className={paragraphCva()}>
+                      If you did'nt find your username in the list of
+                      contributors, you can apply for the same by clicking this{" "}
+                      <a
+                        href="https://api.github.com/repos/dharamveergit/ArbitrumDAO_Hub/contributors?anon=1"
+                        className="underline"
+                        target="_blank"
+                      >
+                        link
+                      </a>
+                    </p>
+                  </div>
+                ));
                 setIsEligible(false);
               }
             }}
