@@ -119,7 +119,11 @@ const {
         },
       };
     })}
-    events={events.slice(0, 4)}
+    events={events
+      ?.sort((a, b) =>
+        new Date() < new Date(a.data.date ?? new Date()) ? -1 : 1,
+      )
+      .slice(0, 10)}
     blogs={data}
   />
   <Seperator />
@@ -129,6 +133,9 @@ const {
     <ul class="grid grid-rows-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
         data
+          ?.sort((a, b) =>
+            new Date(a.data.pubDate) > new Date(b.data.pubDate) ? -1 : 1,
+          )
           ?.slice(0, 3)
           ?.map(({ data, slug }) => (
             <BlogCard blog={data} type="blog" link={`/blog/${slug}`} />

@@ -8,15 +8,21 @@ const values = (type: "community" | "ambassadors" | "wg" = "community") => {
     path: "src/content/Community_Contributions/*/",
     format: { contentField: "content" },
     schema: {
-      title: fields.slug({ name: { label: "Title" } }),
-      description: fields.text({ label: "Description", multiline: true }),
+      title: fields.slug({
+        name: { label: "Title", validation: { isRequired: true } },
+      }),
+      description: fields.text({
+        label: "Description",
+        multiline: true,
+        validation: { isRequired: true },
+      }),
       image: fields.image({
         label: "Image",
         directory: "src/assets/images/contributions",
         publicPath: "@assets/images/contributions/",
       }),
 
-      label: fields.text({ label: "Label" }),
+      label: fields.text({ label: "Label", validation: { isRequired: true } }),
       externalUrl: fields.url({ label: "External Url" }),
       tag: fields.select({
         label: "Tag",
