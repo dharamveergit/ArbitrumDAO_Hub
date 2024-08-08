@@ -1,7 +1,7 @@
 ---
 title: "Arbitrum DAO News: Security Council Elected, Entropy Advisors and Grant Updates, May 9th"
 description: "The DAO has successfully elected a new Security Council, and with it comes a new advisor to support the development of delegate initiatives, new contributor proposals, and incentive outcomes."
-image: "./banner.jpeg"
+image: "./banner.png"
 tag: "Weekly Updates"
 label: " Arbitrum DAO news"
 pubDate: 2024-05-09
