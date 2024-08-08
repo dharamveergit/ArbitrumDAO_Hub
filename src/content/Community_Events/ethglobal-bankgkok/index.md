@@ -1,5 +1,5 @@
 ---
-title: "ETHGlobal Bankgkok"
+title: "ETHGlobal Bangkok"
 date: 2024-11-14T18:30:00.000Z
 image: "./banner.jpg"
 externalUrl: "https://ethglobal.com/events/devcon2024"
