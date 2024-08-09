@@ -13,6 +13,7 @@ import { getCollection, getEntry } from "astro:content";
 import HomeTabs from "../components/home/HomeTabs.tsx";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import MainLayout from "../layouts/MainLayout.astro";
+import WeeklyUpdates from "@/components/home/WeeklyUpdate";
 const {
   data: {
     homepage: { heroBanner, ecosystem, intro, userFeatures },
@@ -63,6 +64,8 @@ const {
       </div>
     </div>
   </section>
+
+  <WeeklyUpdates collection={data} client:load />
 
   <!-- intro -->
   <FeaturesLayout disc={intro.description} title={intro.title} variant="large">

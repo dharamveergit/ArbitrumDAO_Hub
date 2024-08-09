@@ -16,6 +16,7 @@ import Faq from "@/components/developer-hub/faq";
 import { gettingStarted } from "@/data/homepage/getting-started";
 import CmsContributions from "@/components/CmsContributions";
 import Button from "@/components/ui/button.astro";
+import ApplyForm from "@/components/ApplyForm";
 const data = gettingStarted;
 ---
 
@@ -127,9 +128,7 @@ const data = gettingStarted;
       <p class={paragraphCva()}>
         One can contribute to Arbitrum Hub from one of two ways:
       </p>
-      <Button href={"https://www.google.com/"} variant="default" arrow>
-        Apply Now
-      </Button>
+      <ApplyForm client:load />
     </div>
     <CmsContributions client:load />
     <ContributionDropdown client:load className="!py-0" titleSize="sm" />
