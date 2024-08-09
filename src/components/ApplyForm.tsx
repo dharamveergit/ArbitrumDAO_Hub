@@ -86,7 +86,7 @@ const ApplyForm = () => {
           <DialogContent
             className={clsx(
               success ? "" : "border-t-[10px] border-primary",
-              " flex max-h-[95svh] max-w-[600px] flex-col gap-10 overflow-y-auto rounded-small border-x-0  border-b-0   bg-zinc-200 p-5 [&>button]:hidden",
+              " flex max-h-[90svh] max-w-[600px] flex-col gap-10 overflow-y-auto rounded-small border-x-0  border-b-0   bg-zinc-200 p-5 [&>button]:hidden",
             )}
           >
             {success ? (
