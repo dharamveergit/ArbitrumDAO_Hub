@@ -4,7 +4,7 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { paragraphCva, titleCva } from "@/lib/cvas";
+import { buttonVariants, paragraphCva, titleCva } from "@/lib/cvas";
 import {
   QueryClient,
   QueryClientProvider,
@@ -14,6 +14,7 @@ import clsx from "clsx";
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import ContributionDropdown from "./community-hub/contributeDropdown";
+import { ArrowRight } from "lucide-react";
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient();
@@ -24,13 +25,17 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const CmsContributions = () => {
+const CmsContributions = ({
+  setOpen,
+}: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <Provider>
       <ContributionDropdown
         title={
           <>
-            Add Using CMS {""} : <CheckStatus />
+            Add Using CMS {""} : <CheckStatus setOpen={setOpen} />
           </>
         }
         titleSize="sm"
@@ -93,7 +98,11 @@ const CmsContributions = () => {
 
 export default CmsContributions;
 
-const CheckStatus = () => {
+const CheckStatus = ({
+  setOpen,
+}: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { data } = useQuery({
     queryKey: ["checkStatus"],
     queryFn: async () => {
@@ -106,8 +115,9 @@ const CheckStatus = () => {
 
   const [userName, setUserName] = React.useState("");
   const [isEligible, setIsEligible] = React.useState(false);
+  const [notice, setNotice] = React.useState(false);
   return (
-    <Dialog>
+    <Dialog open={notice} onOpenChange={setNotice}>
       <DialogTrigger className="underline">
         {" "}
         Check eligibility for using CMS
@@ -122,9 +132,15 @@ const CheckStatus = () => {
           >
             If you did'nt find your username in the list of contributors, you
             can apply for the same by clicking this{" "}
-            <a href="" className="underline">
+            <button
+              onClick={() => {
+                setNotice(false);
+                setOpen(true);
+              }}
+              className=" font-semibold text-primary underline"
+            >
               link
-            </a>
+            </button>
           </p>
         </div>
         <div className="flex w-full gap-2">
@@ -147,23 +163,35 @@ const CheckStatus = () => {
                 toast.custom((t) => (
                   <div
                     className={clsx(
+                      t.visible ? "animate-enter" : "animate-leave",
                       "flex flex-col items-center justify-center gap-1 rounded-xl border bg-white p-5 transition-all duration-300",
                     )}
                   >
                     <h1 className={titleCva()}>
-                      Notice: <span className="text-red-600">Not eligible</span>
+                      Notice:{" "}
+                      <span className="text-red-600">
+                        {" "}
+                        You don't have the access
+                      </span>
                     </h1>
                     <p className={paragraphCva()}>
-                      If you did'nt find your username in the list of
-                      contributors, you can apply for the same by clicking this{" "}
-                      <a
-                        href="https://api.github.com/repos/dharamveergit/ArbitrumDAO_Hub/contributors?anon=1"
-                        className="underline"
-                        target="_blank"
-                      >
-                        link
-                      </a>
+                      Please fill out the form to request access{" "}
                     </p>
+                    <button
+                      onClick={() => {
+                        toast.dismiss(t.id);
+                        setNotice(false);
+                        setOpen(true);
+                      }}
+                      className={buttonVariants({
+                        variant: "default",
+                        size: "default",
+                        className: "mt-4",
+                      })}
+                    >
+                      Apply Now
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </button>
                   </div>
                 ));
                 setIsEligible(false);
