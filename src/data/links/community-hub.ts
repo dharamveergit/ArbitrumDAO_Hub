@@ -160,4 +160,8 @@ export const headerLinks = [
     name: "Forum",
     href: "https://forum.arbitrum.foundation/",
   },
+  {
+    name: "GCP",
+    href: "/gcp",
+  },
 ];

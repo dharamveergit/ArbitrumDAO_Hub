@@ -1,0 +1,255 @@
+---
+import Button from "@/components/ui/button.astro";
+import Seperator from "@/components/ui/seperator.astro";
+import { paragraphCva, titleCva } from "@/lib/cvas";
+import { Image } from "astro:assets";
+import clsx from "clsx";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title={"GCP - The Gaming Catalyst Program"}
+  description={"The Gaming Catalyst Program (GCP) is Arbitrum’s flagship initiative to revolutionize blockchain gaming. With a funding pool of 100 to 200 million ARB tokens, the GCP empowers top-tier game studios and independent developers to build groundbreaking games on the Arbitrum network. By supporting the best in the industry, the GCP is positioning Arbitrum as a leader in the Web3 gaming space, driving innovation and creating the future of gaming on blockchain."}
+>
+  <section class="relative mt-10">
+    <img src="/bg/gcp.png" alt="GCP" class="w-full rounded-5xl" />
+    <div class="absolute left-[18%] top-[60%]">
+      <Button href="/" arrow variant="secondary"
+        >Join Telegram Community
+      </Button>
+    </div>
+  </section>
+  <section
+    class="flex flex-col-reverse items-center justify-between gap-3 rounded-small bg-gradient-to-b from-primary-light to-white p-3 md:gap-20 md:rounded-5xl md:p-5 lg:flex-row"
+  >
+    <div class="flex flex-col lg:w-1/2">
+      <div class="flex flex-col gap-2 pb-10 lg:gap-4 lg:py-28">
+        <p
+          class="text-xs font-normal uppercase tracking-widest text-gray-500 lg:text-sm"
+        >
+          What it means for the users?
+        </p>
+        <div class="">
+          <h1 class="text-lg font-medium md:text-2xl lg:text-3xl">
+            <span>Gaming Catalyst Program (GCP)</span>
+            <br class="md:hidden lg:block" />
+            <span class={"text-primary"}
+              >Fueling the Future of Gaming on Arbitrum</span
+            >
+          </h1>
+        </div>
+        <p
+          class={"pt-3 font-os text-xs font-light text-gray-500 md:text-base lg:pt-0 lg:text-base"}
+        >
+          The Gaming Catalyst Program (GCP) is Arbitrum’s flagship initiative to
+          revolutionize blockchain gaming. With a funding pool of 100 to 200
+          million ARB tokens, the GCP empowers top-tier game studios and
+          independent developers to build groundbreaking games on the Arbitrum
+          network. By supporting the best in the industry, the GCP is
+          positioning Arbitrum as a leader in the Web3 gaming space, driving
+          innovation and creating the future of gaming on blockchain.
+        </p>
+      </div>{" "}
+      <div class="flex flex-col items-start">
+        <p
+          class="mb-2 text-xs font-normal uppercase tracking-widest text-gray-500"
+        >
+          Learn How to Apply
+        </p>
+        <Button> To be Announced </Button>
+      </div>
+    </div>
+    <div class="md:w-[60%] lg:w-1/2">
+      <img src={"/gcp/earth.svg"} alt={""} class="lg:aspect-[16/10]" />
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-6 md:gap-4">
+    <h1 class="text-lg font-medium md:text-xl lg:w-[40%] lg:text-2xl">
+      What is Gaming Catalyst Program?
+    </h1>
+    <div class="ml-auto flex flex-col gap-10 md:w-2/3 lg:w-1/2 lg:gap-5">
+      <p
+        class="font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
+      >
+        The Gaming Catalyst Program (GCP) is Arbitrum’s major initiative to
+        accelerate the development of blockchain-powered games. With a focus on
+        supporting top game studios and independent developers, the GCP provides
+        strategic funding and resources to help create high-quality, innovative
+        games on the Arbitrum network, positioning it as a leader in the Web3
+        gaming industry.
+      </p>
+      <Button href="/gcp" arrow>Read Full Proposal</Button>
+    </div>
+  </section>
+  <Seperator />
+  <section
+    class="flex flex-col-reverse items-center justify-between gap-3 rounded-small bg-gradient-to-b from-primary-light to-white py-3 pl-3 md:gap-20 md:rounded-5xl md:pl-5 md:pt-5 lg:flex-row"
+  >
+    <div class="flex flex-col lg:w-1/2">
+      <div class="flex flex-col gap-2 pb-10 lg:gap-4 lg:py-28">
+        <div>
+          <h1 class="text-lg font-medium md:text-2xl lg:text-3xl">
+            Strategic Focus on Big Studios
+          </h1>
+        </div>
+        <p
+          class={"pt-3 font-os text-xs font-light text-gray-500 md:text-base lg:pt-0 lg:text-base"}
+        >
+          The Gaming Catalyst Program strategically focuses on partnering with
+          big game studios to bring high-quality, large-scale games to the
+          Arbitrum network. By supporting established studios with proven
+          expertise, the program ensures that Arbitrum becomes the go-to
+          platform for AAA-level games, driving mass adoption and positioning
+          itself as a leader in the Web3 gaming industry.
+        </p>
+      </div>
+
+      <Button arrow>Publisher Grant</Button>
+    </div>
+    <div class="ml-auto mt-20">
+      <img src={"/gcp/wheel.svg"} alt={""} class="lg:aspect-[16/10]" />
+    </div>
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-4">
+    <h2
+      class={titleCva({
+        size: "lg",
+      })}
+    >
+      Key Program Details
+    </h2>
+    <div class="flex flex-col gap-4">
+      <h3
+        class={titleCva({
+          size: "lg",
+          color: "primary",
+        })}
+      >
+        Funding Overview
+      </h3>
+      <p class={paragraphCva()}>
+        The Gaming Catalyst Program (GCP) offers 100 to 200 million ARB tokens
+        in funding, with 80% allocated to major game studios through publisher
+        grants, and 20% reserved for independent developers. Funding is
+        distributed based on project milestones, ensuring steady progress and
+        high-quality outcomes for games built on the Arbitrum network.
+      </p>
+    </div>
+    <div class="mt-6 flex flex-col gap-4">
+      <h3
+        class={titleCva({
+          size: "lg",
+          color: "primary",
+        })}
+      >
+        Grants for big studios vs. grants for independent builders
+      </h3>
+      <p class={paragraphCva()}>
+        The Gaming Catalyst Program offers two types of grants: one for big
+        studios, which focuses on funding large, high-budget projects to bring
+        AAA-quality games to the Arbitrum ecosystem, and another for independent
+        builders, providing smaller grants of up to 50,000 ARB to support
+        innovative, smaller-scale game developers. Both grants are
+        milestone-based, ensuring that funds are released as key development
+        goals are met.
+      </p>
+    </div>
+
+    <div class="ml-auto mt-8">
+      <Button href="/gcp" arrow>View in Detail</Button>
+    </div>
+  </section>
+  <Seperator />
+  <section
+    class="flex flex-col gap-6 rounded-small bg-primary-light px-14 py-10 md:rounded-large"
+  >
+    <h2
+      class={titleCva({
+        size: "xl",
+      })}
+    >
+      Programs
+    </h2>
+    <div class="flex flex-col gap-4">
+      <p class={paragraphCva()}>GCP Programs are in progress.</p>
+      <p class={paragraphCva()}>
+        Don’t forget to subscribe to our newsletter to stay updated.
+      </p>
+      <Button href="/gcp" variant="secondary" arrow
+        >Subscribe to Newsletter</Button
+      >
+    </div>
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-8">
+    <h2 class={titleCva({})}>Developer Benefits</h2>
+
+    <p class={paragraphCva()}>
+      As a developer, building on Arbitrum through the Gaming Catalyst Program
+      (GCP) offers access to funding, cutting-edge blockchain technology, and a
+      robust gaming ecosystem. You'll benefit from milestone-based grants,
+      expert support, and the opportunity to create immersive Web3 gaming
+      experiences while reaching a global audience. Arbitrum’s fast, scalable,
+      and secure network ensures your games thrive in the competitive gaming
+      landscape.
+    </p>
+
+    <Button href="/gcp" arrow>Join Arbitrum Developer Network</Button>
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-3">
+    <h2 class={titleCva()}>Exlopre the Ecosystem</h2>
+    <h3
+      class={titleCva({
+        color: "primary",
+      })}
+    >
+      GameFi
+    </h3>
+    <div
+      class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:gap-12"
+    >
+      {
+        new Array(6).fill(0).map((item, index) => (
+          <div class="flex  gap-4 rounded-xl border bg-[#F7F6FA] p-4 ">
+            <Image
+              src="/gcp/image.png"
+              class="size-16"
+              width={64}
+              height={64}
+              alt={`GameFi ${index + 1}`}
+            />
+            <div class="flex flex-col gap-2">
+              <h4
+                class={titleCva({
+                  size: "sm",
+                })}
+              >
+                Ox Astra
+              </h4>
+              <p class={clsx(paragraphCva(), "line-clamp-4")}>
+                0xAstra is an onchain SLG game, where you harness cross-chain
+                resources with bridge technology to build and defend your
+                cosmically superior selves.
+              </p>
+              <div class="mt-4 flex gap-4">
+                <button class="rounded-lg bg-primary px-3 py-0.5 text-sm font-medium text-white">
+                  Coming Soon
+                </button>
+                <button class="rounded-lg border  bg-white px-3 py-0.5 text-sm font-medium ">
+                  GameFi
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <button class="ml-auto mt-6 text-sm font-medium text-primary">
+      View all
+    </button>
+  </section>
+  <Seperator />
+</MainLayout>
