@@ -1,19 +1,33 @@
 ---
+import Faq from "@/components/developer-hub/faq";
 import Button from "@/components/ui/button.astro";
+import BlogCard from "@/components/ui/cards/blog-card.astro";
 import Seperator from "@/components/ui/seperator.astro";
 import { paragraphCva, titleCva } from "@/lib/cvas";
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import clsx from "clsx";
+import { GCP_Homepage } from "../data/homepage/gcp";
 import MainLayout from "../layouts/MainLayout.astro";
+const data = await getCollection("blogs");
 ---
 
 <MainLayout
   title={"GCP - The Gaming Catalyst Program"}
   description={"The Gaming Catalyst Program (GCP) is Arbitrum’s flagship initiative to revolutionize blockchain gaming. With a funding pool of 100 to 200 million ARB tokens, the GCP empowers top-tier game studios and independent developers to build groundbreaking games on the Arbitrum network. By supporting the best in the industry, the GCP is positioning Arbitrum as a leader in the Web3 gaming space, driving innovation and creating the future of gaming on blockchain."}
 >
-  <section class="relative mt-10">
-    <img src="/bg/gcp.png" alt="GCP" class="w-full rounded-5xl" />
-    <div class="absolute left-[18%] top-[60%]">
+  <section class="relative mt-5 md:mt-10">
+    <img
+      src="/bg/gcp.png"
+      alt="GCP"
+      class="hidden w-full rounded-small md:block md:rounded-large"
+    />
+    <img
+      src="/gcp/mobile-bg.png"
+      alt="GCP"
+      class="block w-full rounded-small md:hidden"
+    />
+    <div class="absolute left-[10%] top-[80%] md:left-[18%] md:top-[60%]">
       <Button href="/" arrow variant="secondary"
         >Join Telegram Community
       </Button>
@@ -22,7 +36,7 @@ import MainLayout from "../layouts/MainLayout.astro";
   <section
     class="flex flex-col-reverse items-center justify-between gap-3 rounded-small bg-gradient-to-b from-primary-light to-white p-3 md:gap-20 md:rounded-5xl md:p-5 lg:flex-row"
   >
-    <div class="flex flex-col lg:w-1/2">
+    <div class="flex flex-col pt-3 md:pt-0 lg:w-1/2">
       <div class="flex flex-col gap-2 pb-10 lg:gap-4 lg:py-28">
         <p
           class="text-xs font-normal uppercase tracking-widest text-gray-500 lg:text-sm"
@@ -49,21 +63,32 @@ import MainLayout from "../layouts/MainLayout.astro";
           positioning Arbitrum as a leader in the Web3 gaming space, driving
           innovation and creating the future of gaming on blockchain.
         </p>
-      </div>{" "}
-      <div class="flex flex-col items-start">
-        <p
-          class="mb-2 text-xs font-normal uppercase tracking-widest text-gray-500"
-        >
-          Learn How to Apply
-        </p>
-        <Button> To be Announced </Button>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="flex flex-col items-start">
+          <p
+            class="mb-2 text-xs font-normal uppercase tracking-widest text-gray-500"
+          >
+            Learn How to Apply
+          </p>
+          <Button> To be Announced </Button>
+        </div>
+        <Image
+          width={100}
+          height={100}
+          src={"/gcp/earthmobile.svg"}
+          alt={""}
+          class="w-20 md:hidden"
+        />
       </div>
     </div>
-    <div class="md:w-[60%] lg:w-1/2">
+    <div class="hidden md:block md:w-[60%] lg:w-1/2">
       <img src={"/gcp/earth.svg"} alt={""} class="lg:aspect-[16/10]" />
     </div>
   </section>
-
+  <div class="md:hidden">
+    <Seperator />
+  </div>
   <section class="flex flex-col gap-6 md:gap-4">
     <h1 class="text-lg font-medium md:text-xl lg:w-[40%] lg:text-2xl">
       What is Gaming Catalyst Program?
@@ -86,7 +111,7 @@ import MainLayout from "../layouts/MainLayout.astro";
   <section
     class="flex flex-col-reverse items-center justify-between gap-3 rounded-small bg-gradient-to-b from-primary-light to-white py-3 pl-3 md:gap-20 md:rounded-5xl md:pl-5 md:pt-5 lg:flex-row"
   >
-    <div class="flex flex-col lg:w-1/2">
+    <div class="flex flex-col pt-3 md:pt-0 lg:w-1/2">
       <div class="flex flex-col gap-2 pb-10 lg:gap-4 lg:py-28">
         <div>
           <h1 class="text-lg font-medium md:text-2xl lg:text-3xl">
@@ -104,10 +129,18 @@ import MainLayout from "../layouts/MainLayout.astro";
           itself as a leader in the Web3 gaming industry.
         </p>
       </div>
-
-      <Button arrow>Publisher Grant</Button>
+      <div class="flex items-center justify-between">
+        <Button arrow>Publisher Grant</Button>
+        <Image
+          width={100}
+          height={100}
+          src={"/gcp/wheelmobile.svg"}
+          alt={""}
+          class="w-32 pr-5 md:hidden"
+        />
+      </div>
     </div>
-    <div class="ml-auto mt-20">
+    <div class="ml-auto mt-20 hidden md:block">
       <img src={"/gcp/wheel.svg"} alt={""} class="lg:aspect-[16/10]" />
     </div>
   </section>
@@ -163,7 +196,7 @@ import MainLayout from "../layouts/MainLayout.astro";
   </section>
   <Seperator />
   <section
-    class="flex flex-col gap-6 rounded-small bg-primary-light px-14 py-10 md:rounded-large"
+    class="flex flex-col gap-6 rounded-small bg-primary-light px-5 py-8 md:rounded-large md:px-14 md:py-10"
   >
     <h2
       class={titleCva({
@@ -252,4 +285,118 @@ import MainLayout from "../layouts/MainLayout.astro";
     </button>
   </section>
   <Seperator />
+  <section class="flex flex-col gap-6 py-10">
+    <h1 class="text-lg font-medium lg:text-2xl">Blogs</h1>
+    <ul class="grid grid-rows-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        data
+          ?.sort((a, b) =>
+            new Date(a.data.pubDate) > new Date(b.data.pubDate) ? -1 : 1,
+          )
+          ?.slice(0, 3)
+          ?.map(({ data, slug }) => (
+            <BlogCard blog={data} type="blog" link={`/blog/${slug}`} />
+          ))
+      }
+    </ul>
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-6">
+    <h2
+      class={titleCva({
+        size: "xl",
+      })}
+    >
+      News
+    </h2>
+    <div class="flex flex-col gap-4">
+      <p class={paragraphCva()}>News will be updated soon.</p>
+      <p class={paragraphCva()}>
+        Don’t forget to subscribe to our newsletter to stay updated.
+      </p>
+      <Button href="/gcp" variant="default" arrow
+        >Subscribe to Newsletter</Button
+      >
+    </div>
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-4">
+    <h2
+      class={titleCva({
+        size: "sm",
+      })}
+    >
+      Team
+    </h2>
+    <div
+      class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-8 lg:grid-cols-5 2xl:gap-12"
+    >
+      {
+        GCP_Homepage?.team?.map((item, index) => (
+          <div class="flex  gap-3 rounded-xl border bg-[#F7F6FA] p-3 md:gap-4 md:p-5 ">
+            <Image
+              src={item.image}
+              class="size-12 rounded-full md:size-16"
+              width={64}
+              height={64}
+              alt={`GameFi ${index + 1}`}
+            />
+            <div class="flex flex-col ">
+              <h4
+                class={titleCva({
+                  size: "sm",
+                })}
+              >
+                Ox Astra
+              </h4>
+              <p class={paragraphCva()}>Designation</p>
+
+              <a
+                href={item.x}
+                target="_blank"
+                class="mt-4 flex size-8 items-center justify-center rounded-full border bg-white shadow-sm"
+              >
+                <svg
+                  width="16"
+                  height="14"
+                  viewBox="0 0 16 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.6009 0.876587H15.0544L9.69434 6.22719L16 13.5082H11.062L7.19492 9.0923L2.77013 13.5082H0.315209L6.0483 7.78509L0 0.876587H5.06188L8.55736 4.91286L12.5995 0.876587H12.6009ZM11.7399 12.2256H13.0993L4.32392 2.09181H2.86506L11.7399 12.2256Z"
+                    fill="#71717A"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+  <Seperator />
+  <section
+    class="flex flex-col gap-11 rounded-small bg-navy p-2 text-white md:gap-20 md:rounded-3xl md:p-4 lg:gap-32 lg:rounded-5xl lg:p-5"
+  >
+    <p class="font-os text-lg font-normal md:text-xl lg:w-1/2 lg:text-3xl">
+      Get Notified everything about GCP with our weekly Newsletter
+    </p>
+    <div
+      class="mt-10 flex justify-end gap-2 md:mt-0 lg:ml-auto lg:mt-0 lg:w-1/2 lg:gap-4"
+    >
+      <input
+        type="text"
+        placeholder="Enter your email"
+        class="w-full flex-1 rounded-xl border border-gray-300 p-2 text-xs md:rounded-2xl md:p-4 md:text-base lg:text-xl"
+      />
+      <button
+        class="whitespace-nowrap rounded-xl bg-primary px-3 text-xs md:rounded-2xl md:text-base lg:text-xl"
+      >
+        Notify Me
+      </button>
+    </div>
+  </section>
+  <Seperator />
+  <Faq client:load questions={GCP_Homepage?.questions} />
 </MainLayout>
