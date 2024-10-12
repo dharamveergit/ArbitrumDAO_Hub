@@ -245,11 +245,16 @@ const data = await getCollection("blogs");
       class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:gap-12"
     >
       {
-        new Array(6).fill(0).map((item, index) => (
-          <div class="flex  gap-4 rounded-xl border bg-[#F7F6FA] p-4 ">
-            <Image
-              src="/gcp/image.png"
-              class="size-16"
+        GCP_Homepage?.gameFi?.map((item, index) => (
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex  gap-4 rounded-xl border bg-[#F7F6FA] p-4 "
+          >
+            <img
+              src={item.image}
+              class="size-16 rounded-full"
               width={64}
               height={64}
               alt={`GameFi ${index + 1}`}
@@ -260,29 +265,33 @@ const data = await getCollection("blogs");
                   size: "sm",
                 })}
               >
-                Ox Astra
+                {item.title}
               </h4>
               <p class={clsx(paragraphCva(), "line-clamp-4")}>
-                0xAstra is an onchain SLG game, where you harness cross-chain
-                resources with bridge technology to build and defend your
-                cosmically superior selves.
+                {item.description}
               </p>
-              <div class="mt-4 flex gap-4">
-                <button class="rounded-lg bg-primary px-3 py-0.5 text-sm font-medium text-white">
-                  Coming Soon
-                </button>
+              <div class="mt-auto flex gap-4 pt-4">
+                {item.commingsoon && (
+                  <button class="rounded-lg bg-primary px-3 py-0.5 text-sm font-medium text-white">
+                    Coming Soon
+                  </button>
+                )}
                 <button class="rounded-lg border  bg-white px-3 py-0.5 text-sm font-medium ">
                   GameFi
                 </button>
               </div>
             </div>
-          </div>
+          </a>
         ))
       }
     </div>
-    <button class="ml-auto mt-6 text-sm font-medium text-primary">
-      View all
-    </button>
+    <a
+      target="_blank"
+      href="https://portal.arbitrum.io/projects/gaming#projects-gamefi"
+      class="ml-auto mt-6"
+    >
+      <button class="text-sm font-medium text-primary"> View all </button></a
+    >
   </section>
   <Seperator />
   <section class="flex flex-col gap-6 py-10">
