@@ -68,7 +68,7 @@ const GamesCarousal = () => {
   ];
 
   return (
-    <section className="flex flex-col gap-5">
+    <section className="flex w-full flex-col gap-5">
       <h2 className="text-lg font-medium md:text-2xl lg:text-3xl">
         Explore the Ecosystem
       </h2>
@@ -83,14 +83,14 @@ const GamesCarousal = () => {
           <SwiperSlide
             key={index}
             className={clsx(
-              "h-[18rem] ",
+              "h-[18rem] w-full",
               slide?.images?.length
-                ? "relative grid  w-36 grid-rows-2 gap-1"
+                ? "relative grid  max-w-36  grid-rows-2 gap-1"
                 : slide.long
-                  ? "w-[48rem]"
+                  ? "max-w-[48rem]"
                   : slide.medium
-                    ? "w-[42rem]"
-                    : "w-[32rem]",
+                    ? "max-w-[42rem]"
+                    : "max-w-[32rem]",
             )}
           >
             {slide?.images?.length ? (
