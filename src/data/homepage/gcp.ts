@@ -1,127 +1,91 @@
 export const GCP_Homepage = {
   team: [
     {
-      name: "krst",
-      designation: "Designation",
-      x: "https://twitter.com/krst",
+      name: "Djinn",
+      designation: "PM",
+      x: "https://x.com/NFT_Djinn",
       image: "/gcp/team/1.png",
     },
     {
-      name: "JoJo",
-      designation: "Designation",
-      x: "https://twitter.com/krst",
+      name: "Karel Vuong",
+      designation: "Contributor",
+      x: "https://x.com/0xkarel?lang=en",
       image: "/gcp/team/2.png",
     },
     {
-      name: "Bob-Rossi",
-      designation: "Designation",
-      x: "https://twitter.com/krst",
+      name: "Marcus Segal",
+      designation: "Contributor",
+      x: "https://x.com/marcussegal?lang=en",
       image: "/gcp/team/3.png",
     },
     {
-      name: "limes",
-      designation: "Designation",
-      x: "https://twitter.com/krst",
+      name: "Rick Johanson",
+      designation: "Contributor",
+      x: "https://x.com/johansonrick?lang=en",
       image: "/gcp/team/4.png",
     },
+  ],
+  council: [
     {
-      name: "coinflip",
-      designation: "Designation",
-      x: "https://twitter.com/krst",
-      image: "/gcp/team/5.png",
+      name: "Tim Chang",
+      designation: "Contributor",
+      x: "https://x.com/coinflipcanada",
+      image: "/gcp/council/1.png",
+    },
+    {
+      name: "John Kennedy",
+      designation: "Contributor",
+      x: "https://x.com/CommerceJohn",
+
+      image: "/gcp/council/2.png",
+    },
+    {
+      name: "David B",
+      designation: "Contributor",
+      x: "https://x.com/CocoraEth",
+      image: "/gcp/council/3.png",
+    },
+    {
+      name: "Greg Canessa",
+      designation: "Contributor",
+      x: "https://x.com/gregcanessa",
+      image: "/gcp/council/4.png",
+    },
+    {
+      name: "coinflipcanada",
+      designation: "Contributor",
+      x: "https://x.com/coinflipcanada",
+      image: "/gcp/council/5.png",
     },
   ],
   questions: [
     {
-      question: "What are the prerequisites for developing on Arbitrum?",
-      answer: `<ul class="flex flex-col gap-1 font-os  list-disc pl-5">
-            <li >Basic understanding of blockchain technology and smart contracts.</li>
-            <li >Familiarity with Solidity or another supported language.</li>
-            <li >Node.js and npm or yarn installed.</li>
-            <li class="text-sm md:text-base lg:text-lg ">A suitable code editor or IDE.</li>
-          </ul>`,
+      question: "Who is eligible to apply for GCP grants?",
+      answer: `Both established game studios and independent builders are eligible to apply. The program encourages innovative game developers with strong ideas, regardless of their size. Studios and independent builders must submit a proposal detailing their project, funding needs, and milestones.`,
     },
     {
-      question: "How do I deploy my smart contracts to Arbitrum?",
+      question: "How much funding does the GCP provide?",
       answer: `
-          <p >You can deploy your contracts using tools like Hardhat with the Arbitrum RPC endpoint. Refer to the docs for specific instructions:  <a
-            target="_blank" 
-          href="https://docs.arbitrum.io" class="underline "
-          >https://docs.arbitrum.io</a></p>
-          `,
+       The GCP is backed by a funding pool of 100-200 million ARB tokens. Grants are allocated to both large game studios and independent developers. The program aims to strategically distribute these funds to projects that demonstrate potential for high-quality, sustainable games.`,
+    },
+    {
+      question: "How does the GCP support independent game developers?",
+      answer:
+        "Independent game developers can apply for milestone-based grants between 50K ARB to 500K ARB. The program provides resources and mentorship to ensure that independent builders receive the support they need to bring their games to market.",
     },
     {
       question:
-        "  What are the best practices for writing secure smart contracts on Arbitrum?",
+        "What is the difference between grants for big studios and independent developers?",
       answer:
-        "<p >Always follow secure coding practices and utilize established libraries and audits for your contracts.</p>",
+        "Grants for big studios focus on high-budget, large-scale projects, bringing AAA-quality games to the Arbitrum ecosystem. Grants for independent developers provide medium, milestone-based funding to support innovative, medium-scale projects. Both types of grants aim to foster game development and ensure the delivery of high-quality games.",
     },
     {
-      question: "How does Arbitrum handle data availability and fraud proofs?",
-      answer:
-        "<p class=''>Arbitrum uses Sequencers for data availability and validators for fraud proofs. Learn about these roles and their impact on your application.</p>",
-    },
-    {
-      question:
-        "Where can I find resources to debug and troubleshoot issues with my Arbitrum applications?",
-      answer:
-        "<p >The Arbitrum developer docs offer troubleshooting guides and community forums provide support. Consider using tools like Etherscan and Hardhat debugging functionalities.</p>",
-    },
-  ],
-  gameFi: [
-    {
-      title: "Army of Tactics",
-
-      description:
-        "Embark on an exhilarating journey through the world of Army of Tactics, where strategy and fortune blend into the best mobile game experience. Free to download and thrilling to play, your saga begins on mystical islands, with every battle a step towards glory!",
-      link: "https://portal.arbitrum.io/projects/gaming?project=army-of-tactics",
-      image:
-        "https://portal.arbitrum.io/_next/image?url=%2Fimages%2Fprojects%2Farmy-of-tactics-logo.webp&w=256&q=75",
-    },
-
-    {
-      commingsoon: true,
-      title: "Army of Tactics",
-      description:
-        "Embark on an exhilarating journey through the world of Army of Tactics, where strategy and fortune blend into the best mobile game experience. Free to download and thrilling to play, your saga begins on mystical islands, with every battle a step towards glory!",
-      link: "https://portal.arbitrum.io/projects/gaming?project=avarik-saga",
-      image:
-        "https://portal.arbitrum.io/_next/image?url=%2Fimages%2Fprojects%2Favarik-saga-logo.webp&w=256&q=75",
-    },
-    {
-      commingsoon: true,
-      title: "Captain Laserhawk The GAME",
-      description:
-        "Captain Laserhawk: the G.A.M.E. expands the universe of Captain Laserhawk: A Blood Dragon Remix series - produced by Ubisoft for Netflix and featuring iconic characters from Ubisoft IPs. The G.A.M.E. is a transmedia gaming adventure where the community drives the narrative through innovative governance. Players step into the role of a citizen in the dystopian world of Eden - the totalitarian successor to the US. By overcoming challenges across various channels inside and outside the game, players can raise their citizen score and increase their power to shape the narrative. As the story unfolds, the entire community will have the opportunity to influence the plot and participate in key decision-making moments.",
-      link: "https://portal.arbitrum.io/projects/gaming?project=captain-laserhawk-the-game",
-      image:
-        "https://portal.arbitrum.io/_next/image?url=%2Fimages%2Fprojects%2Fcaptain-laserhawk-the-game-logo.webp&w=256&q=75",
-    },
-    {
-      commingsoon: true,
-      title: "Celeros",
-      description:
-        "The future of racing - A world built on risk and reward, brought to life through the competition of racing, trading, owning, & creating.",
-      link: "https://portal.arbitrum.io/projects/gaming?project=celeros",
-      image:
-        "https://portal.arbitrum.io/_next/image?url=%2Fimages%2Fprojects%2Fceleros-logo.webp&w=256&q=75",
-    },
-    {
-      title: "Counter Fire",
-      description:
-        "Delivering an intense, fast-paced MOBA gaming experience on your phone, fueled by blockchain assets.",
-      link: "https://portal.arbitrum.io/projects/gaming?project=counter-fire",
-      image:
-        "https://portal.arbitrum.io/_next/image?url=%2Fimages%2Fprojects%2Fcounter-fire-logo.webp&w=256&q=75",
-    },
-    {
-      commingsoon: true,
-      title: "Dookey Dash: Unclogged",
-      description:
-        "The viral endless runner is back! From the idiots who brought you Bored Ape Yacht Club comes the much anticipated game, Dookey Dash: Unclogged. Dive into the sewers, climb leaderboards, and win prizes from a seasonal pool of over $1 million.",
-      link: "https://portal.arbitrum.io/projects/gaming?project=dookey-dash-unclogged",
-      image:
-        "https://portal.arbitrum.io/_next/image?url=%2Fimages%2Fprojects%2Fdookey-dash-unclogged-logo.webp&w=256&q=75",
+      question: "What outcomes does the GCP aim to achieve?",
+      answer: `<ul class="flex flex-col gap-1 font-os  list-disc pl-5">
+            <li >Onboard 80-100 new studios or builders into the Arbitrum ecosystem.</li>
+            <li >Ensure that 50% of studios progress at least one phase during the program.</li>
+            <li >Support projects through key development stages, from pre-alpha to worldwide launch, ensuring the development of high-quality, sticky games.</li>
+          </ul>`,
     },
   ],
 };

@@ -9,7 +9,9 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { GCP_Homepage } from "../data/homepage/gcp";
 import MainLayout from "../layouts/MainLayout.astro";
-const data = await getCollection("blogs");
+const data = await getCollection("blogs", ({ data }) => {
+  return data.tag === "GCP";
+});
 ---
 
 <MainLayout
@@ -279,7 +281,7 @@ const data = await getCollection("blogs");
     </div>
   </section>
   <Seperator />
-  <GamesCarousal client:load />
+  <GamesCarousal client:load transition:persist />
 
   <Seperator />
 
@@ -321,14 +323,12 @@ const data = await getCollection("blogs");
   <section class="flex flex-col gap-4">
     <h2
       class={titleCva({
-        size: "sm",
+        size: "md",
       })}
     >
       Team
     </h2>
-    <div
-      class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-8 lg:grid-cols-5 2xl:gap-12"
-    >
+    <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-8 2xl:gap-12">
       {
         GCP_Homepage?.team?.map((item, index) => (
           <div class="flex  gap-3 rounded-xl border bg-[#F7F6FA] p-3 md:gap-4 md:p-5 ">
@@ -345,9 +345,65 @@ const data = await getCollection("blogs");
                   size: "sm",
                 })}
               >
-                Ox Astra
+                {item.name}
               </h4>
-              <p class={paragraphCva()}>Designation</p>
+              <p class={paragraphCva()}>{item.designation}</p>
+
+              <a
+                href={item.x}
+                target="_blank"
+                class="mt-4 flex size-8 items-center justify-center rounded-full border bg-white shadow-sm"
+              >
+                <svg
+                  width="16"
+                  height="14"
+                  viewBox="0 0 16 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.6009 0.876587H15.0544L9.69434 6.22719L16 13.5082H11.062L7.19492 9.0923L2.77013 13.5082H0.315209L6.0483 7.78509L0 0.876587H5.06188L8.55736 4.91286L12.5995 0.876587H12.6009ZM11.7399 12.2256H13.0993L4.32392 2.09181H2.86506L11.7399 12.2256Z"
+                    fill="#71717A"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+  <Seperator />
+  <section class="flex flex-col gap-4">
+    <h2
+      class={titleCva({
+        size: "md",
+      })}
+    >
+      Council Members
+    </h2>
+    <div
+      class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-8 lg:grid-cols-5 2xl:gap-12"
+    >
+      {
+        GCP_Homepage?.council?.map((item, index) => (
+          <div class="flex  gap-3 rounded-xl border bg-[#F7F6FA] p-3 md:gap-4 md:p-5 ">
+            <Image
+              src={item.image}
+              class="size-12 rounded-full md:size-16"
+              width={64}
+              height={64}
+              alt={`GameFi ${index + 1}`}
+            />
+            <div class="flex flex-col ">
+              <h4
+                class={titleCva({
+                  size: "sm",
+                })}
+              >
+                {item.name}
+              </h4>
+              <p class={paragraphCva()}>{item.designation}</p>
 
               <a
                 href={item.x}
@@ -376,7 +432,7 @@ const data = await getCollection("blogs");
   <Seperator />
   <section
     id="newsletter"
-    class="flex flex-col gap-11 rounded-small bg-navy p-2 text-white md:gap-20 md:rounded-3xl md:p-4 lg:gap-32 lg:rounded-5xl lg:p-5"
+    class="flex flex-col gap-11 rounded-small bg-blue-light p-2 text-black md:gap-20 md:rounded-3xl md:p-4 lg:gap-32 lg:rounded-5xl lg:p-5"
   >
     <p class="font-os text-lg font-normal md:text-xl lg:w-1/2 lg:text-3xl">
       Get Notified everything about GCP with our weekly Newsletter
@@ -390,7 +446,7 @@ const data = await getCollection("blogs");
         class="w-full flex-1 rounded-xl border border-gray-300 p-2 text-xs md:rounded-2xl md:p-4 md:text-base lg:text-xl"
       />
       <button
-        class="whitespace-nowrap rounded-xl bg-primary px-3 text-xs md:rounded-2xl md:text-base lg:text-xl"
+        class="whitespace-nowrap rounded-xl bg-primary px-3 text-xs text-white md:rounded-2xl md:text-base lg:text-xl"
       >
         Notify Me
       </button>
