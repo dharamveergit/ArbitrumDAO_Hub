@@ -83,7 +83,7 @@ const GamesCarousal = () => {
           <SwiperSlide
             key={index}
             className={clsx(
-              "h-[18rem] w-full",
+              "h-full max-h-[18rem] w-full overflow-hidden",
               slide?.images?.length
                 ? "relative grid  max-w-36  grid-rows-2 gap-1"
                 : slide.long
@@ -107,14 +107,14 @@ const GamesCarousal = () => {
                 </div>
               ))
             ) : (
-              <>
+              <div className="relative  w-full">
                 <Overlay data={slide as any} />
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className={"h-full w-full rounded-lg object-cover"}
+                  className={"h-[18rem] w-full rounded-lg object-cover"}
                 />
-              </>
+              </div>
             )}
           </SwiperSlide>
         ))}
