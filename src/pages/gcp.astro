@@ -1,5 +1,6 @@
 ---
 import Faq from "@/components/developer-hub/faq";
+import GamesCarousal from "@/components/gcp/GamesCarousal";
 import Button from "@/components/ui/button.astro";
 import BlogCard from "@/components/ui/cards/blog-card.astro";
 import Seperator from "@/components/ui/seperator.astro";
@@ -12,6 +13,7 @@ const data = await getCollection("blogs");
 ---
 
 <MainLayout
+  smooth
   title={"GCP - The Gaming Catalyst Program"}
   description={"The Gaming Catalyst Program (GCP) is Arbitrum’s flagship initiative to revolutionize blockchain gaming. With a funding pool of 100 to 200 million ARB tokens, the GCP empowers top-tier game studios and independent developers to build groundbreaking games on the Arbitrum network. By supporting the best in the industry, the GCP is positioning Arbitrum as a leader in the Web3 gaming space, driving innovation and creating the future of gaming on blockchain."}
 >
@@ -27,7 +29,7 @@ const data = await getCollection("blogs");
       class="block w-full rounded-small md:hidden"
     />
     <div class="absolute left-[10%] top-[80%] md:left-[18%] md:top-[60%]">
-      <Button href="/" arrow variant="secondary"
+      <Button href="https://t.me/gcpopen" arrow variant="secondary"
         >Join Telegram Community
       </Button>
     </div>
@@ -68,7 +70,12 @@ const data = await getCollection("blogs");
       </div>
 
       <div class="flex items-start gap-4">
-        <Button arrow variant="default">Read Full Proposal </Button>
+        <Button
+          href="https://www.tally.xyz/gov/arbitrum/proposal/53472400873981607449547539050199074000442490831067826984987297151333310022877?govId=eip155:42161:0x789fC99093B09aD01C34DC7251D0C89ce743e5a4"
+          arrow
+          variant="default"
+          >Read Full Proposal
+        </Button>
         <div class="flex flex-col items-start">
           <Button arrow variant="outline">How to Apply </Button>
           <p
@@ -88,15 +95,75 @@ const data = await getCollection("blogs");
     </div>
   </section>
   <Seperator />
+  <section class="flex flex-col gap-10 py-5 md:gap-20 md:py-10">
+    <div class="flex flex-col gap-6 md:gap-4">
+      <h2
+        class="text-lg font-medium md:text-xl lg:w-[35%] lg:text-2xl xl:w-[30%]"
+      >
+        This Program Aims to
+      </h2>
+      <div class="ml-auto flex flex-col gap-10 md:w-2/3 lg:w-1/2 lg:gap-5">
+        <p
+          class="font-os text-xs font-light text-gray-500 md:text-sm lg:text-base"
+        >
+          At its core, the Arbitrum DAO Gaming Catalyst Program (GCP) is about
+          fostering innovation and creativity within the blockchain gaming
+          space. By offering a combination of financial resources, technical
+          tools, and expert guidance, GCP aims to lower the barriers for game
+          developers to build and thrive on the Arbitrum network.
+        </p>
+      </div>
+    </div>
+    <div
+      class="flex flex-col-reverse items-center justify-between gap-6 rounded-small bg-blue-light md:flex-row md:rounded-3xl lg:gap-28 lg:rounded-large lg:p-14"
+    >
+      <div class="flex flex-col gap-2 md:w-[40%] lg:gap-4">
+        <p
+          class="text-xs font-normal uppercase tracking-widest text-gray-500 lg:text-sm"
+        >
+          This Program Aims to
+        </p>
+
+        <h2
+          class="max-w-[27rem] text-lg font-medium text-[#153055] md:text-2xl lg:text-3xl"
+        >
+          Rapidly Increase the Number of Game Developers Using
+          Arbitrum/Orbit/Stylus
+        </h2>
+        <p class="font-semibold text-gray-500">
+          GCP is committed to attracting developers with:
+        </p>
+        <ul
+          class={"pt-3 marker:text-gray-400 font-os list-disc text-xs list-outside flex flex-col gap-1 font-light text-gray-600 md:text-base lg:pt-0 lg:text-base"}
+        >
+          <li>Funding to kickstart their projects</li>
+          <li>Mentorship from industry experts</li>
+          <li>
+            Tools like Orbit and Stylus to simplify development <br />This
+            holistic approach ensures more developers join Arbitrum’s thriving
+            ecosystem.
+          </li>
+        </ul>
+      </div>
+      <div class="md:w-[45%]">
+        <img
+          src={"/gcp/learning.svg"}
+          alt={""}
+          class="aspect-[3/2] w-full md:aspect-auto lg:aspect-[16/12]"
+        />
+      </div>
+    </div>
+  </section>
+  <Seperator />
   <!-- second section -->
   <section
     class="flex flex-col-reverse items-center justify-between gap-6 md:flex-row lg:gap-28 lg:p-5"
   >
     <div class="flex flex-col gap-8 md:w-[55%]">
       <div class="flex flex-col gap-2 lg:gap-4">
-        <h1 class="text-lg font-medium md:text-2xl lg:text-3xl">
+        <h2 class="text-lg font-medium md:text-2xl lg:text-3xl">
           <span>Strategic Focus on Big Studios</span>
-        </h1>
+        </h2>
 
         <p
           class={"pt-3 font-os text-xs font-light text-gray-500 md:text-base lg:pt-0 lg:text-base"}
@@ -132,13 +199,13 @@ const data = await getCollection("blogs");
   >
     <div class="flex flex-col gap-8 md:w-[55%]">
       <div class="flex flex-col gap-2 lg:gap-4">
-        <h1 class="text-lg font-medium md:text-2xl lg:text-3xl">
+        <h2 class="text-lg font-medium md:text-2xl lg:text-3xl">
           <span>Funding for </span>
 
           <span class={"text-primary"}
             >Game Developers and Ecosystem Growth</span
           >
-        </h1>
+        </h2>
         <p
           class={"pt-3 font-os text-xs font-light text-gray-500 md:text-base lg:pt-0 lg:text-base"}
         >
@@ -170,7 +237,7 @@ const data = await getCollection("blogs");
       <p class={paragraphCva()}>
         Don’t forget to subscribe to our newsletter to stay updated.
       </p>
-      <Button href="/gcp" variant="secondary" arrow
+      <Button href="#newsletter" variant="secondary" arrow
         >Subscribe to Newsletter</Button
       >
     </div>
@@ -182,9 +249,9 @@ const data = await getCollection("blogs");
   >
     <div class="flex flex-col gap-8 md:w-[55%]">
       <div class="flex flex-col gap-2 lg:gap-4">
-        <h1 class="text-lg font-medium md:text-2xl lg:text-3xl">
+        <h2 class="text-lg font-medium md:text-2xl lg:text-3xl">
           Developer Benefits
-        </h1>
+        </h2>
 
         <p
           class={"pt-3 font-os text-xs font-light text-gray-500 md:text-base lg:pt-0 lg:text-base"}
@@ -199,7 +266,9 @@ const data = await getCollection("blogs");
         </p>
       </div>
 
-      <Button arrow variant="default">Join Arbitrum Developer Network</Button>
+      <Button href="https://discord.com/invite/arbitrum" arrow variant="default"
+        >Join Arbitrum Developer Network</Button
+      >
     </div>
     <div class="md:w-[45%]">
       <img
@@ -209,11 +278,13 @@ const data = await getCollection("blogs");
       />
     </div>
   </section>
+  <Seperator />
+  <GamesCarousal client:load />
 
   <Seperator />
 
   <section class="flex flex-col gap-6 py-10">
-    <h1 class="text-lg font-medium lg:text-2xl">Blogs</h1>
+    <h2 class="text-lg font-medium lg:text-2xl">Blogs</h2>
     <ul class="grid grid-rows-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
         data
@@ -241,7 +312,7 @@ const data = await getCollection("blogs");
       <p class={paragraphCva()}>
         Don’t forget to subscribe to our newsletter to stay updated.
       </p>
-      <Button href="/gcp" variant="default" arrow
+      <Button href="#newsletter" variant="default" arrow
         >Subscribe to Newsletter</Button
       >
     </div>
@@ -304,6 +375,7 @@ const data = await getCollection("blogs");
   </section>
   <Seperator />
   <section
+    id="newsletter"
     class="flex flex-col gap-11 rounded-small bg-navy p-2 text-white md:gap-20 md:rounded-3xl md:p-4 lg:gap-32 lg:rounded-5xl lg:p-5"
   >
     <p class="font-os text-lg font-normal md:text-xl lg:w-1/2 lg:text-3xl">
@@ -327,65 +399,3 @@ const data = await getCollection("blogs");
   <Seperator />
   <Faq client:load questions={GCP_Homepage?.questions} />
 </MainLayout>
-
-<!-- <section class="flex flex-col gap-3">
-    <h2 class={titleCva()}>Exlopre the Ecosystem</h2>
-    <h3
-      class={titleCva({
-        color: "primary",
-      })}
-    >
-      GameFi
-    </h3>
-    <div
-      class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 2xl:gap-12"
-    >
-      {
-        GCP_Homepage?.gameFi?.map((item, index) => (
-          <a
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex  gap-4 rounded-xl border bg-[#F7F6FA] p-4 "
-          >
-            <img
-              src={item.image}
-              class="size-16 rounded-full"
-              width={64}
-              height={64}
-              alt={`GameFi ${index + 1}`}
-            />
-            <div class="flex flex-col gap-2">
-              <h4
-                class={titleCva({
-                  size: "sm",
-                })}
-              >
-                {item.title}
-              </h4>
-              <p class={clsx(paragraphCva(), "line-clamp-4")}>
-                {item.description}
-              </p>
-              <div class="mt-auto flex gap-4 pt-4">
-                {item.commingsoon && (
-                  <button class="rounded-lg bg-primary px-3 py-0.5 text-sm font-medium text-white">
-                    Coming Soon
-                  </button>
-                )}
-                <button class="rounded-lg border  bg-white px-3 py-0.5 text-sm font-medium ">
-                  GameFi
-                </button>
-              </div>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-    <a
-      target="_blank"
-      href="https://portal.arbitrum.io/projects/gaming#projects-gamefi"
-      class="ml-auto mt-6"
-    >
-      <button class="text-sm font-medium text-primary"> View all </button></a
-    >
-  </section> -->
